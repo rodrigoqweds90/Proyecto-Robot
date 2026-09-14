@@ -1,5 +1,5 @@
 // =====================================================================
-// ROBOT CONTROL — firmware ESP32 + PCA9685 + MPU6050
+// ROBOT CONTROL — firmware ESP32 + PCA9685
 // El PC habla por Serial en el formato:  canal,pulso_us,velocidad
 // Busca "SEGMENTO:" para saltar directo a cada parte del codigo.
 // =====================================================================
@@ -7,13 +7,12 @@
 #include <Wire.h>
 #include <WiFi.h>
 #include <Adafruit_PWMServoDriver.h>
-#include <Adafruit_MPU6050.h>
-#include <Adafruit_Sensor.h>
 #include <Adafruit_SSD1306.h>
 #include <Preferences.h>
+#include <lwip/sockets.h> // socket crudo: WiFiClient::write() bloquea, ver enviarLinea()
+#include <errno.h>
 
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(0x40);
-Adafruit_MPU6050 mpu;
 Preferences prefs;
 
 // =====================================================================
@@ -35,8 +34,25 @@ WiFiClient clienteTCP;
 // de duplicar cada mensaje.
 void enviarLinea(const String &texto) {
   Serial.println(texto);
-  if (clienteTCP && clienteTCP.connected()) {
-    clienteTCP.println(texto);
+  if (!clienteTCP || !clienteTCP.connected()) return;
+
+  // NO se usa clienteTCP.println(). El write() de WiFiClient hace select()
+  // de 1 segundo y reintenta hasta 10 veces, o sea que un solo println()
+  // puede dejar clavado el loop() hasta 10 segundos si la cola de envio de
+  // TCP esta llena -- y mientras el loop() esta clavado no avanza ninguna
+  // rampa, los servos se congelan a mitad de camino. Ademas println() son
+  // dos write() (el texto y el "\r\n"), o sea dos paquetes TCP por linea
+  // con TCP_NODELAY puesto.
+  //
+  // Aca se manda todo de una sola vez y con MSG_DONTWAIT: si no entra, la
+  // linea se descarta y seguimos. Es telemetria para la consola de la app;
+  // vale mucho menos que mantener el movimiento fluido.
+  int descriptor = clienteTCP.fd();
+  if (descriptor < 0) return;
+  String conSalto = texto + "\n";
+  int enviados = lwip_send(descriptor, conSalto.c_str(), conSalto.length(), MSG_DONTWAIT);
+  if (enviados < 0 && errno != EAGAIN && errno != EWOULDBLOCK) {
+    clienteTCP.stop(); // el socket murio de verdad, se libera para reconectar
   }
 }
 
@@ -51,28 +67,9 @@ void enviarLinea(const String &texto) {
 #define TICK_RAMPA_MS   15      // Cada cuanto se actualiza el movimiento suave
 
 bool  pcaDisponible    = false;
-bool  imuDisponible    = false;
-bool  imuStreamActivo  = false;
 bool  emergenciaActiva = false;
 
 unsigned long ultimoTickRampa  = 0;
-unsigned long ultimoEnvioIMU   = 0;
-unsigned long ultimaMuestraIMU = 0;
-const unsigned long INTERVALO_IMU_MS = 100; // 10 Hz
-
-float pitch = 0, roll = 0;
-
-// El MPU6050 esta montado con el lado de los componentes mirando hacia
-// abajo (el eje Z del sensor apunta al piso, no al cielo), asi que hay que
-// invertir Z al calcular el Roll para que la lectura en reposo caiga cerca
-// de 0 grados en vez del punto donde atan2 salta entre +180/-180. Si en
-// algun momento se vuelve a montar con los componentes hacia arriba, cambiar
-// esto a 1.
-#define SIGNO_Z_ACCEL -1
-
-// Offsets de calibracion (ver SEGMENTO: GIROSCOPIO)
-float offsetGyroX = 0, offsetGyroY = 0;
-float offsetAccelPitch = 0, offsetAccelRoll = 0;
 
 struct CanalServo {
   float pulsoActual;
@@ -99,7 +96,12 @@ void aplicarPulso(uint8_t canal, uint16_t us) {
 
 // Mueve un canal hacia un pulso objetivo. velocidad=0 => salto inmediato,
 // velocidad>0 => avanza esa cantidad de us cada TICK_RAMPA_MS (no bloqueante).
-void comandoMover(uint8_t canal, uint16_t pulsoUs, uint16_t velocidad) {
+// 'avisar' en false: mueve el canal sin mandar el eco "M,...". Lo usan POSE
+// y HOME, que tocan los 16 canales de una sola vez: devolver 16 ecos por cada
+// paso llenaba el buffer de salida (USB o WiFi) y dejaba a loop() bloqueado
+// escribiendo justo cuando tenia que estar avanzando las rampas. Se sentia
+// como que el robot caminaba, se trababa, se lentiaba y terminaba quieto.
+void comandoMover(uint8_t canal, uint16_t pulsoUs, uint16_t velocidad, bool avisar = true) {
   if (canal >= NUM_CANALES) {
     enviarLinea("Canal invalido (0-15)");
     return;
@@ -118,7 +120,9 @@ void comandoMover(uint8_t canal, uint16_t pulsoUs, uint16_t velocidad) {
     canales[canal].pasoPorTick = velocidad;
   }
 
-  enviarLinea("M," + String(canal) + "," + String(pulsoUs) + "," + String(velocidad));
+  if (avisar) {
+    enviarLinea("M," + String(canal) + "," + String(pulsoUs) + "," + String(velocidad));
+  }
 }
 
 // Avanza todas las rampas activas. Se llama en cada vuelta de loop().
@@ -149,7 +153,7 @@ void mostrarPulsos() {
 
 // =====================================================================
 // SEGMENTO: PANTALLA OLED (CARAS) — bus I2C aparte, NO comparte con
-// servos/giroscopio. Un refresco de pantalla es lento (~20 ms) y si
+// los servos. Un refresco de pantalla es lento (~20 ms) y si
 // compartiera bus con el PCA9685 congelaria el control de los servos
 // justo ese tiempo cada vez que la cara cambia.
 // =====================================================================
@@ -275,82 +279,10 @@ void irAHome() {
   // antemano a que pulso va cada canal (eso vive guardado aca, no en la app).
   String reporte = "HOME,ok";
   for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
-    comandoMover(canal, home[canal], 10);
+    comandoMover(canal, home[canal], 10, false);
     reporte += "," + String(home[canal]);
   }
   enviarLinea(reporte);
-}
-
-// =====================================================================
-// SEGMENTO: GIROSCOPIO (MPU6050) — fusion y calibracion
-// =====================================================================
-
-// Calibrar: promedia varias muestras con el robot quieto y parado derecho.
-// Elimina tanto el sesgo del giroscopio como el desalineado de montaje del
-// sensor, para que "0,0" represente esa pose de referencia.
-void calibrarIMU() {
-  if (!imuDisponible) {
-    enviarLinea("CALIBRAR,error - MPU6050 no detectado");
-    return;
-  }
-  enviarLinea("Calibrando giroscopio, no muevas el robot...");
-
-  const int MUESTRAS = 200;
-  float sumaGX = 0, sumaGY = 0, sumaAccelPitch = 0, sumaAccelRoll = 0;
-
-  for (int i = 0; i < MUESTRAS; i++) {
-    sensors_event_t a, g, temp;
-    mpu.getEvent(&a, &g, &temp);
-    sumaGX += g.gyro.x;
-    sumaGY += g.gyro.y;
-    sumaAccelPitch += atan2(-a.acceleration.x, sqrt(a.acceleration.y * a.acceleration.y + a.acceleration.z * a.acceleration.z)) * 180.0 / PI;
-    sumaAccelRoll  += atan2(a.acceleration.y, SIGNO_Z_ACCEL * a.acceleration.z) * 180.0 / PI;
-    delay(3);
-  }
-
-  offsetGyroX = sumaGX / MUESTRAS;
-  offsetGyroY = sumaGY / MUESTRAS;
-  offsetAccelPitch = sumaAccelPitch / MUESTRAS;
-  offsetAccelRoll  = sumaAccelRoll / MUESTRAS;
-  pitch = 0;
-  roll = 0;
-  ultimaMuestraIMU = millis();
-
-  enviarLinea("CALIBRAR,ok");
-}
-
-void actualizarIMU() {
-  // Si nadie esta viendo el giroscopio en la app, no vale la pena gastar
-  // tiempo del bus I2C (que tambien usan los servos) leyendo el sensor.
-  if (!imuDisponible || !imuStreamActivo) return;
-
-  unsigned long ahora = millis();
-  float dt = (ultimaMuestraIMU == 0) ? 0 : (ahora - ultimaMuestraIMU) / 1000.0f;
-  ultimaMuestraIMU = ahora;
-
-  sensors_event_t a, g, temp;
-  mpu.getEvent(&a, &g, &temp);
-
-  float accelPitch = atan2(-a.acceleration.x, sqrt(a.acceleration.y * a.acceleration.y + a.acceleration.z * a.acceleration.z)) * 180.0 / PI - offsetAccelPitch;
-  float accelRoll  = atan2(a.acceleration.y, SIGNO_Z_ACCEL * a.acceleration.z) * 180.0 / PI - offsetAccelRoll;
-  float gyroPitchRate = (g.gyro.x - offsetGyroX) * 180.0 / PI;
-  float gyroRollRate  = (g.gyro.y - offsetGyroY) * 180.0 / PI;
-
-  const float ALPHA = 0.98f;
-  if (dt > 0 && dt < 1.0f) {
-    pitch = ALPHA * (pitch + gyroPitchRate * dt) + (1 - ALPHA) * accelPitch;
-    roll  = ALPHA * (roll  + gyroRollRate  * dt) + (1 - ALPHA) * accelRoll;
-  } else {
-    pitch = accelPitch;
-    roll = accelRoll;
-  }
-
-  if (imuStreamActivo && (ahora - ultimoEnvioIMU >= INTERVALO_IMU_MS)) {
-    ultimoEnvioIMU = ahora;
-    enviarLinea("IMU," + String(a.acceleration.x, 3) + "," + String(a.acceleration.y, 3) + "," +
-                String(a.acceleration.z, 3) + "," + String(g.gyro.x, 3) + "," + String(g.gyro.y, 3) + "," +
-                String(g.gyro.z, 3) + "," + String(pitch, 2) + "," + String(roll, 2));
-  }
 }
 
 // =====================================================================
@@ -371,7 +303,7 @@ void escanearI2C() {
   if (encontrados == 0) {
     enviarLinea("Nada respondio en el bus. Revisa alimentacion (3V3/GND) y que SDA/SCL no esten al reves.");
   } else {
-    enviarLinea(String(encontrados) + " dispositivo(s) encontrado(s). PCA9685 deberia ser 0x40, MPU6050 deberia ser 0x68 (o 0x69).");
+    enviarLinea(String(encontrados) + " dispositivo(s) encontrado(s). PCA9685 deberia ser 0x40.");
   }
 }
 
@@ -381,14 +313,22 @@ void reportarEstado(); // definida despues de setup(), la usan setup() y loop()
 // SEGMENTO: SETUP
 // =====================================================================
 void setup() {
+  // Buffer de salida propio antes de abrir el puerto. Sin esto, una rafaga
+  // como reportarEstado() o SCAN (que mandan mas de 20 lineas seguidas) llena
+  // el FIFO del UART y Serial.println bloquea el loop() hasta que se vacie.
+  Serial.setTxBufferSize(2048);
   Serial.begin(115200);
   delay(500);
 
-  Wire.begin(); // ESP32: SDA=21, SCL=22 por defecto. PCA9685 y MPU6050 comparten este bus.
+  Wire.begin(); // ESP32: SDA=21, SCL=22 por defecto. El PCA9685 vive en este bus.
+  // 400 kHz en vez de los 100 kHz por defecto. Cada tick de rampa escribe los
+  // 16 canales del PCA9685; a 100 kHz eso son ~10 ms de los 15 ms del tick, y
+  // el loop() no alcanzaba a hacer nada mas. A 400 kHz baja a ~2.5 ms.
+  Wire.setClock(400000);
 
   // Adafruit_PWMServoDriver::begin() no devuelve si encontro el chip o no,
-  // asi que se comprueba a mano por I2C antes de usarlo (igual que con el
-  // MPU6050 mas abajo), para no reportar "listo" cuando en realidad no esta.
+  // asi que se comprueba a mano por I2C antes de usarlo, para no reportar
+  // "listo" cuando en realidad no esta.
   Wire.beginTransmission(0x40);
   pcaDisponible = (Wire.endTransmission() == 0);
 
@@ -397,39 +337,6 @@ void setup() {
   delay(10);
 
   prefs.begin("robot", false);
-
-  imuDisponible = mpu.begin();
-  if (!imuDisponible) {
-    // mpu.begin() exige que el registro WHO_AM_I diga exactamente 0x68.
-    // Algunos MPU6050 "clon" responden bien por I2C pero ese registro trae
-    // otro valor, y la libreria los rechaza aunque el sensor funcione
-    // igual. Si el chip SI responde en el bus, se ignora ese chequeo y se
-    // saca a mano del modo sleep (lo que mpu.begin() se salta al rechazarlo).
-    Wire.beginTransmission(0x68);
-    if (Wire.endTransmission() == 0) {
-      Wire.beginTransmission(0x68);
-      Wire.write(0x75); // registro WHO_AM_I
-      Wire.endTransmission(false);
-      Wire.requestFrom((uint8_t)0x68, (uint8_t)1);
-      uint8_t whoAmI = Wire.available() ? Wire.read() : 0xFF;
-      Serial.print("MPU6050 responde en el bus con WHO_AM_I=0x");
-      Serial.print(whoAmI, HEX);
-      Serial.println(" (distinto al 0x68 esperado) - se inicializa de todas formas.");
-
-      Wire.beginTransmission(0x68);
-      Wire.write(0x6B); // PWR_MGMT_1
-      Wire.write(0x00); // sacarlo del modo sleep de fabrica
-      Wire.endTransmission();
-      imuDisponible = true;
-    }
-  }
-  if (imuDisponible) {
-    mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
-    mpu.setGyroRange(MPU6050_RANGE_500_DEG);
-    mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
-  } else {
-    Serial.println("Aviso: MPU6050 no encontrado. El robot funciona sin giroscopio.");
-  }
 
   WirePantalla.begin(PANTALLA_SDA_PIN, PANTALLA_SCL_PIN);
   pantallaDisponible = pantalla.begin(SSD1306_SWITCHCAPVCC, PANTALLA_DIR_I2C);
@@ -468,7 +375,6 @@ void setup() {
 // porque para ese momento el setup() original ya paso hace rato.
 void reportarEstado() {
   enviarLinea(String("PCA9685: ") + (pcaDisponible ? "detectado" : "no detectado - los servos no van a responder"));
-  enviarLinea(String("MPU6050: ") + (imuDisponible ? "detectado" : "no detectado"));
   enviarLinea("Comandos disponibles:");
   enviarLinea("  canal,pulso_us,velocidad  -> mover un servo (velocidad 0 = instantaneo)");
   enviarLinea("  STOP      -> corta el PWM de todos los servos (emergencia)");
@@ -476,9 +382,7 @@ void reportarEstado() {
   enviarLinea("  RELAX     -> suelta el torque de todos los servos (para posar a mano)");
   enviarLinea("  HOME      -> mueve a la posicion de inicio guardada");
   enviarLinea("  HOMESET   -> guarda la posicion actual como inicio (persiste al apagar)");
-  enviarLinea("  CALIBRAR  -> calibra el giroscopio (robot quieto y parado derecho)");
   enviarLinea("  CARA,nombre -> FELIZ / TRISTE / SORPRESA / NEUTRAL en la pantalla OLED");
-  enviarLinea("  IMUON / IMUOFF -> activa/desactiva el streaming del giroscopio");
   enviarLinea("  PING      -> responde PONG (para probar la conexion)");
   enviarLinea("  SCAN      -> escanea el bus I2C y lista direcciones encontradas");
   enviarLinea("  S         -> muestra los pulsos actuales de todos los canales");
@@ -504,19 +408,8 @@ void procesarLinea(String linea) {
   if (tipo.equalsIgnoreCase("RELAX")) { relajar(); return; }
   if (tipo.equalsIgnoreCase("HOME")) { irAHome(); return; }
   if (tipo.equalsIgnoreCase("HOMESET")) { guardarHome(); return; }
-  if (tipo.equalsIgnoreCase("CALIBRAR")) { calibrarIMU(); return; }
   if (tipo.equalsIgnoreCase("PING")) { enviarLinea("PONG"); return; }
   if (tipo.equalsIgnoreCase("SCAN")) { escanearI2C(); return; }
-  if (tipo.equalsIgnoreCase("IMUON")) {
-    imuStreamActivo = true;
-    enviarLinea("IMUSTREAM,ON");
-    return;
-  }
-  if (tipo.equalsIgnoreCase("IMUOFF")) {
-    imuStreamActivo = false;
-    enviarLinea("IMUSTREAM,OFF");
-    return;
-  }
   if (tipo.equalsIgnoreCase("CARA")) {
     String nombre = linea.substring(primeraComa + 1);
     nombre.trim();
@@ -553,7 +446,7 @@ void procesarLinea(String linea) {
       return;
     }
     for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
-      comandoMover(canal, pulsos[canal], velocidad);
+      comandoMover(canal, pulsos[canal], velocidad, false);
     }
     enviarLinea("POSE,ok");
     return;
@@ -579,7 +472,7 @@ void procesarLinea(String linea) {
 // Arma lineas de a poco leyendo solo lo que ya llego, sin esperar nunca:
 // readStringUntil() bloquearia el loop() (hasta 1 segundo por defecto) si
 // una linea larga como POSE llega partida en varios paquetes de WiFi -- y
-// mientras loop() esta bloqueado, no se actualizan ni rampas ni giroscopio,
+// mientras loop() esta bloqueado, no se actualizan las rampas de movimiento,
 // lo que se sentia como trabones. bufferLinea es el acumulado de esa fuente
 // entre llamadas; devuelve true y llena 'linea' recien cuando aparece '\n'.
 bool leerLineaDisponible(Stream &origen, String &bufferLinea, String &linea) {
@@ -604,14 +497,29 @@ String bufferLineaWifi;
 
 void loop() {
   actualizarRampas();
-  actualizarIMU();
 
-  // Acepta un cliente WiFi nuevo (uno a la vez, como con el cable USB).
-  if (!clienteTCP || !clienteTCP.connected()) {
-    WiFiClient nuevo = servidorTCP.available();
+  // Acepta un cliente WiFi nuevo (uno a la vez, como con el cable USB). Se
+  // acepta SIEMPRE, no solo cuando el cliente viejo ya se dio por muerto: si
+  // el PC pierde el WiFi de golpe y vuelve, abre un socket nuevo mientras el
+  // ESP32 todavia cree que el viejo sigue vivo, y ese socket nuevo quedaria
+  // esperando en la cola sin que nadie lo acepte -- la app diria "Conectado"
+  // y el robot no responderia hasta reiniciarlo. Gana el ultimo que llega.
+  {
+    WiFiClient nuevo = servidorTCP.accept();
     if (nuevo) {
+      if (clienteTCP) clienteTCP.stop(); // echa al anterior, vivo o zombi
       clienteTCP = nuevo;
       clienteTCP.setNoDelay(true); // manda cada linea al toque, sin esperar a juntar varias (Nagle) - menos latencia
+      // Keepalive rapido. LwIP trae SO_KEEPALIVE activado por el servidor,
+      // pero con un TCP_KEEPIDLE de 2 horas: si el PC se apaga o se sale del
+      // alcance del WiFi, el ESP32 seguiria creyendo que hay alguien del otro
+      // lado y no aceptaria una reconexion. Con estos valores lo nota en ~12 s.
+      int activo = 1, ocioso = 3, intervalo = 3, intentos = 3;
+      int descriptorNuevo = clienteTCP.fd();
+      lwip_setsockopt(descriptorNuevo, SOL_SOCKET, SO_KEEPALIVE, &activo, sizeof(activo));
+      lwip_setsockopt(descriptorNuevo, IPPROTO_TCP, TCP_KEEPIDLE, &ocioso, sizeof(ocioso));
+      lwip_setsockopt(descriptorNuevo, IPPROTO_TCP, TCP_KEEPINTVL, &intervalo, sizeof(intervalo));
+      lwip_setsockopt(descriptorNuevo, IPPROTO_TCP, TCP_KEEPCNT, &intentos, sizeof(intentos));
       bufferLineaWifi = "";
       reportarEstado(); // el setup() ya paso hace rato, este cliente no lo vio
     }

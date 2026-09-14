@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (
 )
 
 ORDEN_GRUPOS_PREFERIDO = ["Pierna derecha", "Pierna izquierda", "Brazo izquierdo", "Brazo derecho", "Torso"]
-COLUMNAS_DE_GRUPOS = 2  # el panel ahora comparte la ventana con Giroscopio/Poses/Secuencias
+COLUMNAS_DE_GRUPOS = 2  # el panel ahora comparte la ventana con Poses/Secuencias
 
 
 class _FilaServo(QWidget):

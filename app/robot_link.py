@@ -95,6 +95,11 @@ class _WifiConector(QThread):
     def run(self):
         try:
             sock = socket.create_connection((self._host, self._puerto), timeout=5)
+            # Sin TCP_NODELAY, Nagle junta los comandos cortos y espera el ACK
+            # del anterior antes de mandar el siguiente: con pasos de 150 ms
+            # eso mete decenas de ms de retraso justo en el peor momento. El
+            # ESP32 ya lo tiene puesto de su lado; falta ponerlo del nuestro.
+            sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             sock.settimeout(1.0)
         except OSError as exc:
             self.fallo.emit(str(exc))
@@ -104,7 +109,6 @@ class _WifiConector(QThread):
 
 class RobotLink(QObject):
     line_received = Signal(str)
-    imu_received = Signal(float, float, float, float, float, float, float, float)
     connected_changed = Signal(bool)
     error = Signal(str)
 
@@ -237,14 +241,6 @@ class RobotLink(QObject):
 
     def _on_line(self, text):
         self.line_received.emit(text)
-        if text.startswith("IMU,"):
-            partes = text[4:].split(",")
-            if len(partes) == 8:
-                try:
-                    valores = [float(v) for v in partes]
-                except ValueError:
-                    return
-                self.imu_received.emit(*valores)
 
     def _on_connection_lost(self, message):
         self.error.emit(message)

@@ -13,10 +13,10 @@ class ConsolePanel(QWidget):
         self.texto = QPlainTextEdit()
         self.texto.setReadOnly(True)
         self.texto.setMaximumBlockCount(2000)
-        self.texto.setStyleSheet(
-            "QPlainTextEdit { background: #0d0f14; color: #8fe388; "
-            "font-family: Consolas, 'Courier New', monospace; font-size: 12px; }"
-        )
+        # El estilo vive en estilos.py junto con el resto de la paleta; antes
+        # estaba puesto a mano aca con un verde que no pertenecia a ninguna
+        # otra parte de la app.
+        self.texto.setObjectName("consola")
 
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)

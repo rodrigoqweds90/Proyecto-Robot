@@ -1,6 +1,6 @@
 """SEGMENTO: VENTANA PRINCIPAL
-Conecta el puerto serie con los paneles de control, poses, secuencias y
-giroscopio, y con el editor de canales del PCA9685 (menu Configuracion).
+Conecta el puerto serie con los paneles de control, poses y secuencias,
+y con el editor de canales del PCA9685 (menu Configuracion).
 """
 
 import channel_config as cc
@@ -11,6 +11,7 @@ from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (
     QComboBox,
     QFileDialog,
+    QFrame,
     QGroupBox,
     QHBoxLayout,
     QLabel,
@@ -20,15 +21,16 @@ from PySide6.QtWidgets import (
     QSizePolicy,
     QSpinBox,
     QSplitter,
+    QTabWidget,
     QVBoxLayout,
     QWidget,
 )
 
 from robot_link import RobotLink, IP_AP_POR_DEFECTO
-from widgets.attitude_indicator import AttitudeIndicator
 from widgets.channels_dialog import ChannelsDialog
 from widgets.console_panel import ConsolePanel
 from widgets.control_panel import ControlPanel
+from widgets.mando_panel import MandoPanel
 from widgets.positions_panel import PositionsPanel
 from widgets.sequence_panel import SequencePanel
 
@@ -46,7 +48,6 @@ class MainWindow(QMainWindow):
         self.serial_link = RobotLink()
         self.serial_link.connected_changed.connect(self._on_connected_changed)
         self.serial_link.line_received.connect(self._on_line_received)
-        self.serial_link.imu_received.connect(self._on_imu_received)
         self.serial_link.error.connect(self._on_link_error)
 
         self._emergencia_activa = False
@@ -77,6 +78,11 @@ class MainWindow(QMainWindow):
             "Guarda canales, poses y secuencias en un solo archivo, para usarlo desde otro programa."
         )
         accion_exportar.triggered.connect(self._exportar_movimientos)
+        accion_importar = menu.addAction("Importar movimientos…")
+        accion_importar.setToolTip(
+            "Carga canales, poses y secuencias desde un archivo exportado por esta misma app."
+        )
+        accion_importar.triggered.connect(self._importar_movimientos)
         menu.addSeparator()
         self.accion_subir_firmware = menu.addAction("Subir firmware al ESP32…")
         self.accion_subir_firmware.triggered.connect(self._subir_firmware)
@@ -87,10 +93,10 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(central)
         layout_raiz = QVBoxLayout(central)
 
-        layout_raiz.addLayout(self._construir_barra_superior())
+        layout_raiz.addWidget(self._construir_barra_superior())
 
         # Todo visible a la vez, sin pestañas: control manual a la izquierda,
-        # giroscopio/poses/secuencias apilados a la derecha, consola abajo.
+        # poses/secuencias apilados a la derecha, consola abajo.
         self.control_panel = ControlPanel(self.servos)
         self.control_panel.angulo_cambiado.connect(self._on_slider_cambiado)
 
@@ -102,21 +108,34 @@ class MainWindow(QMainWindow):
 
         self.sequence_panel = SequencePanel(self.positions_panel)
         self.sequence_panel.paso_activado.connect(self._aplicar_pose)
+        # Renombrar una pose tiene que arreglar los pasos que la usaban, o
+        # quedarian apuntando a un nombre que ya no existe.
+        self.positions_panel.pose_renombrada.connect(self.sequence_panel.renombrar_pose_en_secuencias)
 
-        vista_giro = self._construir_vista_giroscopio()
+        vista_caras = self._construir_caras_oled()
 
-        # Izquierda: control manual arriba, giroscopio abajo (llena el hueco
-        # que quedaba vacio). Derecha: poses y secuencias, que son las que
-        # mas espacio piden. Todo en una sola ventana, sin pestañas.
+        # Izquierda: control manual arriba, los pasos de la secuencia en el
+        # medio (aprovechando el hueco que antes quedaba vacio) y las caras del
+        # OLED al final, que son solo 4 botones. Derecha: poses y secuencias.
+        # Los pasos van con el control manual y NO con la lista de secuencias
+        # porque es lo que se mira mientras se arma el movimiento.
         columna_izquierda = QSplitter(Qt.Vertical)
         columna_izquierda.addWidget(self._en_caja("Control manual", self.control_panel))
-        columna_izquierda.addWidget(self._en_caja("Giroscopio", vista_giro))
-        columna_izquierda.setSizes([430, 320])
+        columna_izquierda.addWidget(self._en_caja("Pasos de la secuencia actual", self.sequence_panel.caja_pasos))
+        columna_izquierda.addWidget(self._en_caja("Cara (pantalla OLED)", vista_caras))
+        columna_izquierda.setSizes([420, 300, 90])
+        # Sin esto, el splitter reparte el alto sobrante de la ventana en
+        # proporcion entre las tres cajas -- y "Cara" (4 botones) terminaba con
+        # un hueco vacio enorme abajo. El espacio de mas se lo reparten control
+        # manual y pasos, no las caras.
+        columna_izquierda.setStretchFactor(0, 1)
+        columna_izquierda.setStretchFactor(1, 1)
+        columna_izquierda.setStretchFactor(2, 0)
 
         columna_derecha = QSplitter(Qt.Vertical)
         columna_derecha.addWidget(self._en_caja("Poses", self.positions_panel))
-        columna_derecha.addWidget(self._en_caja("Secuencias", self.sequence_panel))
-        columna_derecha.setSizes([320, 430])
+        columna_derecha.addWidget(self._en_caja("Secuencias", self.sequence_panel.caja_secuencias))
+        columna_derecha.setSizes([450, 300])
 
         contenido = QSplitter(Qt.Horizontal)
         contenido.addWidget(columna_izquierda)
@@ -124,10 +143,21 @@ class MainWindow(QMainWindow):
         contenido.setStretchFactor(0, 1)
         contenido.setStretchFactor(1, 1)
 
+        # Dos pestañas bien separadas: "Creación" para diseñar poses/
+        # secuencias, "Mando" para asignarlas a cada direccion del D-pad. Al
+        # cambiar de pestaña no se ve nada de la otra.
+        self.mando_panel = MandoPanel(self.sequence_panel)
+        self.sequence_panel.secuencias_cambiadas.connect(self.mando_panel.refrescar_secuencias)
+
+        pestañas = QTabWidget()
+        pestañas.addTab(contenido, "Creación de movimientos")
+        pestañas.addTab(self.mando_panel, "Mando")
+        pestañas.setCurrentIndex(0)
+
         self.consola = ConsolePanel()
         self.consola.setMaximumHeight(170)
 
-        layout_raiz.addWidget(contenido, 1)
+        layout_raiz.addWidget(pestañas, 1)
         layout_raiz.addWidget(self.consola)
 
         self._actualizar_estado_controles(conectado=False)
@@ -141,18 +171,25 @@ class MainWindow(QMainWindow):
         return caja
 
     def _construir_barra_superior(self):
-        barra = QHBoxLayout()
+        """Una sola fila con todo: conexion al robot y las acciones que se le
+        mandan una vez conectado, en el mismo orden en que aparecian antes de
+        separarlas en dos filas."""
+        barra = QWidget()
+        fila = QHBoxLayout(barra)
+        fila.setContentsMargins(0, 0, 0, 0)
+        fila.setSpacing(8)
 
         self.combo_modo = QComboBox()
         self.combo_modo.addItems(["USB", "WiFi"])
         self.combo_modo.setToolTip(
-            "USB: por el cable, con el puerto de abajo.\n"
+            "USB: por el cable, con el puerto de al lado.\n"
             f"WiFi: se conecta directo a la red propia del robot ({IP_AP_POR_DEFECTO})."
         )
 
         self.combo_puertos = QComboBox()
-        self.combo_puertos.setMinimumWidth(230)
+        self.combo_puertos.setMinimumWidth(180)
         btn_refrescar = QPushButton("Actualizar")
+        btn_refrescar.setToolTip("Vuelve a buscar puertos serie conectados.")
         btn_refrescar.clicked.connect(self._refrescar_puertos)
 
         self.btn_conectar = QPushButton("Conectar")
@@ -162,73 +199,80 @@ class MainWindow(QMainWindow):
         self.label_estado = QLabel("● Desconectado")
         self.label_estado.setObjectName("estadoDesconectado")
 
-        barra.addWidget(QLabel("Modo:"))
-        barra.addWidget(self.combo_modo)
-        barra.addWidget(QLabel("Puerto:"))
-        barra.addWidget(self.combo_puertos)
-        barra.addWidget(btn_refrescar)
-        barra.addWidget(self.btn_conectar)
-        barra.addWidget(self.label_estado)
-        barra.addStretch()
-
-        barra.addWidget(QLabel("Velocidad:"))
         self.spin_velocidad = QSpinBox()
         self.spin_velocidad.setRange(1, 100)
         self.spin_velocidad.setValue(15)
         self.spin_velocidad.setToolTip("Que tan rapido se mueven los servos al aplicar una pose (us por paso).")
-        barra.addWidget(self.spin_velocidad)
 
         self.btn_home = QPushButton("Inicio")
+        self.btn_home.setToolTip("Lleva el robot a la pose de inicio guardada en el ESP32.")
         self.btn_home.clicked.connect(self._ir_a_inicio)
         self.btn_homeset = QPushButton("Fijar inicio")
+        self.btn_homeset.setToolTip("Guarda la pose actual como la pose de arranque del robot.")
         self.btn_homeset.clicked.connect(self._fijar_inicio)
         self.btn_relax = QPushButton("Relajar")
+        self.btn_relax.setToolTip("Corta el PWM: los servos dejan de hacer fuerza.")
         self.btn_relax.clicked.connect(self._relajar)
         self.btn_resume = QPushButton("Reanudar")
+        self.btn_resume.setToolTip("Sale de la parada de emergencia y vuelve a permitir movimiento.")
         self.btn_resume.clicked.connect(self._reanudar)
+
         self.btn_stop = QPushButton("PARADA DE EMERGENCIA")
         self.btn_stop.setObjectName("botonEmergencia")
+        self.btn_stop.setToolTip("Detiene todo movimiento al instante.")
         self.btn_stop.clicked.connect(self._parada_emergencia)
 
         for boton in (self.btn_home, self.btn_homeset, self.btn_relax, self.btn_resume, self.btn_stop):
             boton.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-            barra.addWidget(boton)
 
         self.btn_consola = QPushButton("Ocultar consola")
         self.btn_consola.setCheckable(True)
         self.btn_consola.setChecked(True)
         self.btn_consola.toggled.connect(self._toggle_consola)
-        barra.addWidget(self.btn_consola)
 
+        fila.addWidget(self._etiqueta("Modo"))
+        fila.addWidget(self.combo_modo)
+        fila.addWidget(self._etiqueta("Puerto"))
+        fila.addWidget(self.combo_puertos)
+        fila.addWidget(btn_refrescar)
+        fila.addWidget(self.btn_conectar)
+        fila.addWidget(self.label_estado)
+        fila.addWidget(self._separador())
+        fila.addWidget(self._etiqueta("Velocidad"))
+        fila.addWidget(self.spin_velocidad)
+        fila.addWidget(self._separador())
+        fila.addWidget(self.btn_home)
+        fila.addWidget(self.btn_homeset)
+        fila.addWidget(self.btn_relax)
+        fila.addWidget(self.btn_resume)
+        fila.addStretch()
+        # La emergencia queda separada del resto, justo antes de la consola:
+        # es el unico boton que no se debe apretar por error.
+        fila.addWidget(self.btn_stop)
+        fila.addWidget(self.btn_consola)
         return barra
+
+    @staticmethod
+    def _separador():
+        linea = QFrame()
+        linea.setObjectName("separadorBarra")
+        linea.setFrameShape(QFrame.VLine)
+        return linea
+
+    @staticmethod
+    def _etiqueta(texto):
+        label = QLabel(texto)
+        label.setObjectName("etiquetaBarra")
+        return label
 
     def _toggle_consola(self, mostrar):
         self.consola.setVisible(mostrar)
         self.btn_consola.setText("Ocultar consola" if mostrar else "Mostrar consola")
 
-    def _construir_vista_giroscopio(self):
+    def _construir_caras_oled(self):
         vista = QWidget()
         layout = QVBoxLayout(vista)
 
-        self.giro_widget = AttitudeIndicator()
-        layout.addWidget(self.giro_widget)
-
-        self.label_imu_raw = QLabel("Sin datos de IMU todavia.")
-        self.label_imu_raw.setObjectName("textoSecundario")
-        layout.addWidget(self.label_imu_raw)
-
-        fila_botones = QHBoxLayout()
-        self.btn_imu_stream = QPushButton("Activar giroscopio")
-        self.btn_imu_stream.setCheckable(True)
-        self.btn_imu_stream.toggled.connect(self._toggle_imu_stream)
-        self.btn_calibrar = QPushButton("Calibrar (robot parado derecho)")
-        self.btn_calibrar.clicked.connect(self._calibrar_giroscopio)
-        fila_botones.addWidget(self.btn_imu_stream)
-        fila_botones.addWidget(self.btn_calibrar)
-        fila_botones.addStretch()
-        layout.addLayout(fila_botones)
-
-        layout.addWidget(QLabel("Cara (pantalla OLED)"))
         fila_cara = QHBoxLayout()
         self.botones_cara = {}
         for nombre, etiqueta in (
@@ -306,7 +350,6 @@ class MainWindow(QMainWindow):
         # directo al robot ahora mismo necesitan conexion.
         botones_de_hardware = (
             self.btn_home, self.btn_homeset, self.btn_relax, self.btn_stop,
-            self.btn_imu_stream, self.btn_calibrar,
             *self.botones_cara.values(),
         )
         for boton in botones_de_hardware:
@@ -350,18 +393,10 @@ class MainWindow(QMainWindow):
         elif texto.startswith("STOP,desactivado"):
             self._marcar_emergencia(False)
 
-    def _on_imu_received(self, ax, ay, az, gx, gy, gz, pitch, roll):
-        self.giro_widget.set_attitude(pitch, roll)
-        self.label_imu_raw.setText(
-            f"accel (m/s²)  x={ax:6.2f}  y={ay:6.2f}  z={az:6.2f}    "
-            f"gyro (rad/s)  x={gx:6.2f}  y={gy:6.2f}  z={gz:6.2f}"
-        )
-
     # ------------------------------------------------------------------
     # SEGMENTO: ENVIO DE COMANDOS DE MOVIMIENTO
     # ------------------------------------------------------------------
     def _on_slider_cambiado(self, canal, angulo):
-        self.positions_panel.marcar_edicion_pendiente()
         servo = self.servos_por_canal.get(canal)
         if not servo:
             return
@@ -451,14 +486,6 @@ class MainWindow(QMainWindow):
         self._emergencia_activa = activa
         self._actualizar_estado_controles(self.serial_link.is_connected())
 
-    def _toggle_imu_stream(self, activo):
-        self.serial_link.send("IMUON" if activo else "IMUOFF")
-        self.btn_imu_stream.setText("Desactivar giroscopio" if activo else "Activar giroscopio")
-
-    def _calibrar_giroscopio(self):
-        self.serial_link.send("CALIBRAR")
-        self.consola.agregar_linea("Calibrando giroscopio: mantén el robot parado y derecho...")
-
     # ------------------------------------------------------------------
     # SEGMENTO: EDITOR DE CANALES DEL PCA9685
     # ------------------------------------------------------------------
@@ -494,8 +521,46 @@ class MainWindow(QMainWindow):
             self.servos,
             self.positions_panel.posiciones,
             self.sequence_panel.secuencias,
+            self.positions_panel.carpetas,
         )
         QMessageBox.information(self, "Exportar movimientos", f"Guardado en:\n{ruta_texto}")
+
+    def _importar_movimientos(self):
+        ruta_texto, _ = QFileDialog.getOpenFileName(
+            self, "Importar movimientos", "", "JSON (*.json)"
+        )
+        if not ruta_texto:
+            return
+        try:
+            canales, posiciones, secuencias, carpetas_poses = storage.importar_todo(Path(ruta_texto))
+        except (OSError, ValueError, KeyError) as exc:
+            QMessageBox.critical(self, "Error al importar", f"No se pudo leer el archivo:\n{exc}")
+            return
+
+        aviso_canales = " y reemplazar el mapeo de canales" if canales else ""
+        respuesta = QMessageBox.question(
+            self, "Importar movimientos",
+            f"Se van a agregar/reemplazar {len(posiciones)} pose(s) y {len(secuencias)} secuencia(s)"
+            f"{aviso_canales}.\n\nSi ya tienes algo guardado con el mismo nombre, se sobrescribe."
+            "\n¿Continuar?",
+        )
+        if respuesta != QMessageBox.Yes:
+            return
+
+        if canales:
+            cc.guardar(canales)
+            self.servos = canales
+            self.servos_por_canal = {s["canal"]: s for s in self.servos}
+            self.control_panel.reconstruir(self.servos)
+
+        self.positions_panel.importar_posiciones(posiciones, carpetas_poses)
+        self.sequence_panel.importar_secuencias(secuencias)
+
+        self.consola.agregar_linea(
+            f"Importado: {len(posiciones)} pose(s), {len(secuencias)} secuencia(s)"
+            f"{', canales' if canales else ''}."
+        )
+        QMessageBox.information(self, "Importar movimientos", "Importación completa.")
 
     # ------------------------------------------------------------------
     # SEGMENTO: SUBIR FIRMWARE (esptool)
