@@ -108,10 +108,10 @@ def borrar_secuencia(nombre):
 
 
 def guardar_asignaciones_mando(asignaciones):
-    # asignaciones: {"ARRIBA": "nombre_secuencia", "ABAJO": ..., ...}. Que
-    # secuencia le toca a cada direccion del D-pad del mando. Por ahora solo
-    # queda guardado local -- el firmware del ESP32 todavia no tiene el
-    # Bluetooth del mando implementado para leerlo directamente.
+    # asignaciones: {"version": 2, "botones": {"A": {"tipo": "secuencia", "valor": "Caminar",
+    # "repetir": true}, ...}}. Que hace cada boton del mando (ver widgets/mando_panel.py).
+    # Por ahora solo queda guardado local -- el firmware del ESP32 todavia no tiene
+    # el Bluetooth del mando implementado para leerlo directamente.
     ASIGNACIONES_MANDO_ARCHIVO.write_text(json.dumps(asignaciones, indent=2, ensure_ascii=False), encoding="utf-8")
 
 

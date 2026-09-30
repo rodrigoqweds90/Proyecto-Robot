@@ -1,0 +1,120 @@
+Spacer01_W:1                       min [-18.0, -0.0, 7.2] max [18.0, 4.0, 43.2]
+MG90S_grabcad_mg90s9:9             min [-6.1, -5.5, 3.9] max [6.0, 26.7, 35.9]
+MG90S_grabcad_mg90s9:10            min [-6.1, 40.0, 3.3] max [6.0, 72.2, 35.4]
+Pelvis:1                           min [-27.5, -32.5, -2.2] max [27.5, 0.0, 43.9]
+MG90S_grabcad_mg90s9:11            min [16.3, 14.9, 19.2] max [48.5, 46.9, 31.3]
+MG90S_grabcad_mg90s9:12            min [-48.5, 14.9, 19.1] max [-16.3, 46.9, 31.2]
+MG90S_grabcad_mg90s9:13            min [59.5, -7.1, 9.2] max [91.7, 5.0, 41.2]
+MG90S_grabcad_mg90s9:14            min [65.2, 8.9, 5.9] max [77.3, 40.9, 38.1]
+MG90S_grabcad_mg90s9:15            min [-91.7, -7.0, 9.2] max [-59.5, 5.1, 41.2]
+MG90S_grabcad_mg90s9:16            min [-77.2, 8.9, 5.9] max [-65.1, 40.9, 38.1]
+PCA9685_adafruit_815:1             min [-31.1, 0.8, -8.6] max [31.1, 26.2, 3.5]
+ESP32_devkit_v1_30pin:1            min [-26.0, 26.5, -11.4] max [27.1, 55.5, 2.1]
+Bateria_LiPo_2S_1000_62x23x17:1    min [-31.0, 13.5, 32.0] max [31.0, 36.9, 48.7]
+XL4015_52x12x24_acostado:1         min [-26.1, 40.1, 31.8] max [26.1, 52.1, 55.3]
+IMU_GY521_21x16:1                  min [7.0, 16.0, 4.0] max [28.2, 19.0, 20.4]
+Fichas_pines_IMU:1                 min [7.5, 17.6, 4.3] max [27.8, 40.1, 6.9]
+Fichas_servos_PCA_atras:1          min [-25.4, 1.0, -16.6] max [25.4, 8.6, -2.6]
+Fichas_pines_ESP32_atras14:1       min [-20.8, 27.0, -19.3] max [17.5, 29.6, -5.3]
+Fichas_pines_ESP32_atras14:2       min [-20.8, 52.3, -19.3] max [17.5, 54.9, -5.3]
+Torso_cuerpo_B:1                   min [-34.0, 0.8, -21.3] max [34.0, 57.7, 49.2]
+Torso_pecho:1                      min [-34.0, 4.0, 44.3] max [34.0, 57.7, 58.9]
+Torso_protector_B:1                min [-34.0, 0.8, -22.9] max [34.0, 57.7, -21.3]
+
+Interferencias torso y electronica vs robot: Inventor no las calcula con piezas de malla (ver barrido_movimiento.py)
+
+Interferencias entre torso y electronica: 91
+   MICRO USB B:1 <-> Pieza12 0.5 mm3
+   MICRO USB B:1 <-> Pieza12 0.0 mm3
+   Board:1 <-> TERMBLOCK_1X2-3.5MM:J1 0.0 mm3
+   Torso_cuerpo_B:1 <-> Pieza12 4.2 mm3
+   Torso_cuerpo_B:1 <-> PIN:1 0.0 mm3
+   Torso_cuerpo_B:1 <-> PIN:1 0.0 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:2 <-> PIN:1 5.6 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 5.7 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_pines_ESP32_atras14:1 <-> PIN:1 2.4 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 1.9 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP6 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 1.9 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP5 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 1.9 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP2 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 1.9 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   Fichas_servos_PCA_atras:1 <-> 3X04:JP1 2.3 mm3
+   IMU_GY521_21x16:1 <-> Fichas_pines_IMU:1 73.9 mm3
+Guardado: C:\Users\rodri\Documents\PlatformIO\Projects\Proyecto Robot\CAD\Nuevo\Torso_estudio_B.iam | piezas: 90
+Masa sin carcasa del torso: 594 g (plastico 268 g) | centro de masa (x,y,z): [  0.1 -20.4  26.5] mm
+Centro del pie en Z: 26.3 mm | diferencia: +0.2 mm

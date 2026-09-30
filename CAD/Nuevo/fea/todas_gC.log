@@ -1,0 +1,9 @@
+== Link_W: 4 interfaces, 1 casos
+{"pieza": "Link_W", "volumen": 6691.288464068976, "fs_inicial": 0.9015717901452495, "quitado_mm3": 0.0, "fs_final": 0.9015717901452495, "ventanas": 0, "segundos": 370, "casos": ["peso"]}
+== Bracket07_B: 3 interfaces, 3 casos
+{"pieza": "Bracket07_B", "volumen": 5361.023574981835, "fs_inicial": 1.630740802990633, "quitado_mm3": 0.0, "fs_final": 1.630740802990633, "ventanas": 0, "segundos": 1151, "casos": ["torque horn_0", "torque horn_1", "peso"]}
+== Bracket10_W: 8 interfaces, 3 casos
+{"pieza": "Bracket10_W", "error": "division by zero"}
+== Bracket02_W: 5 interfaces, 2 casos
+{"pieza": "Bracket02_W", "volumen": 4650.187253381858, "fs_inicial": 6.761558887779339, "quitado_mm3": 273.4943791856613, "fs_final": 3.6774458763240925, "ventanas": 3, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 476, "casos": ["torque pestanas_0", "peso"]}
+FIN grupo C

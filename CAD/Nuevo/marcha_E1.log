@@ -1,0 +1,58 @@
+articulaciones: ['cadera (lateral) der', 'cadera (lateral) izq', 'cintura (giro del torso)', 'codo der', 'codo izq', 'cuello (giro de la cabeza)', 'hombro (abrir brazo) der', 'hombro (abrir brazo) izq', 'hombro (adelante-atras) der', 'hombro (adelante-atras) izq', 'muslo (cadera adelante-atras) der', 'muslo (cadera adelante-atras) izq', 'rodilla der', 'rodilla izq', 'tobillo (lateral) der', 'tobillo (lateral) izq']
+angulos pedidos: muslo -5 a 50, rodilla -50 a 5
+
+== brazos: ArmStt adelante 20, codo adelante 60, abiertos 20; pie sube 15 mm
+  cuadros con choque: 0 de 22
+
+== brazos: ArmStt adelante 20, codo atras 60, abiertos 20; pie sube 15 mm
+  cuadro  0: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  1: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  2: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  3: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  4: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  5: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  6: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  7: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  8: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  9: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 10: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 11: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 12: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 13: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 14: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 15: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 16: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 17: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 18: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 19: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 20: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 21: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadros con choque: 22 de 22
+
+== brazos: ArmStt atras 20, codo adelante 60, abiertos 20; pie sube 15 mm
+  cuadros con choque: 0 de 22
+
+== brazos: ArmStt atras 20, codo atras 60, abiertos 20; pie sube 15 mm
+  cuadro  0: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  1: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  2: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  3: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  4: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  5: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  6: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  7: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  8: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro  9: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 10: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 11: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 12: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 13: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 14: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 15: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 16: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 17: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 18: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 19: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 20: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadro 21: Bracket09_W con Bracket11_B (7.0 mm3); Bracket10_W con Bracket12_B (7.0 mm3)
+  cuadros con choque: 22 de 22

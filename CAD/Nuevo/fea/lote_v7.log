@@ -1,0 +1,62 @@
+== Bracket01_B: 7 interfaces, 3 casos
+  Bracket01_B: 6 candidatos, areas [146, 129, 128, 117, 95, 88]
+  Bracket01_B umbral 2.0 margen 2.5 [0, 1, 2]: -721 mm3, FS 2.30 (objetivo 3.00)
+  Bracket01_B umbral 2.0 margen 2.5 [1]: -381 mm3, FS 5.37 (objetivo 3.00)
+{"pieza": "Bracket01_B", "volumen": 6870.1585880608545, "fs_inicial": 4.0384822069272905, "quitado_mm3": 380.76948789989547, "fs_final": 5.370345891695021, "ventanas": 2, "direcciones": "Y", "umbral": 2.0, "margen": 2.5, "segundos": 254, "casos": ["torque pestanas_0", "torque horn_0", "peso"]}
+== Bracket03_B: 7 interfaces, 3 casos
+  Bracket03_B: 6 candidatos, areas [147, 133, 128, 117, 84, 76]
+  Bracket03_B umbral 2.0 margen 2.5 [0, 1, 2]: -736 mm3, FS 2.05 (objetivo 3.00)
+  Bracket03_B umbral 2.0 margen 2.5 [1]: -369 mm3, FS 3.32 (objetivo 3.00)
+{"pieza": "Bracket03_B", "volumen": 6870.158584380733, "fs_inicial": 4.6940604664196, "quitado_mm3": 369.34661642552874, "fs_final": 3.320921191217654, "ventanas": 2, "direcciones": "Y", "umbral": 2.0, "margen": 2.5, "segundos": 290, "casos": ["torque pestanas_0", "torque horn_0", "peso"]}
+== Bracket04_B: 3 interfaces, 2 casos
+  Bracket04_B: 2 candidatos, areas [6, 6]
+  Bracket04_B umbral 2.0 margen 2.5 [0, 1, 2]: -37 mm3, FS 4.53 (objetivo 3.00)
+{"pieza": "Bracket04_B", "volumen": 23250.434615635095, "fs_inicial": 4.967287133460288, "quitado_mm3": 37.49231799446352, "fs_final": 4.534855077275862, "ventanas": 1, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 297, "casos": ["suela", "torque horn_0"]}
+== Bracket05_B: 3 interfaces, 2 casos
+  Bracket05_B: 0 candidatos, areas []
+{"pieza": "Bracket05_B", "volumen": 23250.43569816282, "fs_inicial": 4.7801647900796125, "quitado_mm3": 0.0, "fs_final": 4.7801647900796125, "ventanas": 0, "segundos": 154, "casos": ["suela", "torque horn_0"]}
+== Nee_B: 8 interfaces, 1 casos
+  Nee_B: 6 candidatos, areas [596, 563, 559, 527, 476, 463]
+  Nee_B umbral 2.0 margen 2.5 [0, 1, 2]: -2311 mm3, FS 2.31 (objetivo 3.00)
+  Nee_B umbral 2.0 margen 2.5 [0]: -928 mm3, FS 2.64 (objetivo 3.00)
+  Nee_B umbral 2.0 margen 2.5 [1]: -699 mm3, FS 5.46 (objetivo 3.00)
+{"pieza": "Nee_B", "volumen": 6348.476514364297, "fs_inicial": 6.542870923167958, "quitado_mm3": 699.3444517135449, "fs_final": 5.457357962503444, "ventanas": 4, "direcciones": "Y", "umbral": 2.0, "margen": 2.5, "segundos": 481, "casos": ["peso"]}
+== Link_W: 4 interfaces, 1 casos
+  Link_W: 4 candidatos, areas [415, 415, 399, 399]
+  Link_W umbral 2.0 margen 2.5 [0, 1, 2]: -837 mm3, FS 3.08 (objetivo 3.00)
+{"pieza": "Link_W", "volumen": 6691.288464068976, "fs_inicial": 4.838289287201382, "quitado_mm3": 837.3861429690951, "fs_final": 3.0763704886319636, "ventanas": 3, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 218, "casos": ["biela"]}
+== Bracket07_B: 3 interfaces, 3 casos
+  Bracket07_B: 6 candidatos, areas [103, 100, 99, 96, 72, 66]
+  Bracket07_B umbral 2.0 margen 2.5 [0, 1, 2]: -404 mm3, FS 1.05 (objetivo 0.73)
+{"pieza": "Bracket07_B", "volumen": 5493.416627639456, "fs_inicial": 0.7690308532521799, "quitado_mm3": 403.7168973129683, "fs_final": 1.04906298903093, "ventanas": 2, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 287, "casos": ["torque horn_0", "torque horn_1", "peso"]}
+== Bracket08_B: 3 interfaces, 3 casos
+  Bracket08_B: 6 candidatos, areas [106, 103, 80, 74, 70, 63]
+  Bracket08_B umbral 2.0 margen 2.5 [0, 1, 2]: -415 mm3, FS 1.03 (objetivo 0.96)
+{"pieza": "Bracket08_B", "volumen": 5491.2137285746585, "fs_inicial": 1.0070628845796272, "quitado_mm3": 414.51028925029823, "fs_final": 1.025812900962539, "ventanas": 2, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 259, "casos": ["torque horn_0", "torque horn_1", "peso"]}
+== Bracket09_W: 4 interfaces, 3 casos
+  Bracket09_W: 6 candidatos, areas [288, 275, 275, 263, 253, 242]
+  Bracket09_W umbral 2.0 margen 2.5 [0, 1, 2]: -1179 mm3, FS 2.93 (objetivo 3.00)
+  Bracket09_W umbral 2.0 margen 2.5 [0]: -385 mm3, FS 3.80 (objetivo 3.00)
+{"pieza": "Bracket09_W", "volumen": 8476.969444594495, "fs_inicial": 4.298377042054948, "quitado_mm3": 384.8906043132738, "fs_final": 3.8036415343117405, "ventanas": 2, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 580, "casos": ["torque pestanas_0", "torque pestanas_1", "peso"]}
+== Bracket10_W: 4 interfaces, 3 casos
+  Bracket10_W: 6 candidatos, areas [295, 282, 272, 259, 259, 247]
+  Bracket10_W umbral 2.0 margen 2.5 [0, 1, 2]: -1185 mm3, FS 2.65 (objetivo 3.00)
+  Bracket10_W umbral 2.0 margen 2.5 [0]: -393 mm3, FS 3.67 (objetivo 3.00)
+{"pieza": "Bracket10_W", "volumen": 8478.641896168054, "fs_inicial": 4.455491231118276, "quitado_mm3": 392.69813535848516, "fs_final": 3.6697706089578612, "ventanas": 2, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 441, "casos": ["torque pestanas_0", "torque pestanas_1", "peso"]}
+== Bracket11_B: 2 interfaces, 2 casos
+  Bracket11_B: 4 candidatos, areas [373, 373, 34, 34]
+  Bracket11_B umbral 2.0 margen 2.5 [0, 1, 2]: -1289 mm3, FS 0.59 (objetivo 0.63)
+  Bracket11_B umbral 2.0 margen 2.5 [0]: -640 mm3, FS 0.63 (objetivo 0.63)
+{"pieza": "Bracket11_B", "volumen": 12294.01352452129, "fs_inicial": 0.667615838878871, "quitado_mm3": 640.198564392269, "fs_final": 0.63453646776175, "ventanas": 5, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 1087, "casos": ["torque horn_0", "peso"]}
+== Bracket02_W: 4 interfaces, 2 casos
+  Bracket02_W: 6 candidatos, areas [67, 65, 55, 52, 52, 52]
+  Bracket02_W umbral 2.0 margen 2.5 [0, 1, 2]: -310 mm3, FS 2.74 (objetivo 3.00)
+  Bracket02_W umbral 2.0 margen 2.5 [1]: -219 mm3, FS 5.40 (objetivo 3.00)
+{"pieza": "Bracket02_W", "volumen": 4650.18725338186, "fs_inicial": 6.018275450402189, "quitado_mm3": 219.0497224675164, "fs_final": 5.397492014303332, "ventanas": 2, "direcciones": "Y", "umbral": 2.0, "margen": 2.5, "segundos": 235, "casos": ["torque pestanas_0", "peso"]}
+== Pelvis: 6 interfaces, 4 casos
+
+  Pelvis: 6 candidatos, areas [782, 782, 617, 617, 315, 315]
+  Pelvis umbral 2.0 margen 2.5 [0, 1, 2]: -3694 mm3, FS 1.60 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 2.5 [1]: -2769 mm3, FS 0.00 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 2.5 [2]: -926 mm3, FS 1.79 (objetivo 3.00)
+{"pieza": "Pelvis", "volumen": 18949.11698901782, "fs_inicial": 4.338022818466227, "quitado_mm3": 0.0, "fs_final": 4.338022818466227, "ventanas": 0, "segundos": 1128, "casos": ["parado", "torque cintura", "torque cadera 1", "torque cadera -1"]}

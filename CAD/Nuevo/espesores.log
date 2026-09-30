@@ -1,0 +1,27 @@
+pieza                     cm3   <1.26 mm   <0.9 mm  lo mas fino
+Bracket01_B              7.66       1.3%      0.0%  todo por encima de 0.9 mm
+Bracket02_W              5.18       0.0%      0.0%  todo por encima de 0.9 mm
+Bracket03_B              7.66       1.3%      0.0%  todo por encima de 0.9 mm
+Bracket04_B             24.66       0.0%      0.0%  todo por encima de 0.9 mm
+Bracket05_B             24.66       0.0%      0.0%  todo por encima de 0.9 mm
+Bracket07_B              6.22       0.1%      0.0%  todo por encima de 0.9 mm
+Bracket08_B              6.22       0.1%      0.0%  todo por encima de 0.9 mm
+Bracket09_W              9.32       0.0%      0.0%  0.60 mm en [37.2, 30.6, 4.8]
+Bracket10_W              9.40       0.0%      0.0%  0.60 mm en [45.6, 3.9, 6.0]
+Bracket11_B             11.70       0.3%      0.0%  todo por encima de 0.9 mm
+Bracket12_B             11.63       0.3%      0.0%  todo por encima de 0.9 mm
+Cabeza_frente           18.94       0.0%      0.0%  todo por encima de 0.9 mm
+Cabeza_tapa              8.12       0.0%      0.0%  todo por encima de 0.9 mm
+Link_W                   7.41       0.0%      0.0%  todo por encima de 0.9 mm
+Nee_B                    7.36       3.1%      0.0%  todo por encima de 0.9 mm
+Pelvis                  20.62       0.0%      0.0%  todo por encima de 0.9 mm
+Pipe_M3                  0.25       0.0%      0.0%  todo por encima de 0.9 mm
+Soporte_parado          86.73       0.0%      0.0%  todo por encima de 0.9 mm
+Soporte_pierna_der      99.57       0.0%      0.0%  todo por encima de 0.9 mm
+Soporte_pierna_izq      99.72       0.0%      0.0%  todo por encima de 0.9 mm
+Spacer01_W               2.73       0.0%      0.0%  todo por encima de 0.9 mm
+Torso_cuerpo_B          46.55       0.4%      0.0%  0.60 mm en [29.4, 25.8, 15.3]
+Torso_pecho             10.52       0.1%      0.0%  0.60 mm en [9.3, 48.6, 21.9]
+Torso_protector_B        3.02       0.0%      0.0%  todo por encima de 0.9 mm
+
+ninguna pieza tiene una parte significativa por debajo de 0.9 mm

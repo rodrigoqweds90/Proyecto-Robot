@@ -1,0 +1,248 @@
+{
+ "Bracket01_B": {
+  "pieza": "Bracket01_B",
+  "volumen": 6870.1585880608545,
+  "fs_inicial": 4.0384822069272905,
+  "quitado_mm3": 380.76948789989547,
+  "fs_final": 5.370345891695021,
+  "ventanas": 2,
+  "direcciones": "Y",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 254,
+  "casos": [
+   "torque pestanas_0",
+   "torque horn_0",
+   "peso"
+  ]
+ },
+ "Link_W": {
+  "pieza": "Link_W",
+  "volumen": 6691.288464068976,
+  "fs_inicial": 4.838289287201382,
+  "quitado_mm3": 837.3861429690951,
+  "fs_final": 3.0763704886319636,
+  "ventanas": 3,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 218,
+  "casos": [
+   "biela"
+  ]
+ },
+ "Bracket03_B": {
+  "pieza": "Bracket03_B",
+  "volumen": 6870.158584380733,
+  "fs_inicial": 4.6940604664196,
+  "quitado_mm3": 369.34661642552874,
+  "fs_final": 3.320921191217654,
+  "ventanas": 2,
+  "direcciones": "Y",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 290,
+  "casos": [
+   "torque pestanas_0",
+   "torque horn_0",
+   "peso"
+  ]
+ },
+ "Bracket07_B": {
+  "pieza": "Bracket07_B",
+  "volumen": 5493.416627639456,
+  "fs_inicial": 0.7690308532521799,
+  "quitado_mm3": 403.7168973129683,
+  "fs_final": 1.04906298903093,
+  "ventanas": 2,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 287,
+  "casos": [
+   "torque horn_0",
+   "torque horn_1",
+   "peso"
+  ]
+ },
+ "Bracket10_W": {
+  "pieza": "Bracket10_W",
+  "volumen": 8478.641896168054,
+  "fs_inicial": 4.455491231118276,
+  "quitado_mm3": 392.69813535848516,
+  "fs_final": 3.6697706089578612,
+  "ventanas": 2,
+  "direcciones": "X",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 441,
+  "casos": [
+   "torque pestanas_0",
+   "torque pestanas_1",
+   "peso"
+  ]
+ },
+ "Bracket04_B": {
+  "pieza": "Bracket04_B",
+  "volumen": 23250.434615635095,
+  "fs_inicial": 4.967287133460288,
+  "quitado_mm3": 37.49231799446352,
+  "fs_final": 4.534855077275862,
+  "ventanas": 1,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 297,
+  "casos": [
+   "suela",
+   "torque horn_0"
+  ]
+ },
+ "Bracket08_B": {
+  "pieza": "Bracket08_B",
+  "volumen": 5491.2137285746585,
+  "fs_inicial": 1.0070628845796272,
+  "quitado_mm3": 414.51028925029823,
+  "fs_final": 1.025812900962539,
+  "ventanas": 2,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 259,
+  "casos": [
+   "torque horn_0",
+   "torque horn_1",
+   "peso"
+  ]
+ },
+ "Bracket02_W": {
+  "pieza": "Bracket02_W",
+  "volumen": 4650.18725338186,
+  "fs_inicial": 6.018275450402189,
+  "quitado_mm3": 219.0497224675164,
+  "fs_final": 5.397492014303332,
+  "ventanas": 2,
+  "direcciones": "Y",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 235,
+  "casos": [
+   "torque pestanas_0",
+   "peso"
+  ]
+ },
+ "Bracket09_W": {
+  "pieza": "Bracket09_W",
+  "volumen": 8476.969444594495,
+  "fs_inicial": 4.298377042054948,
+  "quitado_mm3": 384.8906043132738,
+  "fs_final": 3.8036415343117405,
+  "ventanas": 2,
+  "direcciones": "X",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 580,
+  "casos": [
+   "torque pestanas_0",
+   "torque pestanas_1",
+   "peso"
+  ]
+ },
+ "Nee_B": {
+  "pieza": "Nee_B",
+  "volumen": 6348.476514364297,
+  "fs_inicial": 6.542870923167958,
+  "quitado_mm3": 699.3444517135449,
+  "fs_final": 5.457357962503444,
+  "ventanas": 4,
+  "direcciones": "Y",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 481,
+  "casos": [
+   "peso"
+  ]
+ },
+ "Torso_cuerpo": {
+  "pieza": "Torso_cuerpo",
+  "volumen": 32276.29909587152,
+  "fs_inicial": 1.0453070256147625,
+  "quitado_mm3": 4454.587631958806,
+  "fs_final": 1.5898238209414197,
+  "ventanas": 26,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 1115,
+  "casos": [
+   "parado",
+   "torque hombro 1",
+   "torque hombro -1",
+   "torque cintura",
+   "torque cuello"
+  ]
+ },
+ "Bracket11_B": {
+  "pieza": "Bracket11_B",
+  "volumen": 12294.01352452129,
+  "fs_inicial": 0.667615838878871,
+  "quitado_mm3": 640.198564392269,
+  "fs_final": 0.63453646776175,
+  "ventanas": 5,
+  "direcciones": "X",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 1087,
+  "casos": [
+   "torque horn_0",
+   "peso"
+  ]
+ },
+ "Bracket05_B": {
+  "pieza": "Bracket05_B",
+  "volumen": 23250.43569816282,
+  "fs_inicial": 4.7801647900796125,
+  "quitado_mm3": 0.0,
+  "fs_final": 4.7801647900796125,
+  "ventanas": 0,
+  "segundos": 154,
+  "casos": [
+   "suela",
+   "torque horn_0"
+  ]
+ },
+ "Bracket12_B": {
+  "pieza": "Bracket12_B",
+  "volumen": 12356.36258444057,
+  "fs_inicial": 0.6526416888203985,
+  "quitado_mm3": 1075.7914344788005,
+  "fs_final": 0.65782724199905,
+  "ventanas": 13,
+  "direcciones": "XYZ",
+  "umbral": 2.0,
+  "margen": 2.5,
+  "segundos": 1699,
+  "casos": [
+   "torque horn_0",
+   "peso"
+  ],
+  "metodo": "espejo Y de Bracket11_B",
+  "estanco": true,
+  "nota": "punta reconectada rellenando ventanas cercanas"
+ },
+ "Pelvis": {
+  "pieza": "Pelvis",
+  "volumen": 18949.11698901782,
+  "fs_inicial": 4.338022818466227,
+  "quitado_mm3": 0.0,
+  "fs_final": 4.338022818466227,
+  "ventanas": 0,
+  "segundos": 1128,
+  "casos": [
+   "parado",
+   "torque cintura",
+   "torque cadera 1",
+   "torque cadera -1"
+  ]
+ }
+}

@@ -1,0 +1,5 @@
+== Bracket09_W: 4 interfaces, 3 casos
+{"pieza": "Bracket09_W", "volumen": 8476.969444594495, "fs_inicial": 4.372252043673982, "quitado_mm3": 1198.2314061872712, "fs_final": 3.294913581345001, "ventanas": 10, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 1051, "casos": ["torque pestanas_0", "torque pestanas_1", "peso"]}
+== Bracket10_W: 4 interfaces, 3 casos
+{"pieza": "Bracket10_W", "volumen": 8478.641896168054, "fs_inicial": 4.333733254655245, "quitado_mm3": 397.2160606209354, "fs_final": 3.7768034344854673, "ventanas": 2, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 1146, "casos": ["torque pestanas_0", "torque pestanas_1", "peso"]}
+FIN grupo G

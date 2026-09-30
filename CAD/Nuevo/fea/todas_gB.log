@@ -1,0 +1,9 @@
+== Pelvis: 6 interfaces, 4 casos
+
+  Pelvis: 6 candidatos, areas [928, 923, 806, 802, 439, 439]
+  Pelvis umbral 2.0 margen 2.5 [0, 1, 2]: -4819 mm3, FS 1.26 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 2.5 [1]: -2753 mm3, FS 1.94 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 2.5 [2]: -2066 mm3, FS 2.66 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 3.0 [0, 1, 2]: -4778 mm3, FS 1.37 (objetivo 3.00)
+  Pelvis umbral 2.0 margen 3.0 [1]: -2753 mm3, FS 1.72 (objetivo 3.00)
+FIN grupo B

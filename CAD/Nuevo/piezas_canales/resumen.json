@@ -1,0 +1,27 @@
+{
+ "Bracket06_W": {
+  "ranuras": 4,
+  "dv": -67.2,
+  "estanco": true
+ },
+ "Bracket01_B": {
+  "ranuras": 2,
+  "dv": -48.0,
+  "estanco": true
+ },
+ "Bracket03_B": {
+  "ranuras": 2,
+  "dv": -48.0,
+  "estanco": true
+ },
+ "Bracket07_B": {
+  "ranuras": 2,
+  "dv": -38.4,
+  "estanco": true
+ },
+ "Bracket08_B": {
+  "ranuras": 2,
+  "dv": -38.4,
+  "estanco": true
+ }
+}

@@ -1,0 +1,32 @@
+pieza,cantidad,archivo,cambios
+Bracket01_B,2,Bracket01_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Bracket02_W,4,Bracket02_W.stl,pipe M3 (+ pasos de cable si tenia)
+Bracket03_B,2,Bracket03_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Bracket04_B,1,Bracket04_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Bracket05_B,1,Bracket05_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Pelvis,1,Pelvis.stl,pieza nueva (reemplaza Bracket06_W)
+Bracket07_B,1,Bracket07_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Bracket08_B,1,Bracket08_B.stl,pipe M3 (+ pasos de cable si tenia) + rebaje exacto del horn
+Bracket09_W,1,Bracket09_W.stl,pipe M3 (+ pasos de cable si tenia)
+Bracket10_W,1,Bracket10_W.stl,pipe M3 (+ pasos de cable si tenia)
+Bracket11_B,1,Bracket11_B.stl,pipe M3 + mano corta con pinza (mano.py) + rebaje exacto del horn
+Bracket12_B,1,Bracket12_B.stl,pipe M3 + mano corta con pinza (mano.py) + rebaje exacto del horn
+Cabeza_frente,1,Cabeza_frente.stl,pieza nueva estilo clasico (visera OLED + horn exacto del cuello)
+Cabeza_tapa,1,Cabeza_tapa.stl,pieza nueva
+Link_W,4,Link_W.stl,pipe M3 (+ pasos de cable si tenia)
+Nee_B,2,Nee_B.stl,pipe M3 (+ pasos de cable si tenia)
+Spacer01_W,1,Spacer01_W.stl,original NX25
+Torso_barra_bateria,1,Torso_barra_bateria.stl,pieza nueva
+Torso_cuerpo,1,Torso_cuerpo.stl,pieza nueva + nervios bajo el piso de atras + postes del giroscopio GY-521
+Torso_pecho,1,Torso_pecho.stl,carcasa: va con los 2 M3 de la barra de la bateria
+Torso_espalda,1,Torso_espalda.stl,carcasa: va con los 2 M3 de los topes del ESP32
+Pipe_M3,29,Pipe_M3.stl,"buje normal: imprimir 33 (4 de repuesto), parado con la cabeza abajo, relleno 100%"
+Pipe_M3_alto,7,Pipe_M3_alto.stl,"buje alto (servo pegado detras): imprimir 9 (2 de repuesto), igual que el normal"
+
+tornillo,cantidad,uso
+M3x10 cabeza boton,28,24 articulaciones (Link y Nee) + 2 pecho/barra de bateria + 2 tapa de la cabeza
+M3x8 cabeza boton,18,12 articulaciones (paredes delgadas) + 2 espalda + 4 aro de la cintura (Spacer01)
+M3x6 cabeza boton,2,giroscopio GY-521
+M2x6 maquina,8,pestanas de los 4 servos del torso (cintura / cuello / hombros)
+Inserto roscado M2 (a calor),8,agujeros de 3.2 del torso para esos M2
+Tornillos del kit del MG90S,-,pestanas de servos de piernas y brazos + horns + PCA9685

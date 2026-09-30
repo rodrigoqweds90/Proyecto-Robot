@@ -1,0 +1,19 @@
+90 piezas, 16 servos
+
+servo                              pose CAD   rango libre (0-180)  primer choque
+muslo (cadera adelante-atras) izq        55        25 a   115      a 20: Link_W con MG90S_grabcad_mg90s9 (57.5 mm3) | a 120: Link_W con MG90S_grabcad_mg90s9 (38.0 mm3)
+rodilla izq                              55        25 a   115      a 20: Link_W con MG90S_grabcad_mg90s9 (62.1 mm3) | a 120: Link_W con MG90S_grabcad_mg90s9 (40.0 mm3)
+tobillo (lateral) izq                    90        65 a   175      a 60: Bracket03_B con Bracket04_B (81.5 mm3) | a 180: Bracket04_B con Pipe_M3 (3.1 mm3)
+muslo (cadera adelante-atras) der        55        25 a   115      a 20: Link_W con MG90S_grabcad_mg90s9 (62.1 mm3) | a 120: Link_W con MG90S_grabcad_mg90s9 (40.0 mm3)
+rodilla der                              55        25 a   115      a 20: Link_W con MG90S_grabcad_mg90s9 (57.5 mm3) | a 120: Link_W con MG90S_grabcad_mg90s9 (38.0 mm3)
+tobillo (lateral) der                    90         5 a   115      a 0: Bracket05_B con Pipe_M3 (3.1 mm3) | a 120: Bracket01_B con Bracket05_B (81.5 mm3)
+cintura (giro del torso)                 90        70 a   110      a 65: MG90S_grabcad_mg90s9 con Pelvis (2.4 mm3) | a 115: MG90S_grabcad_mg90s9 con Pelvis (2.4 mm3)
+cadera (lateral) der                     90        85 a   115      a 80: Bracket03_B con Bracket01_B (1681.3 mm3) | a 120: Bracket12_B con Pipe_M3_alto (31.5 mm3)
+cadera (lateral) izq                     90        65 a    95      a 60: Bracket11_B con Pipe_M3_alto (31.5 mm3) | a 100: Bracket03_B con Bracket01_B (1680.9 mm3)
+hombro (abrir brazo) izq                 90        90 a   145      a 85: Bracket01_B con Bracket11_B (78.6 mm3) | a 150: Bracket07_B con Bracket09_W (12.1 mm3)
+hombro (adelante-atras) izq              90         0 a   180      sin choques
+codo izq                                 90        35 a   180      a 30: Bracket09_W con Bracket11_B (7.0 mm3)
+hombro (abrir brazo) der                 90        90 a   145      a 85: Bracket03_B con Bracket12_B (78.6 mm3) | a 150: Bracket08_B con Bracket10_W (12.1 mm3)
+hombro (adelante-atras) der              90         0 a   180      sin choques
+codo der                                 90         0 a   145      a 150: Bracket10_W con Bracket12_B (7.0 mm3)
+cuello (giro de la cabeza)               90         0 a   180      sin choques

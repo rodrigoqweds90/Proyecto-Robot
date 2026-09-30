@@ -1,0 +1,6 @@
+== Bracket08_B: 3 interfaces, 3 casos
+{"pieza": "Bracket08_B", "volumen": 5361.023377794344, "fs_inicial": 1.2974479768865743, "quitado_mm3": 304.0156493659251, "fs_final": 1.671614629313877, "ventanas": 2, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 577, "casos": ["torque horn_0", "torque horn_1", "peso"]}
+== Bracket11_B: 2 interfaces, 2 casos
+{"pieza": "Bracket11_B", "volumen": 12356.363438541652, "fs_inicial": 0.6526416888203985, "quitado_mm3": 1374.8256891410929, "fs_final": 0.65782724199905, "ventanas": 13, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 1699, "casos": ["torque horn_0", "peso"]}
+== Bracket12_B: 2 interfaces, 2 casos
+FIN grupo D

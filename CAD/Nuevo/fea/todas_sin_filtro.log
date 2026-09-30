@@ -1,0 +1,8 @@
+== Bracket01_B: 7 interfaces, 3 casos
+{"pieza": "Bracket01_B", "volumen": 7122.081209513542, "fs_inicial": 3.288138742470573, "quitado_mm3": 1830.420373566144, "fs_final": 3.4473701541559856, "ventanas": 9, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 914, "casos": ["torque pestanas_0", "torque horn_0", "peso"]}
+== Bracket03_B: 7 interfaces, 3 casos
+{"pieza": "Bracket03_B", "volumen": 7122.147584790985, "fs_inicial": 5.362377222064265, "quitado_mm3": 463.23279158987043, "fs_final": 4.210930382279457, "ventanas": 3, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 1050, "casos": ["torque pestanas_0", "torque horn_0", "peso"]}
+== Bracket04_B: 3 interfaces, 2 casos
+== Bracket04_B: 3 interfaces, 2 casos
+{"pieza": "Bracket04_B", "volumen": 23369.498497375822, "fs_inicial": 6.378046385157074, "quitado_mm3": 5591.466219427806, "fs_final": 3.168566289690618, "ventanas": 7, "direcciones": "X", "umbral": 2.0, "margen": 2.5, "segundos": 1484, "casos": ["suela", "torque horn_0"]}
+== Bracket05_B: 3 interfaces, 2 casos

@@ -1,0 +1,5 @@
+C:\Users\rodri\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\trimesh\triangles.py:302: RuntimeWarning: invalid value encountered in divide
+  center_mass = integrated[1:4] / volume
+Soporte_pierna_izq: valido True | 94.3 cm3 (~41 g al 15%) | caja [12.5, 150.4, 85.2] | choque con el robot 0.00 mm3
+Soporte_pierna_der: valido True | 94.2 cm3 (~41 g al 15%) | caja [12.5, 150.0, 85.2] | choque con el robot 0.00 mm3
+Soporte_parado: valido True | 81.9 cm3 (~36 g al 15%) | caja [125.1, 140.1, 86.0] | choque con el robot 0.00 mm3

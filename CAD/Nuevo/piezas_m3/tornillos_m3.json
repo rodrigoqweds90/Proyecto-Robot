@@ -1,0 +1,114 @@
+[
+ {
+  "largo": 6,
+  "cantidad": 2,
+  "gira": "Bracket01_B",
+  "agarra": "Bracket02_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 6,
+  "cantidad": 2,
+  "gira": "Bracket03_B",
+  "agarra": "Bracket02_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 6,
+  "cantidad": 1,
+  "gira": "Bracket07_B",
+  "agarra": "Bracket09_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 6,
+  "cantidad": 1,
+  "gira": "Bracket11_B",
+  "agarra": "Bracket09_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 6,
+  "cantidad": 1,
+  "gira": "Bracket08_B",
+  "agarra": "Bracket10_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 6,
+  "cantidad": 1,
+  "gira": "Bracket12_B",
+  "agarra": "Bracket10_W",
+  "rosca": 3.4,
+  "estado": "REVISAR"
+ },
+ {
+  "largo": 8,
+  "cantidad": 1,
+  "gira": "Bracket06_W",
+  "agarra": "Bracket03_B",
+  "rosca": 5.4,
+  "estado": "OK (boton de 1.8 mm atras)"
+ },
+ {
+  "largo": 8,
+  "cantidad": 1,
+  "gira": "Bracket06_W",
+  "agarra": "Bracket01_B",
+  "rosca": 5.4,
+  "estado": "OK (boton de 1.8 mm atras)"
+ },
+ {
+  "largo": 8,
+  "cantidad": 4,
+  "gira": "Bracket01_B",
+  "agarra": "Link_W",
+  "rosca": 5.4,
+  "estado": "OK"
+ },
+ {
+  "largo": 8,
+  "cantidad": 4,
+  "gira": "Bracket03_B",
+  "agarra": "Link_W",
+  "rosca": 5.4,
+  "estado": "OK"
+ },
+ {
+  "largo": 8,
+  "cantidad": 1,
+  "gira": "Bracket04_B",
+  "agarra": "Bracket03_B",
+  "rosca": 5.4,
+  "estado": "OK (boton de 1.8 mm atras)"
+ },
+ {
+  "largo": 8,
+  "cantidad": 8,
+  "gira": "Nee_B",
+  "agarra": "Bracket02_W",
+  "rosca": 5.4,
+  "estado": "OK"
+ },
+ {
+  "largo": 8,
+  "cantidad": 8,
+  "gira": "Nee_B",
+  "agarra": "Link_W",
+  "rosca": 5.4,
+  "estado": "OK"
+ },
+ {
+  "largo": 8,
+  "cantidad": 1,
+  "gira": "Bracket05_B",
+  "agarra": "Bracket01_B",
+  "rosca": 5.4,
+  "estado": "OK (boton de 1.8 mm atras)"
+ }
+]

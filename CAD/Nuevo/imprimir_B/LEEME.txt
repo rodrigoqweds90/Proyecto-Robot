@@ -1,0 +1,49 @@
+ROBOT NX25 - MODELO B (torso con PCA9685 y ESP32 parados atrás)
+=================================================================
+
+QUÉ HAY EN ESTA CARPETA
+- Las piezas del robot y los 3 soportes de armado, en STL. Ya vienen acostados sobre la cara que menos
+  soporte pide: se arrastran a Bambu Studio sin rotarlos.
+- lista.csv: cuántas imprimir de cada una, qué cara va abajo, si piden soporte (columna "soporte"),
+  el peso aproximado y los tornillos que hay que comprar.
+
+AJUSTES DE IMPRESIÓN (Bambu A1, PLA)
+- Capa de 0.2 mm, 3 paredes y 15 % de relleno giroide.
+- Pipe_M3: 100 % de relleno y 4 paredes, con la cabeza sobre la cama. Ya van 4 de repuesto.
+- Soportes: solo en las piezas con soporte mayor que 0 en lista.csv. Usar soporte de árbol y
+  "solo sobre la cama".
+- El torso va con la espalda abajo, con soporte de árbol bajo la pared de atrás. El pecho va de costado.
+  A los dos ponerles borde (brim) de 5 mm.
+- Los soportes de armado pueden ir con 10–15 % de relleno. No van en el robot.
+
+ORDEN RECOMENDADO
+1. Imprimir primero Torso_cuerpo_B y Torso_atras_B, y probar por separado (sin atornillar todavia) que
+   entren la PCA9685 (4 tornillos del kit del MG90S en sus postes) y el ESP32 (entra deslizando en las
+   guías) en Torso_atras_B, y que Torso_atras_B calce contra el marco de Torso_cuerpo_B. Si todo entra,
+   imprimir el resto.
+2. Los 8 agujeros de las pestañas de los servos del torso (cuello, cintura y hombros) son de 1.7 mm:
+   el tornillo M2 rosca directo en el plástico, sin insertos. Apretar sin forzar para no barrer la rosca.
+3. Ajustar el XL4015 a 5.2 V con el multímetro ANTES de conectarlo al V+ de la PCA9685.
+   Poner el condensador en V+/GND de la PCA, respetando la polaridad.
+
+ARMADO CON LOS SERVOS EN 90° (sin medir a ojo)
+4. Subir el firmware, conectar los 16 servos a la PCA sin horns y mandar CENTRAR por el monitor serie
+   (115200 baudios). Los 16 servos quedan en 90°. No volver a girarlos a mano.
+5. Armar cada pierna sin horns: servos en sus soportes con los tornillos del kit y las uniones con
+   Pipe_M3 + M3. Los M3x10 van en las uniones de Link y Nee y los M3x8 en las paredes delgadas.
+   El Pipe_M3_alto va en las 7 uniones donde el servo queda pegado detrás: Bracket02 de la cadera y
+   Bracket09/10.
+6. Acostar cada pierna en su Soporte_pierna (izq/der), con el lado de afuera abajo. Poner los horns de
+   muslo y rodilla, que quedan arriba, y atornillarlos.
+7. Montar las dos piernas en la pelvis, parar el robot en Soporte_parado y poner por detrás los horns
+   de cadera y tobillo.
+8. Colocar el torso sobre la pelvis: aro de la cintura con 4 M2x8 (desde abajo, roscan directo en el torso) y horn en cruz. Después los brazos
+   colgando rectos y la cabeza mirando al frente, todos con los servos todavía en 90°.
+   Cabeza: la pantalla OLED va con el vidrio hacia la visera y 4 M2x6 desde atrás (pines arriba); el horn
+   de 1 brazo se atornilla al piso de la cabeza con sus 2 tornillitos antes de montarla en el eje.
+9. Armar la PCA9685 y el ESP32 en Torso_atras_B con sus cables ya puestos, y atornillarla al cuerpo
+   con 2 M3x8 (entran desde atrás). El pecho (2 M3x10) traba la batería y el XL4015.
+10. Ajustar la posición de Inicio con la app y guardarla (HOMESET).
+
+IMPORTANTE
+- El firmware tiene que respetar los límites de rodilla y muslo antes de caminar. Usar la marcha en arco.

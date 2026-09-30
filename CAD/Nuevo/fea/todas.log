@@ -1,0 +1,5 @@
+== Bracket01_B: 7 interfaces, 3 casos
+[*** LOG ERROR #0001 ***] [2026-09-16 21:32:04] [float-tetwild] async flush: thread pool doesn't exist anymore
+{"pieza": "Bracket01_B", "volumen": 7122.081209513542, "fs_inicial": 3.771400740314439, "quitado_mm3": 598.4834253826957, "fs_final": 3.4584152366656196, "ventanas": 4, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 604, "casos": ["torque pestanas_0", "torque horn_0", "peso"]}
+== Bracket03_B: 7 interfaces, 3 casos
+FIN

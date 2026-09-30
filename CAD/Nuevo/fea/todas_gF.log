@@ -1,0 +1,3 @@
+== Bracket07_B: 3 interfaces, 3 casos
+{"pieza": "Bracket07_B", "volumen": 5361.023574981835, "fs_inicial": 1.357533554590956, "quitado_mm3": 219.83775428446188, "fs_final": 1.5412336576101127, "ventanas": 1, "direcciones": "XYZ", "umbral": 2.0, "margen": 3.0, "segundos": 809, "casos": ["torque horn_0", "torque horn_1", "peso"]}
+FIN grupo F

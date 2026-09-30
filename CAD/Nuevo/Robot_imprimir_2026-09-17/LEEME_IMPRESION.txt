@@ -1,0 +1,54 @@
+ROBOT - PIEZAS PARA IMPRIMIR (2026-09-17)
+==================================================
+El numero al inicio de cada archivo es cuantas veces hay que imprimirla
+(ej. 4x_Bracket02_W.stl = 4 piezas). Total: 70 piezas, unos 213 g de PLA
+con 15-20 % de relleno (~355 g si fueran macizas).
+
+AJUSTES GENERALES (Bambu Studio, PLA, boquilla 0.4)
+- Capa 0.20 mm, 3 paredes, relleno gyroid 15-20 %.
+- Las holguras ya estan en el diseno (0.15 mm por lado): NO escalar las piezas
+  ni usar "compensacion de agujeros" / "XY hole compensation".
+- Soportes: tipo arbol, solo donde el slicer los pida.
+
+PRIMERO UNA PRUEBA (antes de imprimir todo)
+- Imprime 1x Nee_B + 1x Link_W + 1 pipe (5_pipes) y arma su union con un M3x10
+  (el pipe entra por el lado de la Nee_B y el tornillo muerde en la Link_W).
+  La Nee_B tiene que girar suave sobre el pipe con el tornillo apretado a fondo.
+  Estas piezas igual se usan en el robot: no se pierde nada.
+  Si queda dura o floja, avisa antes de seguir: se ajusta la holgura en el diseno.
+
+CARPETA POR CARPETA
+1_piernas
+- Bracket04_B y Bracket05_B (pies): con la suela sobre la cama.
+- El resto: con la placa mas grande sobre la cama.
+2_cadera_y_torso
+- Torso_cuerpo: con el piso sobre la cama (soportes arbol adentro).
+- Torso_pecho y Torso_espalda: cara lisa de adentro sobre la cama, los detalles hacia arriba.
+- La espalda es estructural: el torso no debe trabajar sin ella atornillada.
+- Pelvis: con la placa del disco de giro hacia arriba.
+3_brazos
+- Bracket11_B / Bracket12_B son las manos cortas con pinza.
+4_cabeza
+- Cabeza_frente: con la cara de corte (atras) sobre la cama, soportes arbol adentro.
+- Cabeza_tapa: con la cara de corte sobre la cama.
+- La V, la raya y el marco de la visera se pintan a mano si se quiere.
+5_pipes
+- 33x Pipe_M3 (normal, 29 + 4 de repuesto) y 9x Pipe_M3_alto (7 + 2 de repuesto).
+  El alto tiene la cabeza 1 mm mas alta (mide 6.0 mm en total; el normal 5.0) y va solo donde el servo
+  queda pegado detras y no entra un tornillo mas largo: 2x Bracket01_B con Bracket02_W, 2x Bracket03_B con Bracket02_W, 1x Bracket07_B con Bracket09_W, 1x Bracket08_B con Bracket10_W, 1x Bracket12_B con Bracket10_W.
+- PARADOS, con la cabeza (el lado del rebaje) sobre la cama. RELLENO 100 %, 4 paredes, capa 0.12-0.16 mm.
+- La cabeza (O9) entra en el rebaje redondo de la pieza que gira y lo llena; sobresale ~1 mm (el alto ~2).
+
+TORNILLOS (para comprar: la cantidad justa + un par de repuesto)
+- M3x10 cabeza boton: 28 (comprar 30)  -> 24 articulaciones (Link, Nee), 2 pecho/barra, 2 tapa de la cabeza
+- M3x8  cabeza boton: 18 (comprar 20)  -> 12 articulaciones (paredes delgadas), 2 espalda, 4 aro de la cintura
+- M3x6  cabeza boton:  2 (comprar 4)   -> giroscopio GY-521
+- M2x6 de maquina:     8 (comprar 10)  -> pestanas de los 4 servos del torso
+- Insertos roscados M2 a calor: 8 (comprar 10) -> se ponen con el cautin en los agujeros de 3.2 del torso
+- Tornillos del kit de cada MG90S: pestanas de servos de piernas y brazos, horns y PCA9685
+- La cabeza del M3 se hunde dentro del pipe (rebaje de 6.1 mm), como el M2 en el Pipe_B original.
+- El agujero del pipe es de 3.0 mm: el M3 entra justo (puede roscar un poco). Asi el pipe queda centrado
+  en el tornillo y no se corre de costado.
+
+ARMADO DEL CUELLO: atornillar primero el horn de 1 brazo al piso de la cabeza
+(brazo hacia adelante), montar en el eje y poner el tornillo central por el agujero del piso.

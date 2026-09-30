@@ -1,0 +1,12 @@
+{
+ "pieza": "Pelvis",
+ "volumen": 19399.506515664714,
+ "fs_inicial": 4.824171979464546,
+ "quitado_mm3": 2057.969115814547,
+ "fs_final": 5.325862140314109,
+ "ventanas": 10,
+ "direcciones": "XYZ",
+ "umbral": 1.0,
+ "margen": 3.0,
+ "segundos": 232
+}

@@ -30,6 +30,7 @@ from robot_link import RobotLink, IP_AP_POR_DEFECTO
 from widgets.channels_dialog import ChannelsDialog
 from widgets.console_panel import ConsolePanel
 from widgets.control_panel import ControlPanel
+from widgets.balance_panel import BalancePanel
 from widgets.mando_panel import MandoPanel
 from widgets.positions_panel import PositionsPanel
 from widgets.sequence_panel import SequencePanel
@@ -146,12 +147,17 @@ class MainWindow(QMainWindow):
         # Dos pestañas bien separadas: "Creación" para diseñar poses/
         # secuencias, "Mando" para asignarlas a cada direccion del D-pad. Al
         # cambiar de pestaña no se ve nada de la otra.
-        self.mando_panel = MandoPanel(self.sequence_panel)
+        self.mando_panel = MandoPanel(self.sequence_panel, self.positions_panel)
         self.sequence_panel.secuencias_cambiadas.connect(self.mando_panel.refrescar_secuencias)
+        self.positions_panel.lista_cambiada.connect(self.mando_panel.refrescar_secuencias)
+
+        self.balance_panel = BalancePanel(self.servos)
+        self.balance_panel.comando.connect(self.serial_link.send)
 
         pestañas = QTabWidget()
         pestañas.addTab(contenido, "Creación de movimientos")
         pestañas.addTab(self.mando_panel, "Mando")
+        pestañas.addTab(self.balance_panel, "Balance")
         pestañas.setCurrentIndex(0)
 
         self.consola = ConsolePanel()
@@ -335,6 +341,7 @@ class MainWindow(QMainWindow):
             self.btn_conectar.setText("Desconectar")
             self.consola.agregar_linea("Conectado. Enviando PING de prueba...")
             self.serial_link.send("PING")
+            self.serial_link.send("BALCONF")  # sincroniza la pestaña Balance con lo guardado en el robot
         else:
             self.label_estado.setText("● Desconectado")
             self.label_estado.setObjectName("estadoDesconectado")
@@ -348,6 +355,7 @@ class MainWindow(QMainWindow):
         # aunque el robot no este conectado (el firmware ya rechaza mover los
         # servos si esta en STOP). Solo las acciones que mandan un comando
         # directo al robot ahora mismo necesitan conexion.
+        self.balance_panel.set_conectado(conectado, self._emergencia_activa)
         botones_de_hardware = (
             self.btn_home, self.btn_homeset, self.btn_relax, self.btn_stop,
             *self.botones_cara.values(),
@@ -362,6 +370,13 @@ class MainWindow(QMainWindow):
     # SEGMENTO: RECEPCION DE DATOS DEL ESP32
     # ------------------------------------------------------------------
     def _on_line_received(self, texto):
+        # La telemetria del balance llega 10 veces por segundo: va directo a
+        # su pestaña y no a la consola, que si no se llenaria en segundos.
+        if self.balance_panel.procesar_linea(texto):
+            return
+        # Botones apretados en el mando: iluminan su tarjeta y no llenan la consola.
+        if self.mando_panel.procesar_linea(texto):
+            return
         self.consola.agregar_linea(texto)
         # Las lineas "M," son solo eco informativo (consola/diagnostico) -- ya
         # NO se usan para mover sliders. Se probo hacerlo (sincronizar desde
@@ -499,6 +514,7 @@ class MainWindow(QMainWindow):
             self.servos = nuevos_servos
             self.servos_por_canal = {s["canal"]: s for s in self.servos}
             self.control_panel.reconstruir(self.servos)
+            self.balance_panel.reconstruir(self.servos)
             self.consola.agregar_linea("Mapeo de canales actualizado.")
 
     def _escanear_i2c(self):
@@ -552,6 +568,7 @@ class MainWindow(QMainWindow):
             self.servos = canales
             self.servos_por_canal = {s["canal"]: s for s in self.servos}
             self.control_panel.reconstruir(self.servos)
+            self.balance_panel.reconstruir(self.servos)
 
         self.positions_panel.importar_posiciones(posiciones, carpetas_poses)
         self.sequence_panel.importar_secuencias(secuencias)

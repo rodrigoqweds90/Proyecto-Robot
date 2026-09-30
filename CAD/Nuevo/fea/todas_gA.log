@@ -1,0 +1,4 @@
+== Torso_cuerpo: 6 interfaces, 5 casos
+
+{"pieza": "Torso_cuerpo", "volumen": 32276.29909587152, "fs_inicial": 1.0453070256147625, "quitado_mm3": 4454.587631958806, "fs_final": 1.5898238209414197, "ventanas": 26, "direcciones": "XYZ", "umbral": 2.0, "margen": 2.5, "segundos": 1115, "casos": ["parado", "torque hombro 1", "torque hombro -1", "torque cintura", "torque cuello"]}
+FIN grupo A

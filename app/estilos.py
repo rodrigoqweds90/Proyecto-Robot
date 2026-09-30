@@ -63,6 +63,7 @@ QLabel#avisoAtencion {{ color: {AMBAR_ATENCION}; font-weight: 600; }}
 /* SEGMENTO: CRUCETA DEL PANEL DE MANDO */
 QFrame#tarjetaDireccion {{ background-color: {PANEL}; border: 1px solid {BORDE}; border-radius: 8px; }}
 QFrame#tarjetaDireccion QLabel {{ background: transparent; }}
+QFrame#tarjetaDireccion[activo="true"] {{ border: 2px solid {ACENTO}; }}
 QLabel#flechaDpad {{ color: {ACENTO}; font-size: 17px; font-weight: 700; }}
 QLabel#tituloDireccion {{ font-weight: 600; }}
 
@@ -74,7 +75,7 @@ QSlider::groove:horizontal {{ height: 4px; background: {BORDE}; border-radius: 2
 QSlider::handle:horizontal {{ background: {ACENTO}; width: 14px; margin: -6px 0; border-radius: 7px; }}
 QSlider::handle:horizontal:hover {{ background: {ACENTO_CLARO}; }}
 
-QComboBox, QSpinBox, QLineEdit {{ background-color: {ELEVADO}; color: {TEXTO}; border: 1px solid {BORDE}; border-radius: 4px; padding: 4px 6px; }}
+QComboBox, QSpinBox, QDoubleSpinBox, QLineEdit {{ background-color: {ELEVADO}; color: {TEXTO}; border: 1px solid {BORDE}; border-radius: 4px; padding: 4px 6px; }}
 QComboBox QAbstractItemView {{ background-color: {PANEL}; color: {TEXTO}; selection-background-color: {BORDE}; }}
 
 QListWidget, QTableWidget {{ background-color: {PANEL}; color: {TEXTO}; border: 1px solid {BORDE}; border-radius: 4px; gridline-color: {BORDE}; }}

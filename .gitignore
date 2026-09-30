@@ -12,3 +12,12 @@ __pycache__/
 *.pyc
 *.spec
 *.backup
+
+# CAD: respaldos de Inventor y temporales del calculo de esfuerzos (se quedan solo en la PC)
+OldVersions/
+CAD/**/AIP/
+CAD/Nuevo/fea/*.msh
+CAD/Nuevo/fea/*.pkl
+CAD/Nuevo/fea/*.npy
+CAD/Nuevo/fea/__*
+*.lck

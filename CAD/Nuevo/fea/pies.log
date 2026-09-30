@@ -1,0 +1,5 @@
+Bracket04_B: suela 6.0 mm, FS inicial 6.45
+  umbral 3.0: 8 rebajes, -6233 mm3 (26.7%), FS 6.62
+{"pieza": "Bracket04_B", "volumen": 23369.498497375822, "fs_inicial": 6.445196417882405, "quitado_mm3": 6233.163965718242, "fs_final": 6.62291553530344, "ventanas": 8, "metodo": "rebajes suela", "umbral": 3.0, "segundos": 850}
+Bracket05_B: suela 6.0 mm, FS inicial 7.01
+FIN pies
