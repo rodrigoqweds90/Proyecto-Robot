@@ -1,7 +1,7 @@
 """SEGMENTO: MODELO 3D PARA EL VISOR (se corre una vez, o cuando cambie el CAD)
 Toma las piezas del ensamble Robot_en_soporte en su lugar (transformaciones guardadas desde Inventor en
 datos_robot3d/pose_recta_inventor.json) y las agrupa por lo que mueve cada servo de pierna:
-  cuerpo (pelvis, torso, cabeza, brazos) | cadera | muslo A / muslo B (las dos barras del paralelogramo) | rodilla |
+  cuerpo (pelvis, torso, cabeza) | hombro / codo / mano (brazos) | cadera | muslo A / muslo B (las dos barras del paralelogramo) | rodilla |
   canilla A / canilla B | tobillo | pie        (cada grupo de pierna, izquierda y derecha)
 Guarda las mallas en datos_robot3d/modelo.npz, en el marco del simulador: origen a la altura del eje de cadera y en
 el plano de los ejes laterales, x = izquierda del robot, y = arriba, z = adelante (mm).
@@ -43,6 +43,15 @@ def grupo(nombre, m):
     servo = nombre.startswith("MG90S")
     pierna = c[1] < -8 and abs(c[0]) < 50
     if not pierna:
+        # brazos: cada grupo gira con su servo (ver simular_caminata.BRAZO)
+        for g, prefijos in (("hombro", ("Bracket07", "Bracket08", "MG90S_grabcad_mg90s9:14", "MG90S_grabcad_mg90s9:16",
+                                         "Pipe_M3:33", "Pipe_M3:35")),
+                            ("codo", ("Bracket09", "Bracket10", "MG90S_grabcad_mg90s9:13", "MG90S_grabcad_mg90s9:15",
+                                      "Pipe_M3:34", "Pipe_M3:36")),
+                            ("mano", ("Bracket11", "Bracket12"))):
+            # piezas por tipo ("Bracket07"), servos y pernos por instancia exacta ("...:14")
+            if nombre in prefijos or nombre.split(":")[0].startswith(tuple(x for x in prefijos if ":" not in x)):
+                return (g, lado, servo)
         return ("cuerpo", "", servo)
     y = c[1]                                    # ya en el marco del simulador (0 = eje de cadera)
     if nombre.startswith(("Bracket04", "Bracket05")):

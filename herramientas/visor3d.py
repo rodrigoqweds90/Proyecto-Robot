@@ -44,10 +44,12 @@ def transformaciones(ang, trim, res):
     piso = (R @ np.array([sc.CADERA_X, 0.0, 0.0]))[1] - res["mundo"]["izq"][0][0][1]
     mundo = mat(R, (0.0, -piso, 0.0))
     out = {("cuerpo", ""): mundo}
+    for clave, M in sc.brazos(ang)[0].items():          # brazos: hombro -> codo -> mano
+        out[clave] = mundo @ M
     for lado, sx in (("izq", 1.0), ("der", -1.0)):
         lat, mus, can, tob = art[lado]
         m, r = math.radians(mus), math.radians(can)
-        cadera = mundo @ girar_en(sc.rot_z(math.radians(lat)), (sx * sc.CADERA_X, 0.0, 0.0))
+        cadera = mundo @ girar_en(sc.rot_z(math.radians(lat)), (sx * sc.EJE_X, 0.0, 0.0))
         rodilla = (0.0, sc.L1 * (1 - math.cos(m)), f * sc.L1 * math.sin(m))
         tobillo = tuple(a + b for a, b in zip(rodilla, (0.0, sc.L2 * (1 - math.cos(r)), f * sc.L2 * math.sin(r))))
         out[("cadera", lado)] = cadera
@@ -57,7 +59,7 @@ def transformaciones(ang, trim, res):
         for barra in ("canilla A", "canilla B"):
             out[(barra, lado)] = cadera @ mat(t=rodilla) @ girar_en(sc.rot_x(-f * r), (0.0, *PERNO[barra]))
         out[("tobillo", lado)] = cadera @ mat(t=tobillo)
-        out[("pie", lado)] = cadera @ mat(t=tobillo) @ girar_en(sc.rot_z(-math.radians(tob)), (sx * sc.CADERA_X, TOBILLO_Y, 0.0))
+        out[("pie", lado)] = cadera @ mat(t=tobillo) @ girar_en(sc.rot_z(-math.radians(tob)), (sx * sc.EJE_X, TOBILLO_Y, 0.0))
     return out
 
 

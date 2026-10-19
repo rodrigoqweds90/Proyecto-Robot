@@ -26,17 +26,28 @@ import caminata_nx25 as cn  # noqa: E402
 # =====================================================================
 # SEGMENTO: GEOMETRIA (mm, marco de la pelvis: x lateral + izquierda, y arriba, z adelante; origen = ejes de cadera)
 # =====================================================================
-CADERA_X = 25.9                     # eje lateral de cada cadera (CAD)
+CADERA_X = 25.9                     # linea de cada pierna (centro de sus piezas, CAD)
+EJE_X = 20.8                        # ejes de los servos de cadera y tobillo (salida del servo, CAD): 5 mm adentro
 H_CADERA, L1, H_RODILLA, L2, H_TOBILLO = 13.54, 28.7, 25.92, 28.7, 13.54
 PLANTA_BAJO_TOBILLO = 22.0          # suela debajo del eje del tobillo
-PLANTA_X = (-18.5, 30.3)            # suela respecto del eje del tobillo, hacia afuera + (pie izquierdo)
+PLANTA_X = (-18.5, 30.3)            # suela respecto de la linea de la pierna, hacia afuera + (pie izquierdo)
 PLANTA_Z = (-28.0, 45.2)            # suela adelante-atras respecto del eje
 # masas en gramos: (g, punto) -- el cuerpo de arriba (torso, brazos, cabeza, bateria, electronica) en un punto
 # adelante fisico = + en la cinematica del NX25: lo muestran las poses del usuario ("paso usuario", 2026-10-18):
 # femur derecho +40 lleva la pierna derecha adelante y femur izquierdo +40 la izquierda atras (ADELANTE = -1 de
 # caminata_nx25 vino de la prueba "camina para atras", hecha cuando el peso todavia no pasaba bien al pie de apoyo)
 ADELANTE_FISICO = 1.0
-MASA_ARRIBA = (340.0, np.array([0.0, 60.0, 2.0]))
+# torso, cabeza, bateria y electronica (los brazos van aparte: en reposo el total es el mismo que antes, 340 g)
+MASA_ARRIBA = (250.6, np.array([0.0, 69.7, -0.2]))
+# brazos: tres grupos por lado, cada uno gira con su servo (ejes = salida del servo en el CAD, signos probados por el
+# usuario el 2026-10-19: hombro izq + atras, der + adelante; "codo" izq + afuera, der + adentro; mano: supuesto)
+# (grupo, canal izq, canal der, punto del eje izq, eje, signo izq, signo der, masa g, centro izq en reposo)
+BRAZO = [
+    ("hombro", 6, 9, (48.5, 61.4, 7.5), "x", 1.0, -1.0, 17.6, (67.8, 52.1, 7.3)),
+    ("codo", 5, 10, (71.2, 55.4, -11.8), "z", 1.0, 1.0, 19.8, (71.2, 27.4, 9.0)),
+    ("mano", 4, 11, (91.7, 24.0, 13.0), "x", 1.0, -1.0, 7.3, (71.4, 1.0, 7.3)),
+]
+_REF_BRAZOS = {}
 MASA_PIERNA = {"cadera": 25.0, "muslo": 20.0, "rodilla": 15.0, "canilla": 20.0, "pie": 27.0}
 
 
@@ -82,21 +93,46 @@ def pierna(lado, lat, mus, can, tob):
     p.append((p[-1][0] + f * L2 * math.sin(r), p[-1][1] + L2 * math.cos(r)))
     p.append((p[-1][0], p[-1][1] + H_TOBILLO))
     R = rot_z(fi)
-    cadera = np.array([sx * CADERA_X, 0.0, 0.0])
-    cadena = [cadera + R @ np.array([0.0, -d, z]) for z, d in p]
+    eje = np.array([sx * EJE_X, 0.0, 0.0])                    # la pierna gira de costado alrededor del eje del servo
+    linea = np.array([sx * (CADERA_X - EJE_X), 0.0, 0.0])     # y su linea queda 5 mm afuera de ese eje
+    cadena = [eje + R @ (linea + np.array([0.0, -d, z])) for z, d in p]
     tobillo = cadena[-1]
+    eje_tobillo = tobillo - R @ linea
     Rp = R @ rot_z(-math.radians(tob))          # el tobillo gira el pie respecto de la pierna
-    esquinas = [tobillo + Rp @ np.array([sx * x, -PLANTA_BAJO_TOBILLO, z]) for x in PLANTA_X for z in PLANTA_Z]
+    esquinas = [eje_tobillo + Rp @ (linea + np.array([sx * x, -PLANTA_BAJO_TOBILLO, z])) for x in PLANTA_X for z in PLANTA_Z]
     masas = [(MASA_PIERNA["cadera"], (cadena[0] + cadena[1]) / 2), (MASA_PIERNA["muslo"], (cadena[1] + cadena[2]) / 2),
              (MASA_PIERNA["rodilla"], (cadena[2] + cadena[3]) / 2), (MASA_PIERNA["canilla"], (cadena[3] + cadena[4]) / 2),
              (MASA_PIERNA["pie"], tobillo + Rp @ np.array([sx * 6.0, -10.0, 8.0]))]
     return cadena, np.array(esquinas), masas
 
 
+def brazos(ang):
+    """4x4 de cada grupo del brazo (marco de la pelvis) y sus masas, con los angulos respecto de Inicionx25"""
+    if not _REF_BRAZOS:
+        _REF_BRAZOS.update({int(k): v for k, v in leer("Inicionx25", "posiciones")["angulos"].items()})
+    T, masas = {}, []
+    for lado in ("izq", "der"):
+        sx = 1.0 if lado == "izq" else -1.0
+        M = np.eye(4)
+        for grupo, c_izq, c_der, punto, eje, s_izq, s_der, masa, centro in BRAZO:
+            canal, signo = (c_izq, s_izq) if lado == "izq" else (c_der, s_der)
+            a = math.radians(signo * (ang.get(canal, _REF_BRAZOS.get(canal, 0)) - _REF_BRAZOS.get(canal, 0)))
+            Rg = rot_x(a) if eje == "x" else rot_z(a)
+            pt = np.array([sx * punto[0], punto[1], punto[2]])
+            G = np.eye(4)
+            G[:3, :3] = Rg
+            G[:3, 3] = pt - Rg @ pt
+            M = M @ G
+            T[(grupo, lado)] = M.copy()
+            c = M @ np.array([sx * centro[0], centro[1], centro[2], 1.0])
+            masas.append((masa, c[:3]))
+    return T, masas
+
+
 def cuerpo(ang, trim):
     art = articulaciones(ang, trim)
     out = {}
-    masas = [MASA_ARRIBA]
+    masas = [MASA_ARRIBA] + brazos(ang)[1]
     for lado in ("izq", "der"):
         cadena, esq, ms = pierna(lado, *art[lado])
         out[lado] = (cadena, esq)
