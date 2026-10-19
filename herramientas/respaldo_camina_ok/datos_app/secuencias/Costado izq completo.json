@@ -1,0 +1,126 @@
+{
+  "nombre": "Costado izq completo",
+  "categoria": "Costado izq",
+  "pasos": [
+    {
+      "posicion": "lado izq 01 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 02 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 03 abre la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 04 apoya el izquierdo afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 06 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 07 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 08 cierra la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 09 apoya el derecho junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 10 centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 01 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 02 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 03 abre la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 04 apoya el izquierdo afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 06 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 07 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 08 cierra la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 09 apoya el derecho junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 10 centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 01 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 02 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 03 abre la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 04 apoya el izquierdo afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 06 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 07 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 08 cierra la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 09 apoya el derecho junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado izq 10 centro",
+      "duracion_ms": 400
+    }
+  ]
+}

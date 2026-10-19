@@ -1,0 +1,126 @@
+{
+  "nombre": "Costado der completo",
+  "categoria": "Costado der",
+  "pasos": [
+    {
+      "posicion": "lado der 01 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 02 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 03 abre la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 04 apoya el derecho afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 06 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 07 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 08 cierra la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 09 apoya el izquierdo junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 10 centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 01 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 02 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 03 abre la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 04 apoya el derecho afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 06 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 07 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 08 cierra la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 09 apoya el izquierdo junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 10 centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 01 peso al pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 02 sube el pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 03 abre la pierna derecha",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 04 apoya el derecho afuera",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 05 peso al centro",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 06 peso al pie derecho",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 07 sube el pie izquierdo",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 08 cierra la pierna izquierda",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 09 apoya el izquierdo junto",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "lado der 10 centro",
+      "duracion_ms": 400
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "nombre": "Giro izq completo",
+  "categoria": "Girar Izquierda",
+  "pasos": [
+    {
+      "posicion": "giro izq 1.1",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.2",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.3",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.4",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.5",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.6",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.7",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.8",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.9",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.10",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.11",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.12",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.13",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.14",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.15",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.16",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.5",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.6",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.7",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.8",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.9",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.10",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.11",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.12",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.13",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.14",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.15",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.16",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.5",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.6",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.7",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.8",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.9",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.10",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.11",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.12",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.13",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.14",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.15",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.16",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.5",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.6",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "giro izq 1.7",
+      "duracion_ms": 400
+    },
+    {
+      "posicion": "Inicionx25",
+      "duracion_ms": 400
+    }
+  ]
+}

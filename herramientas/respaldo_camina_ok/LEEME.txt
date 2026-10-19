@@ -1,0 +1,5 @@
+Respaldo del estado en que el robot camina (2026-10-18), antes de tocar el firmware para el movimiento sincronizado.
+- firmware.bin: el firmware compilado de ese momento (src/main.cpp de la etiqueta git "camina-ok").
+  Para volver: git checkout camina-ok -- src  y flashear con PlatformIO.
+- datos_app/: poses, secuencias, carpetas y canales de la app (%APPDATA%\RobotControl).
+  Para volver: copiar su contenido a %APPDATA%\RobotControl con la app cerrada.

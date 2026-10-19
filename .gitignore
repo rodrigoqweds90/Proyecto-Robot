@@ -21,3 +21,6 @@ CAD/Nuevo/fea/*.pkl
 CAD/Nuevo/fea/*.npy
 CAD/Nuevo/fea/__*
 *.lck
+
+# Herramientas: dibujos que genera simular_caminata.py
+herramientas/simulacion/

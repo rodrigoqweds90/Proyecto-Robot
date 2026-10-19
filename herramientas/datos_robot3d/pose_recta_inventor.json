@@ -1,0 +1,2823 @@
+[
+{
+"nombre": "Bracket01_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket01_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket01_B.stl",
+"M": [
+[
+0.0,
+0.0,
+1.0,
+6.7
+],
+[
+-1.0,
+0.0,
+0.0,
+-25.0
+],
+[
+0.0,
+-1.0,
+0.0,
+38.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket03_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket03_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket03_B.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+6.7
+],
+[
+1.0,
+0.0,
+0.0,
+-135.3822829800279
+],
+[
+0.0,
+-1.0,
+0.0,
+38.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket04_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Bracket04_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Bracket04_B.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+21.0
+],
+[
+0.0,
+1.0,
+0.0,
+-157.3822829800279
+],
+[
+0.0,
+0.0,
+-1.0,
+-0.3
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Nee_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Nee_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Nee_B.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+9.15
+],
+[
+0.0,
+1.0,
+0.0,
+-80.19114149001395
+],
+[
+0.0,
+0.0,
+-1.0,
+22.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket02_W:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+42.85
+],
+[
+-0.00014626098960493974,
+0.0,
+-0.9999999893038614,
+-32.00000012835366
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+17.70175513187526
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket02_W:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+42.85
+],
+[
+-0.00014626098960493974,
+0.0,
+0.9999999893038614,
+-128.38228285167423
+],
+[
+-0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+17.70175513187526
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Link_W:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+42.8
+],
+[
+-0.00014626098960493974,
+0.0,
+-0.9999999893038614,
+-38.5
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Link_W:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+9.7
+],
+[
+0.00014626098960493974,
+0.0,
+0.9999999893038614,
+-121.8822829800279
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket03_B:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket03_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket03_B.stl",
+"M": [
+[
+0.0,
+0.0,
+1.0,
+-6.7
+],
+[
+-1.0,
+0.0,
+0.0,
+-25.0
+],
+[
+0.0,
+-1.0,
+0.0,
+38.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket01_B:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket01_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket01_B.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+-6.7
+],
+[
+1.0,
+0.0,
+0.0,
+-135.3822829800279
+],
+[
+0.0,
+-1.0,
+0.0,
+38.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket05_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Bracket05_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Bracket05_B.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+-21.0
+],
+[
+0.0,
+1.0,
+0.0,
+-157.3822829800279
+],
+[
+0.0,
+0.0,
+-1.0,
+-0.3
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Nee_B:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Nee_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Nee_B.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+-43.35
+],
+[
+0.0,
+1.0,
+0.0,
+-80.19114149001395
+],
+[
+0.0,
+0.0,
+-1.0,
+22.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket02_W:3",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-42.85
+],
+[
+0.00014626098960493974,
+0.0,
+-0.9999999893038614,
+-32.00000012835366
+],
+[
+-0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+17.70175513187526
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket02_W:4",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket02_W.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-42.85
+],
+[
+0.00014626098960493974,
+0.0,
+0.9999999893038614,
+-128.38228285167423
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+17.70175513187526
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Link_W:3",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-9.7
+],
+[
+-0.00014626098960493974,
+0.0,
+-0.9999999893038614,
+-38.5
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Link_W:4",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Link_W.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-42.8
+],
+[
+0.00014626098960493974,
+0.0,
+0.9999999893038614,
+-121.8822829800279
+],
+[
+0.9999999893038614,
+0.0,
+-0.00014626098960497105,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Spacer01_W:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Spacer01_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Spacer01_W.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+-1.0,
+0.0,
+4.0
+],
+[
+0.0,
+0.0,
+-1.0,
+25.2
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+26.25
+],
+[
+0.0,
+0.0,
+1.0,
+-25.0
+],
+[
+0.0,
+-1.0,
+0.0,
+31.1
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+26.25
+],
+[
+0.0,
+0.0,
+1.0,
+-135.3822829800279
+],
+[
+0.0,
+-1.0,
+0.0,
+31.1
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:3",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+37.85
+],
+[
+-0.9999999893038614,
+0.0,
+0.00014626098960493974,
+-49.34999994277567
+],
+[
+-0.00014626098960497105,
+0.0,
+-0.9999999893038614,
+17.69921750370561
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:4",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+37.85
+],
+[
+0.9999999893038612,
+0.0,
+0.00014626098960505076,
+-111.03228303725224
+],
+[
+-0.00014626098960506198,
+0.0,
+0.9999999893038612,
+17.699217503705626
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:5",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+-26.25
+],
+[
+0.0,
+0.0,
+-1.0,
+-25.0
+],
+[
+0.0,
+-1.0,
+0.0,
+31.1
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:6",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+-26.25
+],
+[
+0.0,
+0.0,
+-1.0,
+-135.3822829800279
+],
+[
+0.0,
+-1.0,
+0.0,
+31.1
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:7",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-37.85
+],
+[
+-0.9999999893038614,
+0.0,
+-0.00014626098960493974,
+-49.34999994277567
+],
+[
+-0.00014626098960497105,
+0.0,
+0.9999999893038614,
+17.69921750370561
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:8",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-37.85
+],
+[
+0.9999999893038612,
+0.0,
+-0.00014626098960505076,
+-111.03228303725224
+],
+[
+-0.00014626098960506198,
+0.0,
+-0.9999999893038612,
+17.699217503705626
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:9",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+0.0
+],
+[
+0.0,
+-1.0,
+0.0,
+26.0
+],
+[
+-1.0,
+0.0,
+0.0,
+19.85
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:10",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+40.7
+],
+[
+1.0,
+0.0,
+0.0,
+19.35
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pelvis:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Pelvis.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_estilo\\Pelvis.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+0.0
+],
+[
+0.0,
+0.0,
+1.0,
+0.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:11",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+17.0
+],
+[
+-1.0,
+0.0,
+0.0,
+30.85
+],
+[
+0.0,
+0.0,
+1.0,
+25.2
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:12",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-17.0
+],
+[
+-1.0,
+0.0,
+0.0,
+30.85
+],
+[
+0.0,
+0.0,
+-1.0,
+25.2
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket07_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket07_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket07_B.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+47.1
+],
+[
+0.0,
+1.0,
+0.0,
+24.200000000000003
+],
+[
+0.0,
+0.0,
+1.0,
+25.2
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket09_W:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket09_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket09_W.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+71.2
+],
+[
+0.0,
+0.0,
+-1.0,
+42.2
+],
+[
+0.0,
+-1.0,
+0.0,
+42.55
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket11_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_rediseno\\Bracket11_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_rediseno\\Bracket11_B.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+71.7
+],
+[
+1.0,
+0.0,
+0.0,
+-25.1
+],
+[
+0.0,
+-1.0,
+0.0,
+36.55
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket08_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket08_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket08_B.stl",
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+-47.1
+],
+[
+0.0,
+1.0,
+0.0,
+24.200000000000003
+],
+[
+0.0,
+0.0,
+-1.0,
+25.2
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket10_W:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket10_W.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Bracket10_W.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-71.2
+],
+[
+0.0,
+0.0,
+-1.0,
+42.2
+],
+[
+0.0,
+1.0,
+0.0,
+42.55
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bracket12_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_rediseno\\Bracket12_B.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_rediseno\\Bracket12_B.stl",
+"M": [
+[
+0.0,
+0.0,
+1.0,
+-71.7
+],
+[
+1.0,
+0.0,
+0.0,
+-25.1
+],
+[
+0.0,
+1.0,
+0.0,
+36.55
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:13",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+60.2
+],
+[
+0.0,
+0.0,
+-1.0,
+-1.0
+],
+[
+-1.0,
+0.0,
+0.0,
+25.199999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:14",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+0.0,
+1.0,
+71.2
+],
+[
+-1.0,
+0.0,
+0.0,
+24.85
+],
+[
+0.0,
+-1.0,
+0.0,
+37.449999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:15",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-60.2
+],
+[
+0.0,
+0.0,
+1.0,
+-1.0
+],
+[
+-1.0,
+0.0,
+0.0,
+25.199999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "MG90S_grabcad_mg90s9:16",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\MG90S_grabcad_mg90s9.stl",
+"M": [
+[
+0.0,
+0.0,
+1.0,
+-71.2
+],
+[
+-1.0,
+0.0,
+0.0,
+24.85
+],
+[
+0.0,
+-1.0,
+0.0,
+37.449999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "PCA9685_adafruit_815:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\PCA9685_adafruit_815.iam",
+"stl": null,
+"M": [
+[
+-1.0,
+0.0,
+0.0,
+29.21
+],
+[
+0.0,
+1.0,
+0.0,
+13.5
+],
+[
+0.0,
+0.0,
+-1.0,
+1.5
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "ESP32_devkit_v1_30pin:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\ESP32_devkit_v1_30pin.iam",
+"stl": null,
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-23.37
+],
+[
+0.0,
+0.0,
+-1.0,
+44.25
+],
+[
+-1.0,
+0.0,
+0.0,
+0.56
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Bateria_LiPo_2S_1000_62x23x17:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\Bateria_LiPo_2S_1000_62x23x17.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-31.0
+],
+[
+0.0,
+1.0,
+0.0,
+13.5
+],
+[
+0.0,
+0.0,
+1.0,
+32.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "XL4015_52x12x24_acostado:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\XL4015_52x12x24_acostado.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-31.400000000000002
+],
+[
+0.0,
+1.0,
+0.0,
+40.15
+],
+[
+0.0,
+0.0,
+1.0,
+31.8
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "IMU_GY521_21x16:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\IMU_GY521_21x16.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+7.0
+],
+[
+0.0,
+1.0,
+0.0,
+16.0
+],
+[
+0.0,
+0.0,
+1.0,
+4.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Fichas_pines_IMU:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\Fichas_pines_IMU.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+7.45
+],
+[
+0.0,
+1.0,
+0.0,
+17.6
+],
+[
+0.0,
+0.0,
+1.0,
+4.3
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Fichas_servos_PCA_atras:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\Fichas_servos_PCA_atras.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-25.4
+],
+[
+0.0,
+1.0,
+0.0,
+7.199999999999999
+],
+[
+0.0,
+0.0,
+1.0,
+-16.6
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Fichas_pines_ESP32_atras14:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\Fichas_pines_ESP32_atras14.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-19.1
+],
+[
+0.0,
+1.0,
+0.0,
+54.5
+],
+[
+0.0,
+0.0,
+1.0,
+-24.3
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Fichas_pines_ESP32_atras14:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Componentes\\Fichas_pines_ESP32_atras14.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+-19.1
+],
+[
+0.0,
+1.0,
+0.0,
+54.5
+],
+[
+0.0,
+0.0,
+1.0,
+-1.3
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Torso_cuerpo_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\Torso_cuerpo_B.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+0.0
+],
+[
+0.0,
+0.0,
+1.0,
+0.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Torso_pecho:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\Torso_pecho.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+0.0
+],
+[
+0.0,
+0.0,
+1.0,
+0.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Torso_atras_B:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\Torso_atras_B.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+0.0
+],
+[
+0.0,
+0.0,
+1.0,
+0.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Cabeza_frente:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\Cabeza_frente.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+109.0
+],
+[
+0.0,
+0.0,
+1.0,
+13.850000000000001
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Cabeza_tapa:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\Cabeza_tapa.ipt",
+"stl": null,
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+109.0
+],
+[
+0.0,
+0.0,
+1.0,
+13.850000000000001
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+-21.0
+],
+[
+-1.0,
+0.0,
+0.0,
+-25.0
+],
+[
+0.0,
+1.0,
+0.0,
+38.67499999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:2",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+21.0
+],
+[
+-1.0,
+0.0,
+0.0,
+-25.0
+],
+[
+0.0,
+1.0,
+0.0,
+38.67499999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:3",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.82499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-44.0
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:4",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.77499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-38.5
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:5",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.725000000000009
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-38.5
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:6",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.82499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-116.3822829800279
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:7",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.77499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-121.8822829800279
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:8",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.725000000000012
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-121.8822829800279
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:9",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+21.0
+],
+[
+-1.0,
+0.0,
+0.0,
+-135.3822829800279
+],
+[
+0.0,
+1.0,
+0.0,
+38.675
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:10",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.625000000000014
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-72.69114149001393
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:11",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.625000000000014
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-87.69114149001396
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.69999999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:12",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.725000000000009
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-67.19114149001395
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:13",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+9.725000000000012
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-93.19114149001396
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:14",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.82499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-72.69114149001393
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:15",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.82499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-87.69114149001396
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.69999999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:16",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.77499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-67.19114149001395
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:17",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+42.77499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-93.19114149001396
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:18",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.82499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-44.0
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:19",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.77499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-38.5
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:20",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.725000000000012
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-38.5
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:21",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.82499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-116.3822829800279
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.700000000000003
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:22",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.77499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-121.8822829800279
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:23",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.725000000000009
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-121.8822829800279
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:24",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+-21.0
+],
+[
+-1.0,
+0.0,
+0.0,
+-135.3822829800279
+],
+[
+0.0,
+1.0,
+0.0,
+38.675
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:25",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.82499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-72.69114149001393
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:26",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.82499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-87.69114149001396
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.69999999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:27",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.77499999999999
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-67.19114149001395
+],
+[
+0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:28",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+-42.77499999999999
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-93.19114149001396
+],
+[
+0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:29",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.625000000000007
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-72.69114149001393
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+17.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:30",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.625000000000007
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-87.69114149001396
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+17.69999999999999
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:31",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.72500000000001
+],
+[
+0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-67.19114149001395
+],
+[
+-0.8190681436700332,
+0.0,
+-0.5736962402046276,
+32.699999999999996
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:32",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-9.725000000000009
+],
+[
+-0.5736962402046276,
+0.0,
+-0.8190681436700332,
+-93.19114149001396
+],
+[
+-0.8190681436700332,
+0.0,
+0.5736962402046276,
+32.7
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:33",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+71.2
+],
+[
+-1.0,
+0.0,
+0.0,
+30.200000000000003
+],
+[
+0.0,
+1.0,
+0.0,
+42.524999999999984
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:34",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+-1.0,
+0.0,
+55.125000000000014
+],
+[
+0.0,
+0.0,
+-1.0,
+-1.0
+],
+[
+1.0,
+0.0,
+0.0,
+30.549999999999997
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:35",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+0.0,
+-1.0,
+-71.2
+],
+[
+-1.0,
+0.0,
+0.0,
+30.200000000000003
+],
+[
+0.0,
+1.0,
+0.0,
+42.524999999999984
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Pipe_M3:36",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_m3\\Pipe_M3.stl",
+"M": [
+[
+0.0,
+1.0,
+0.0,
+-55.125000000000014
+],
+[
+0.0,
+0.0,
+-1.0,
+-1.0
+],
+[
+-1.0,
+0.0,
+0.0,
+30.549999999999997
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+},
+{
+"nombre": "Soporte_parado:1",
+"ipt": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_soportes\\Soporte_parado.ipt",
+"stl": "C:\\Users\\rodri\\Documents\\PlatformIO\\Projects\\Proyecto Robot\\CAD\\Nuevo\\piezas_soportes\\Soporte_parado.stl",
+"M": [
+[
+1.0,
+0.0,
+0.0,
+0.0
+],
+[
+0.0,
+1.0,
+0.0,
+0.0
+],
+[
+0.0,
+0.0,
+1.0,
+0.0
+],
+[
+0.0,
+0.0,
+0.0,
+1.0
+]
+]
+}
+]
