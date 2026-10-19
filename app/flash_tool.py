@@ -52,11 +52,13 @@ AYUDA_SIN_CONEXION = (
 
 
 AYUDA_MEMORIA_FLASH = (
-    "El ESP32 de {puerto} responde, pero no puede hablar con su propia memoria flash\n"
-    "(esptool: 'Failed to communicate with the flash chip'), asi que no se le puede grabar nada.\n\n"
+    "El ESP32 de {puerto} responde, pero no puede hablar bien con su propia memoria flash\n"
+    "(no la reconoce, o lo grabado no coincide al verificar), asi que no se le puede grabar.\n\n"
     "Lo mas comun:\n"
     "  - Algo conectado al pin D12 (GPIO12): si esta en alto al arrancar, la memoria recibe 1.8 V\n"
     "    en vez de 3.3 V y deja de responder. Desconecta lo que este en D12 (y en D6 a D11) y reintenta.\n"
+    "  - Si la placa esta puesta en una placa de expansion, protoboard o en el robot, sacala y\n"
+    "    probala sola: si dos ESP32 distintos fallan igual en el mismo lugar, el problema es ese lugar.\n"
     "  - Placa sola, sin nada conectado, y sigue igual: la placa (o su memoria) esta danada; usa otra.\n"
     "  - Prueba otro puerto USB de la PC o un cable mas corto."
 )
@@ -84,7 +86,8 @@ def esperar_puerto_libre(puerto, segundos=ESPERA_PUERTO_S):
 def explicar_error(texto, puerto):
     """Mensaje para el usuario segun lo que dijo esptool (sin necesitar a nadie que lo interprete)."""
     t = texto.lower()
-    if "failed to communicate with the flash chip" in t:
+    # memoria flash que no responde o no guarda lo grabado (la verificacion MD5 no coincide)
+    if "failed to communicate with the flash chip" in t or "does not match data in flash" in t:
         return AYUDA_MEMORIA_FLASH.format(puerto=puerto)
     if "filenotfound" in t or "no puede encontrar" in t or "cannot find" in t:
         return AYUDA_SIN_CONEXION.format(puerto=puerto)
