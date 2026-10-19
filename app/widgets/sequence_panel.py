@@ -34,6 +34,7 @@ class SequencePanel(QWidget):
     # PySide6 a veces falla al convertir un dict directo ("Cannot
     # copy-convert dict to C++") y la señal se pierde en silencio.
     paso_activado = Signal(object)  # angulos de la pose que hay que aplicar ahora
+    paso_sincronizado = Signal(object, int)  # angulos + ms: los servos llegan todos juntos (POSET)
     reproduccion_cambiada = Signal(bool)  # True mientras esta reproduciendo
     secuencias_cambiadas = Signal()  # se guardo, sobrescribio, borro o importo alguna
 
@@ -163,6 +164,14 @@ class SequencePanel(QWidget):
         )
         self.check_bucle = QCheckBox("Repetir en bucle")
         self.check_bucle.setToolTip("Repite la secuencia sin parar, hasta que presiones Detener.")
+        # Apagada = como siempre (POSE con la velocidad de arriba). Prendida = cada paso se manda
+        # con su duracion y el robot reparte el movimiento para que todos los servos lleguen juntos.
+        # Necesita el firmware con el comando POSET.
+        self.check_sincronizado = QCheckBox("Movimiento sincronizado")
+        self.check_sincronizado.setToolTip(
+            "Todos los servos arrancan y llegan juntos a cada pose, en la duracion de ese paso\n"
+            "(sin tirones). Ignora la velocidad de arriba. Requiere el firmware nuevo (POSET)."
+        )
 
         self.btn_reproducir = QPushButton("▶ Reproducir")
         self.btn_reproducir.setToolTip("Ejecuta la secuencia de pasos en orden.")
@@ -176,8 +185,9 @@ class SequencePanel(QWidget):
         fila_reproduccion.addWidget(QLabel("Repeticiones:"), 0, 0)
         fila_reproduccion.addWidget(self.spin_repeticiones, 0, 1)
         fila_reproduccion.addWidget(self.check_bucle, 0, 2)
-        fila_reproduccion.addWidget(self.btn_reproducir, 1, 0, 1, 2)
-        fila_reproduccion.addWidget(self.btn_detener, 1, 2)
+        fila_reproduccion.addWidget(self.check_sincronizado, 1, 2)
+        fila_reproduccion.addWidget(self.btn_reproducir, 2, 0, 1, 2)
+        fila_reproduccion.addWidget(self.btn_detener, 2, 2)
 
         caja = QWidget()
         layout = QVBoxLayout(caja)
@@ -392,7 +402,10 @@ class SequencePanel(QWidget):
         paso = self._pasos_actuales[self._indice_paso]
         angulos = self._positions_panel.angulos_de(paso["posicion"])
         if angulos:
-            self.paso_activado.emit(angulos)
+            if self.check_sincronizado.isChecked():
+                self.paso_sincronizado.emit(angulos, paso["duracion_ms"])
+            else:
+                self.paso_activado.emit(angulos)
         self._timer.start(paso["duracion_ms"])
 
     def _avanzar_reproduccion(self):

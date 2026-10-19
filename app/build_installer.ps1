@@ -28,4 +28,4 @@ if (-not $iscc) {
 & $iscc.FullName installer\RobotControl.iss
 
 Write-Host ""
-Write-Host "Listo: installer\output\RobotControl-Setup.exe — esto es lo que le mandas a la otra persona."
+Write-Host "Listo: installer\output\RobotControl-Setup.exe - esto es lo que le mandas a la otra persona."

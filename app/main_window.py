@@ -109,6 +109,7 @@ class MainWindow(QMainWindow):
 
         self.sequence_panel = SequencePanel(self.positions_panel)
         self.sequence_panel.paso_activado.connect(self._aplicar_pose)
+        self.sequence_panel.paso_sincronizado.connect(self._aplicar_pose)
         # Renombrar una pose tiene que arreglar los pasos que la usaban, o
         # quedarian apuntando a un nombre que ya no existe.
         self.positions_panel.pose_renombrada.connect(self.sequence_panel.renombrar_pose_en_secuencias)
@@ -426,10 +427,12 @@ class MainWindow(QMainWindow):
             self.serial_link.send(f"{canal},{pulso},{velocidad}")
         self._pendientes.clear()
 
-    def _aplicar_pose(self, angulos):
+    def _aplicar_pose(self, angulos, ms=None):
         # Se manda como un solo comando POSE con los 16 pulsos, en vez de 16
         # comandos sueltos: por WiFi, cualquiera de 16 mensajes separados
         # podia llegar tarde o perderse y dejar la pose a medio aplicar.
+        # Con ms (secuencia con "Movimiento sincronizado"): POSET, los 16 llegan
+        # juntos en esos ms en vez de ir cada uno a la misma velocidad.
         velocidad = self.spin_velocidad.value()
         self.control_panel.aplicar_angulos(angulos, emitir=False)
 
@@ -448,7 +451,10 @@ class MainWindow(QMainWindow):
                 angulo = fila.slider.value() if fila else 0
             pulsos.append(int(cc.angulo_a_pulso(servo, angulo)))
 
-        self.serial_link.send("POSE," + ",".join(str(p) for p in pulsos) + f",{velocidad}")
+        if ms:
+            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{int(ms)}")
+        else:
+            self.serial_link.send("POSE," + ",".join(str(p) for p in pulsos) + f",{velocidad}")
 
     def _guardar_pose_actual(self):
         self.positions_panel.guardar_captura(self.control_panel.obtener_angulos())

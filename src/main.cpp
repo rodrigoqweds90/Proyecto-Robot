@@ -78,6 +78,12 @@ struct CanalServo {
   float pulsoObjetivo;
   float pasoPorTick; // us que avanza cada TICK_RAMPA_MS. 0 = todavia no seteado
   bool  activo;       // false tras STOP/RELAX hasta el proximo comando de movimiento
+  // Movimiento por tiempo (POSET): sale de pulsoInicio en tInicio y llega a pulsoObjetivo
+  // justo a los duracionMs, con arranque y frenado suaves. duracionMs = 0 => rampa por
+  // velocidad de siempre (pasoPorTick).
+  float pulsoInicio;
+  unsigned long tInicio;
+  uint32_t duracionMs;
 };
 CanalServo canales[NUM_CANALES];
 
@@ -134,6 +140,7 @@ void comandoMover(uint8_t canal, uint16_t pulsoUs, uint16_t velocidad, bool avis
   pulsoUs = constrain(pulsoUs, PULSO_MIN_ABS, PULSO_MAX_ABS);
   canales[canal].activo = true;
   canales[canal].pulsoObjetivo = pulsoUs;
+  canales[canal].duracionMs = 0;   // cualquier comando por velocidad corta un POSET en curso
 
   if (velocidad == 0) {
     aplicarPulso(canal, pulsoUs);
@@ -164,7 +171,18 @@ void actualizarRampas() {
                             (correccion == 0 && ultimaCorreccion[canal] != 0);
     if (!enRampa && !cambioCorreccion) continue;
 
-    if (enRampa) {
+    if (enRampa && canales[canal].duracionMs > 0) {
+      // POSET: posicion segun el tiempo transcurrido (todos los canales de la pose llegan juntos)
+      float f = (float) (ahora - canales[canal].tInicio) / (float) canales[canal].duracionMs;
+      if (f >= 1.0f) {
+        canales[canal].pulsoActual = canales[canal].pulsoObjetivo;
+        canales[canal].duracionMs = 0;
+      } else {
+        float s = f * f * (3.0f - 2.0f * f);   // arranque y frenado suaves
+        canales[canal].pulsoActual = canales[canal].pulsoInicio +
+                                     (canales[canal].pulsoObjetivo - canales[canal].pulsoInicio) * s;
+      }
+    } else if (enRampa) {
       float paso = canales[canal].pasoPorTick;
       if (paso <= 0) paso = 40; // respaldo por si se pidio rampa sin velocidad definida
       canales[canal].pulsoActual += (diff > 0 ? min(paso, diff) : max(-paso, diff));
@@ -654,6 +672,7 @@ void moverGrupoNivelado(int grupo, float us) {
     if (!grupoDelCanal(canal, g, signo) || g != grupo) continue;
     canales[canal].pulsoObjetivo = constrain(canales[canal].pulsoObjetivo + signo * us, (float) PULSO_MIN_ABS, (float) PULSO_MAX_ABS);
     canales[canal].pasoPorTick = NIVEL_VELOCIDAD;
+    canales[canal].duracionMs = 0;
   }
   nivelado.acumulado[grupo] += us;
 }
@@ -1135,6 +1154,7 @@ void reportarEstado() {
   enviarLinea("  STOP      -> corta el PWM de todos los servos (emergencia)");
   enviarLinea("  RESUME    -> reactiva tras un STOP");
   enviarLinea("  RELAX     -> suelta el torque de todos los servos (para posar a mano)");
+  enviarLinea("  POSET,p0..p15,ms -> los 16 servos llegan juntos a la pose en ms (movimiento sincronizado)");
   enviarLinea("  HOME      -> mueve a la posicion de inicio guardada");
   enviarLinea("  HOMESET   -> guarda la posicion actual como inicio (persiste al apagar)");
   enviarLinea("  CENTRAR   -> los 16 servos a 90 grados (para poner los horns con los soportes de armado)");
@@ -1285,6 +1305,42 @@ void procesarLinea(String linea) {
     }
     enPoseHome = false;
     enviarLinea("POSE,ok");
+    return;
+  }
+
+  if (tipo.equalsIgnoreCase("POSET")) {
+    // Formato: POSET,p0,p1,...,p15,ms -> como POSE, pero en vez de una velocidad igual para
+    // todos, cada canal se mueve a su ritmo para que los 16 lleguen JUNTOS a los ms pedidos
+    // (con arranque y frenado suaves). POSE sigue igual que siempre.
+    uint16_t pulsos[NUM_CANALES];
+    int cursor = primeraComa + 1;
+    bool formatoValido = true;
+    for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
+      int coma = linea.indexOf(',', cursor);
+      if (coma == -1) { formatoValido = false; break; }
+      pulsos[canal] = (uint16_t) linea.substring(cursor, coma).toInt();
+      cursor = coma + 1;
+    }
+    long ms = formatoValido ? linea.substring(cursor).toInt() : 0;
+    if (!formatoValido || ms < 0 || ms > 60000) {
+      enviarLinea("POSET invalida: se esperan 16 pulsos + ms (0-60000).");
+      return;
+    }
+    if (emergenciaActiva) {
+      enviarLinea("STOP activo. Envia RESUME antes de mover.");
+      return;
+    }
+    unsigned long ahora = millis();
+    for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
+      comandoMover(canal, pulsos[canal], ms == 0 ? 0 : 1, false);   // velocidad 0 = salto inmediato
+      if (ms > 0) {
+        canales[canal].pulsoInicio = canales[canal].pulsoActual;
+        canales[canal].tInicio = ahora;
+        canales[canal].duracionMs = (uint32_t) ms;
+      }
+    }
+    enPoseHome = false;
+    enviarLinea("POSET,ok");
     return;
   }
 
