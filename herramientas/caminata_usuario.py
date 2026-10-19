@@ -96,10 +96,25 @@ def main():
         json.dump({"nombre": nombre, "angulos": {str(c): int(v) for c, v in sorted(a.items())}, "carpeta": CARPETA},
                   open(os.path.join(pos, archivo(nombre)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
     caminar_doblando = [dobladas[n][0] if n in dobladas else n for n in caminar]
+    # fluido: 4 poses por paso en vez de 6, juntando lo que no se estorba
+    #  - "centrar" + "peso al otro pie" = un solo movimiento de costado (1.9 -> 1.11 y 1.15 -> 1.5 directo)
+    #  - "la de apoyo a vertical" + "la otra pasa por debajo, doblada" = a la vez (los dos adelante-atras, con
+    #    el peso quieto sobre el mismo pie)
+    juntas = {"1.6+7 doblada": ("1.7", {1: -DOBLA, 2: DOBLA}), "1.12+13 doblada": ("1.13", {14: DOBLA, 13: -DOBLA})}
+    for nombre, (base, cambios) in juntas.items():
+        _, peso, i, d = next(p for p in POSES if p[0] == base)
+        a = pose(ref, peso, i, d)
+        for c, v in cambios.items():
+            a[c] = ref[c] + v
+        json.dump({"nombre": nombre, "angulos": {str(c): int(v) for c, v in sorted(a.items())}, "carpeta": CARPETA},
+                  open(os.path.join(pos, archivo(nombre)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
+    fluido_inicio = ["1.1", "1.2", "1.3"]
+    fluido = ["1.5", "1.6+7 doblada", "1.8", "1.9", "1.11", "1.12+13 doblada", "1.14", "1.15"]
     # solo las completas (pedido del usuario): de erguido, varios pasos y de vuelta a erguido
     secuencias = {"Adelante completo": inicio + caminar * repetir + final,
                   "Atras completo": atras_inicio + atras * repetir + atras_final,
-                  "Adelante doblando completo": inicio + caminar_doblando * repetir + final}
+                  "Adelante doblando completo": inicio + caminar_doblando * repetir + final,
+                  "Adelante fluido completo": fluido_inicio + fluido * repetir + final}
     for nombre, pasos in secuencias.items():
         json.dump({"nombre": nombre, "categoria": "Retroceder" if nombre.startswith("Atras") else "Caminar", "pasos": [{"posicion": p, "duracion_ms": ms} for p in pasos]},
                   open(os.path.join(sec, nombre + ".json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)

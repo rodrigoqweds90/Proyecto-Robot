@@ -84,6 +84,7 @@ struct CanalServo {
   float pulsoInicio;
   unsigned long tInicio;
   uint32_t duracionMs;
+  bool lineal;        // POSET con modo 1: velocidad pareja, sin frenar (tramos cortos de una curva continua)
 };
 CanalServo canales[NUM_CANALES];
 
@@ -178,7 +179,7 @@ void actualizarRampas() {
         canales[canal].pulsoActual = canales[canal].pulsoObjetivo;
         canales[canal].duracionMs = 0;
       } else {
-        float s = f * f * (3.0f - 2.0f * f);   // arranque y frenado suaves
+        float s = canales[canal].lineal ? f : f * f * (3.0f - 2.0f * f);   // lineal o con arranque y frenado suaves
         canales[canal].pulsoActual = canales[canal].pulsoInicio +
                                      (canales[canal].pulsoObjetivo - canales[canal].pulsoInicio) * s;
       }
@@ -1154,7 +1155,7 @@ void reportarEstado() {
   enviarLinea("  STOP      -> corta el PWM de todos los servos (emergencia)");
   enviarLinea("  RESUME    -> reactiva tras un STOP");
   enviarLinea("  RELAX     -> suelta el torque de todos los servos (para posar a mano)");
-  enviarLinea("  POSET,p0..p15,ms -> los 16 servos llegan juntos a la pose en ms (movimiento sincronizado)");
+  enviarLinea("  POSET,p0..p15,ms[,1] -> los 16 servos llegan juntos a la pose en ms (,1 = velocidad pareja)");
   enviarLinea("  HOME      -> mueve a la posicion de inicio guardada");
   enviarLinea("  HOMESET   -> guarda la posicion actual como inicio (persiste al apagar)");
   enviarLinea("  CENTRAR   -> los 16 servos a 90 grados (para poner los horns con los soportes de armado)");
@@ -1309,9 +1310,11 @@ void procesarLinea(String linea) {
   }
 
   if (tipo.equalsIgnoreCase("POSET")) {
-    // Formato: POSET,p0,p1,...,p15,ms -> como POSE, pero en vez de una velocidad igual para
-    // todos, cada canal se mueve a su ritmo para que los 16 lleguen JUNTOS a los ms pedidos
-    // (con arranque y frenado suaves). POSE sigue igual que siempre.
+    // Formato: POSET,p0,p1,...,p15,ms[,modo] -> como POSE, pero en vez de una velocidad igual
+    // para todos, cada canal se mueve a su ritmo para que los 16 lleguen JUNTOS a los ms pedidos.
+    // modo 0 (o sin modo): arranque y frenado suaves. modo 1: velocidad pareja, para que la app
+    // mande una curva continua en tramos cortos sin que el robot frene en cada tramo.
+    // POSE sigue igual que siempre.
     uint16_t pulsos[NUM_CANALES];
     int cursor = primeraComa + 1;
     bool formatoValido = true;
@@ -1321,7 +1324,9 @@ void procesarLinea(String linea) {
       pulsos[canal] = (uint16_t) linea.substring(cursor, coma).toInt();
       cursor = coma + 1;
     }
-    long ms = formatoValido ? linea.substring(cursor).toInt() : 0;
+    long ms = formatoValido ? linea.substring(cursor).toInt() : 0;   // toInt() corta en la coma del modo
+    int comaModo = formatoValido ? linea.indexOf(',', cursor) : -1;
+    bool lineal = comaModo != -1 && linea.substring(comaModo + 1).toInt() == 1;
     if (!formatoValido || ms < 0 || ms > 60000) {
       enviarLinea("POSET invalida: se esperan 16 pulsos + ms (0-60000).");
       return;
@@ -1337,6 +1342,7 @@ void procesarLinea(String linea) {
         canales[canal].pulsoInicio = canales[canal].pulsoActual;
         canales[canal].tInicio = ahora;
         canales[canal].duracionMs = (uint32_t) ms;
+        canales[canal].lineal = lineal;
       }
     }
     enPoseHome = false;

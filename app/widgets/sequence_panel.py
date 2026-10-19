@@ -8,8 +8,9 @@ quedan separadas para que la lista de secuencias y la de pasos dejen de estar
 amontonadas una encima de la otra.
 """
 
+import curva
 import storage
-from PySide6.QtCore import Qt, QTimer, Signal
+from PySide6.QtCore import QElapsedTimer, Qt, QTimer, Signal
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -35,6 +36,7 @@ class SequencePanel(QWidget):
     # copy-convert dict to C++") y la señal se pierde en silencio.
     paso_activado = Signal(object)  # angulos de la pose que hay que aplicar ahora
     paso_sincronizado = Signal(object, int)  # angulos + ms: los servos llegan todos juntos (POSET)
+    tramo_continuo = Signal(object, int)  # angulos + ms: tramo corto de la curva continua (POSET lineal)
     reproduccion_cambiada = Signal(bool)  # True mientras esta reproduciendo
     secuencias_cambiadas = Signal()  # se guardo, sobrescribio, borro o importo alguna
 
@@ -58,6 +60,13 @@ class SequencePanel(QWidget):
         self._reproduciendo = False
         self._indice_paso = 0
         self._repeticion_actual = 0
+        # modo Continuo: la ventana principal da los angulos actuales (de donde arranca la curva)
+        self.angulos_actuales = None
+        self._curva = None
+        self._reloj = QElapsedTimer()
+        self._timer_continuo = QTimer(self)
+        self._timer_continuo.setTimerType(Qt.PreciseTimer)   # el normal de Windows salta cada ~62 ms
+        self._timer_continuo.timeout.connect(self._tick_continuo)
 
     # ------------------------------------------------------------------
     # SEGMENTO: CAJA DE SECUENCIAS GUARDADAS
@@ -172,6 +181,15 @@ class SequencePanel(QWidget):
             "Todos los servos arrancan y llegan juntos a cada pose, en la duracion de ese paso\n"
             "(sin tirones). Ignora la velocidad de arriba. Requiere el firmware nuevo (POSET)."
         )
+        # Continuo: ademas de sincronizado, no frena en cada pose: una curva suave pasa por todas.
+        self.check_continuo = QCheckBox("Continuo (más fluido)")
+        self.check_continuo.setToolTip(
+            "No frena en cada pose: cada servo sigue una curva suave que pasa por todas las poses,\n"
+            "en los tiempos de la secuencia. Se manda en tramos de 50 ms. Requiere el firmware nuevo (POSET)."
+        )
+        # continuo implica sincronizado (los dos usan POSET)
+        self.check_continuo.toggled.connect(lambda on: on and self.check_sincronizado.setChecked(True))
+        self.check_sincronizado.toggled.connect(lambda on: on or self.check_continuo.setChecked(False))
 
         self.btn_reproducir = QPushButton("▶ Reproducir")
         self.btn_reproducir.setToolTip("Ejecuta la secuencia de pasos en orden.")
@@ -185,6 +203,7 @@ class SequencePanel(QWidget):
         fila_reproduccion.addWidget(QLabel("Repeticiones:"), 0, 0)
         fila_reproduccion.addWidget(self.spin_repeticiones, 0, 1)
         fila_reproduccion.addWidget(self.check_bucle, 0, 2)
+        fila_reproduccion.addWidget(self.check_continuo, 1, 0, 1, 2)
         fila_reproduccion.addWidget(self.check_sincronizado, 1, 2)
         fila_reproduccion.addWidget(self.btn_reproducir, 2, 0, 1, 2)
         fila_reproduccion.addWidget(self.btn_detener, 2, 2)
@@ -387,11 +406,58 @@ class SequencePanel(QWidget):
         self.btn_reproducir.setEnabled(False)
         self.btn_detener.setEnabled(True)
         self.reproduccion_cambiada.emit(True)
-        self._ejecutar_paso_actual()
+        if self.check_continuo.isChecked():
+            self._empezar_continuo()
+        else:
+            self._ejecutar_paso_actual()
+
+    # ------------------------------------------------------------------
+    # SEGMENTO: MODO CONTINUO (curva suave por todas las poses, ver curva.py)
+    # ------------------------------------------------------------------
+    TRAMO_MS = 50
+
+    def _empezar_continuo(self):
+        vueltas = 200 if self.check_bucle.isChecked() else self.spin_repeticiones.value()
+        pasos = []
+        for p in self._pasos_actuales:
+            angulos = self._positions_panel.angulos_de(p["posicion"])
+            if angulos:
+                pasos.append((p["duracion_ms"], angulos))
+        if not pasos:
+            self._detener()
+            return
+        inicio = self.angulos_actuales() if self.angulos_actuales else pasos[0][1]
+        # mismas claves que las poses (texto) para todos los nudos
+        inicio = {str(c): v for c, v in inicio.items()}
+        nudos, t = [(0, inicio)], 0
+        for _ in range(vueltas):
+            for dur, angulos in pasos:
+                t += dur
+                nudos.append((t, {str(c): v for c, v in angulos.items()}))
+        self._curva = curva.Curva(nudos)
+        self._reloj.start()
+        self._tick_continuo()
+        self._timer_continuo.start(self.TRAMO_MS)
+
+    def _tick_continuo(self):
+        if not self._reproduciendo or self._curva is None:
+            return
+        t = self._reloj.elapsed()
+        if t >= self._curva.total:
+            self.tramo_continuo.emit(self._curva.en(self._curva.total), self.TRAMO_MS)
+            self._detener()
+            return
+        # se manda donde tiene que estar dentro de un tramo: el robot llega ahi en TRAMO_MS, a velocidad pareja
+        self.tramo_continuo.emit(self._curva.en(t + self.TRAMO_MS), self.TRAMO_MS)
+        indice = (self._curva.indice_en(t) - 1) % max(1, len(self._pasos_actuales))
+        if self.lista_pasos.currentRow() != indice:
+            self.lista_pasos.setCurrentRow(indice)
 
     def _detener(self):
         self._reproduciendo = False
         self._timer.stop()
+        self._timer_continuo.stop()
+        self._curva = None
         self.btn_reproducir.setEnabled(True)
         self.btn_detener.setEnabled(False)
         self.reproduccion_cambiada.emit(False)

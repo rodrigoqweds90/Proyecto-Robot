@@ -21,7 +21,7 @@ from shapely.geometry import MultiPoint, Point
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import simular_caminata as sc  # noqa: E402
 
-SECUENCIAS = ["Adelante completo", "Atras completo", "Adelante doblando completo", "Costado izq completo",
+SECUENCIAS = ["Adelante completo", "Atras completo", "Adelante doblando completo", "Adelante fluido completo", "Costado izq completo",
               "Costado der completo"]
 GRADOS_POR_S = {"MG90S": 60 / 0.08, "MG92B": 60 / 0.10}
 CARGA = 0.40                 # fraccion de la velocidad sin carga que se usa
@@ -124,6 +124,57 @@ def analizar(nombre_sec, trim, minimo):
                       "salto": max(abs(b.get(c, 0) - anterior[c]) for c in anterior)})
         anterior, ra = b, r
     return filas
+
+
+def verificar_continuo(nombre_sec, trim, paso_ms=20):
+    """modo Continuo de la app (app/curva.py): recorre la curva cada paso_ms y devuelve
+    (peor sobra de velocidad del servo en grados/s, peor margen del punto de apoyo efectivo en mm, instante del peor)"""
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "app"))
+    import curva
+    pasos = sc.leer(nombre_sec, "secuencias")["pasos"]
+    nudos, t = [(0, {str(c): v for c, v in angulos("Inicionx25").items()})], 0
+    for p in pasos:
+        t += p["duracion_ms"]
+        nudos.append((t, {str(c): v for c, v in angulos(p["posicion"]).items()}))
+    cv = curva.Curva(nudos)
+    muestras, r = [], None
+    for k in range(int(cv.total // paso_ms) + 1):
+        a = {int(c): v for c, v in cv.en(k * paso_ms).items()}
+        r = sc.analizar(a, trim, (0.0, 0.0) if r is None else r["inc"], 2.0)
+        muestras.append((a, r))
+    # velocidad de cada servo contra lo que puede con carga
+    peor_v = 1e9
+    for (a0, _), (a1, _) in zip(muestras, muestras[1:]):
+        for c in a0:
+            v = abs(a1[c] - a0[c]) / (paso_ms / 1000)
+            peor_v = min(peor_v, GRADOS_POR_S["MG92B" if c in MG92B else "MG90S"] * CARGA - v)
+    # punto de apoyo efectivo: diferencias finitas contra un pie que apoya en los tres instantes
+    peor_m, cuando = 1e9, 0
+    dt = paso_ms / 1000
+    for i in range(1, len(muestras) - 1):
+        rs = [muestras[j][1] for j in (i - 1, i, i + 1)]
+        comunes = [l for l in ("izq", "der") if all(l in x["toca"] for x in rs)]
+        if not comunes:
+            continue
+        pie = comunes[0]
+        rel = [(x["com"] - x["mundo"][pie][1].mean(axis=0))[[0, 2]] for x in rs]
+        # aceleracion solo de lo que mueven los servos (marco del cuerpo): el "balanceo" de un pie al otro del
+        # simulador es instantaneo y daria aceleraciones falsas; ese balanceo ya se revisa en cada pose quieta
+        cuerpo = []
+        for j in (i - 1, i, i + 1):
+            piernas, com_c, _ = sc.cuerpo(muestras[j][0], trim)
+            cuerpo.append((com_c - piernas[pie][1].mean(axis=0))[[0, 2]])
+        acel = (cuerpo[2] - 2 * cuerpo[1] + cuerpo[0]) / dt ** 2
+        zmp = rel[1] - rs[1]["com"][1] / G * acel
+        pies = set().union(*[x["toca"] for x in rs])
+        o = rs[1]["mundo"][pie][1].mean(axis=0)
+        apoyo = np.vstack([rs[1]["mundo"][l][1][:, [0, 2]] - o[[0, 2]] for l in pies])
+        pol = MultiPoint([tuple(q) for q in apoyo]).convex_hull
+        d = pol.exterior.distance(Point(*zmp))
+        m = d if pol.contains(Point(*zmp)) else -d
+        if m < peor_m:
+            peor_m, cuando = m, i * paso_ms
+    return peor_v, peor_m, cuando
 
 
 def main():

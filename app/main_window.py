@@ -110,6 +110,8 @@ class MainWindow(QMainWindow):
         self.sequence_panel = SequencePanel(self.positions_panel)
         self.sequence_panel.paso_activado.connect(self._aplicar_pose)
         self.sequence_panel.paso_sincronizado.connect(self._aplicar_pose)
+        self.sequence_panel.tramo_continuo.connect(lambda a, ms: self._aplicar_pose(a, ms, lineal=True))
+        self.sequence_panel.angulos_actuales = self.control_panel.obtener_angulos
         # Renombrar una pose tiene que arreglar los pasos que la usaban, o
         # quedarian apuntando a un nombre que ya no existe.
         self.positions_panel.pose_renombrada.connect(self.sequence_panel.renombrar_pose_en_secuencias)
@@ -427,7 +429,7 @@ class MainWindow(QMainWindow):
             self.serial_link.send(f"{canal},{pulso},{velocidad}")
         self._pendientes.clear()
 
-    def _aplicar_pose(self, angulos, ms=None):
+    def _aplicar_pose(self, angulos, ms=None, lineal=False):
         # Se manda como un solo comando POSE con los 16 pulsos, en vez de 16
         # comandos sueltos: por WiFi, cualquiera de 16 mensajes separados
         # podia llegar tarde o perderse y dejar la pose a medio aplicar.
@@ -451,7 +453,10 @@ class MainWindow(QMainWindow):
                 angulo = fila.slider.value() if fila else 0
             pulsos.append(int(cc.angulo_a_pulso(servo, angulo)))
 
-        if ms:
+        if ms and lineal:
+            # tramo corto de la curva continua: velocidad pareja, sin frenar ni adelantarse
+            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{int(ms)},1")
+        elif ms:
             # El firmware actualiza cada 15 ms: si el movimiento durara justo lo que dura el paso, la pose
             # siguiente podria llegar antes del ultimo tick y el servo quedaria un poco antes de su destino.
             # Terminando 30 ms antes (2 ticks), cada pose se completa siempre y espera a la siguiente.
