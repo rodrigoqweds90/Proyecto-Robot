@@ -7,10 +7,9 @@ Calcula para cada paso de una secuencia el tiempo minimo con dos limites y usa e
      Se recorre el paso con el simulador y la curva suave del firmware, instante por instante, y ese punto tiene
      que quedar SEGURIDAD mm adentro de los pies que tocan el piso en ese instante.
 Los servos no avisan donde quedaron (no hay realimentacion): por eso se calcula con datos de fabrica y margen.
-Las secuencias nuevas se llaman "<nombre> rapido" y NECESITAN la casilla "Movimiento sincronizado" (POSET).
-Uso: python acelerar_secuencias.py [--minimo 150] [--escribir]
+Las secuencias rapidas NECESITAN la casilla "Movimiento sincronizado" o "Continuo" (POSET).
+Uso: python acelerar_secuencias.py [--minimo 150]   (solo muestra el detalle; escribe secuencias_finales.py)
 """
-import json
 import math
 import os
 import sys
@@ -21,8 +20,8 @@ from shapely.geometry import MultiPoint, Point
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import simular_caminata as sc  # noqa: E402
 
-SECUENCIAS = ["Adelante completo", "Atras completo", "Adelante doblando completo", "Adelante fluido completo", "Costado izq completo",
-              "Costado der completo"]
+# las secuencias rapidas de la app (las arma secuencias_finales.py con estas mismas funciones)
+SECUENCIAS = ["Adelante 3 pasos", "Atras 3 pasos", "Costado izq 3 pasos", "Costado der 3 pasos"]
 GRADOS_POR_S = {"MG90S": 60 / 0.08, "MG92B": 60 / 0.10}
 CARGA = 0.40                 # fraccion de la velocidad sin carga que se usa
 PICO = 1.5                   # pico / promedio de la curva suave del firmware
@@ -193,15 +192,6 @@ def main():
             vistos.add(f["posicion"])
             print(f"{f['posicion'][:34]:34s} {f['salto']:4.0f}° {f['servo']:5.0f}ms {f['equilibrio']:5.0f}ms "
                   f"{f['estatico']:5.1f}mm {f['con_antes']:5.1f}mm {f['nuevo']:5d}ms {f['con_nuevo']:5.1f}mm")
-        if "--escribir" in sys.argv:
-            nuevo = nombre.replace(" completo", "") + " rapido"
-            d = sc.leer(nombre, "secuencias")
-            d["nombre"] = nuevo
-            d["pasos"] = [{"posicion": f["posicion"], "duracion_ms": f["nuevo"]} for f in filas]
-            with open(os.path.join(sc.cn.DATOS, "secuencias", nuevo + ".json"), "w", encoding="utf-8") as fh:
-                json.dump(d, fh, indent=2, ensure_ascii=False)
-            print(f"-> secuencia '{nuevo}'")
-
 
 if __name__ == "__main__":
     main()

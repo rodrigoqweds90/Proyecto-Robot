@@ -9,18 +9,17 @@ robot se ladeaba a la izquierda: el pie izquierdo apoyaba todavia viajando. Aca:
 Los movimientos de 1.1 a 1.7 son los del usuario; sus originales (y todas las poses viejas) estan en
 Documents/RobotControl_respaldo_2026-10-18.
 Signos (de sus poses): femur izq (1) + atras, femur der (14) + adelante.
-Uso: python caminata_usuario.py [--ms 400] [--pasos 3]
+Uso: python caminata_usuario.py   (solo poses; las secuencias: secuencias_finales.py)
 """
 import json
 import os
-import sys
 
 DATOS = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "RobotControl")
 CARPETA = "paso usuario"
 REF = "Inicionx25"
 INCLINAR = {0: 4, 3: 8, 12: 8, 15: 4}    # peso al pie derecho; al izquierdo, los mismos con signo contrario
 FEMUR = 40
-DOBLA = 25               # rodilla de la pierna que pasa por debajo, en "Adelante doblando completo"
+DOBLA = 25               # rodilla de la pierna que pasa por debajo (modo fluido)
 
 # (nombre, peso: -1 izquierdo / +1 derecho / 0 centro, muslo izq, muslo der)
 # muslo: -1 atras, 0 vertical, +1 adelante. Un cambio por pose.
@@ -57,69 +56,47 @@ def archivo(nombre):
     return "".join(c if c.isalnum() or c in " _-" else "_" for c in nombre).strip() + ".json"   # como app/storage.py
 
 
-def main():
-    ms = int(sys.argv[sys.argv.index("--ms") + 1]) if "--ms" in sys.argv else 400
-    repetir = int(sys.argv[sys.argv.index("--pasos") + 1]) if "--pasos" in sys.argv else 3
-    pos, sec = os.path.join(DATOS, "posiciones"), os.path.join(DATOS, "secuencias")
+# ---------------------------------------------------------------------
+# Orden de las poses (lo usa secuencias_finales.py para armar las secuencias)
+# ---------------------------------------------------------------------
+INICIO = ["1.1", "1.2", "1.3", "1.4"]                    # de pies juntos: paso con la derecha
+CAMINAR = [n for n, *_ in POSES][4:]                     # 1.5 .. 1.16: paso izquierdo + paso derecho
+FINAL = ["1.5", "1.6", "1.7", REF]                       # junta los pies y vuelve a erguido
+# para atras: las mismas poses en orden inverso (cada pose sigue haciendo un solo cambio; el peso va al pie de atras
+# y la pierna de apoyo, al volver a vertical o adelantarse, lleva el cuerpo hacia atras)
+ATRAS_INICIO = ["1.7", "1.6", "1.5", "1.4"]
+ATRAS = [n for n, *_ in POSES][3:-1][::-1]               # 1.15 .. 1.4
+ATRAS_FINAL = ["1.3", "1.2", "1.1", REF]
+# fluido: 4 poses por paso en vez de 6, juntando lo que no se estorba
+#  - "centrar" + "peso al otro pie" = un solo movimiento de costado (1.9 -> 1.11 y 1.15 -> 1.5 directo)
+#  - "la de apoyo a vertical" + "la otra pasa por debajo, doblada" = a la vez (los dos adelante-atras, con el peso
+#    quieto sobre el mismo pie); la rodilla doblada (DOBLA) hace que el pie pase ~9 mm sobre el piso
+JUNTAS = {"1.6+7 doblada": ("1.7", {1: -DOBLA, 2: DOBLA}), "1.12+13 doblada": ("1.13", {14: DOBLA, 13: -DOBLA})}
+FLUIDO_INICIO = ["1.1", "1.2", "1.3"]
+FLUIDO = ["1.5", "1.6+7 doblada", "1.8", "1.9", "1.11", "1.12+13 doblada", "1.14", "1.15"]
+FLUIDO_FINAL = FINAL
+ATRAS_FLUIDO_INICIO = ["1.7", "1.6", "1.5"]
+ATRAS_FLUIDO = FLUIDO[::-1]
+ATRAS_FLUIDO_FINAL = ["1.3", "1.2", "1.1", REF]
+
+
+def guardar_poses():
+    """escribe las poses 1.1 .. 1.16 y las dos 'juntas' del modo fluido en la carpeta de la app"""
+    pos = os.path.join(DATOS, "posiciones")
     ref = {int(k): v for k, v in json.load(open(os.path.join(pos, REF + ".json"), encoding="utf-8"))["angulos"].items()}
-    for nombre, peso, i, d in POSES:
-        a = pose(ref, peso, i, d)
-        json.dump({"nombre": nombre, "angulos": {str(c): int(v) for c, v in sorted(a.items())}, "carpeta": CARPETA},
-                  open(os.path.join(pos, archivo(nombre)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-        print(f"{nombre:6s} " + " ".join(f"{c}:{a[c]:>4}" for c in (0, 3, 12, 15, 1, 14)))
-    # lo de versiones anteriores ya no se usa (ciclo 01..12, medias inclinaciones)
-    for n in ("1.1a", "1.5a", "1.11a"):
-        if os.path.exists(os.path.join(pos, archivo(n))):
-            os.remove(os.path.join(pos, archivo(n)))
-    for k in range(1, 13):
-        if os.path.exists(os.path.join(pos, f"ciclo {k:02d}.json")):
-            os.remove(os.path.join(pos, f"ciclo {k:02d}.json"))
-    if os.path.exists(os.path.join(sec, "Paso usuario ciclo.json")):
-        os.remove(os.path.join(sec, "Paso usuario ciclo.json"))
-    nombres = [n for n, *_ in POSES]
-    inicio = nombres[:4]                      # 1.1 .. 1.4
-    caminar = nombres[4:]                     # 1.5 .. 1.16 (dos pasos, se repite en bucle)
-    final = ["1.5", "1.6", "1.7", REF]        # junta los pies y vuelve a erguido
-    # para atras: las mismas poses en orden inverso (cada pose sigue haciendo un solo cambio; el peso ahora va al pie
-    # de atras y la pierna de apoyo, al volver a vertical o adelantarse, lleva el cuerpo hacia atras)
-    atras_inicio = ["1.7", "1.6", "1.5", "1.4"]          # de erguido: inverso de "final"
-    atras = nombres[3:-1][::-1]                          # 1.15 .. 1.4 (dos pasos, se repite en bucle)
-    atras_final = ["1.3", "1.2", "1.1", REF]             # inverso de "inicio"
-    # prueba: la pierna que pasa por debajo (1.7 izquierda, 1.13 derecha) dobla la rodilla para que el pie pase mas
-    # alto; el resto es igual. Poses aparte para no tocar "Adelante completo", que ya funciona
-    dobladas = {"1.7": ("1.7 doblada", {1: -DOBLA, 2: DOBLA}), "1.13": ("1.13 doblada", {14: DOBLA, 13: -DOBLA})}
-    for base, (nombre, cambios) in dobladas.items():
+    todas = [(n, pose(ref, peso, i, d)) for n, peso, i, d in POSES]
+    for nombre, (base, cambios) in JUNTAS.items():
         _, peso, i, d = next(p for p in POSES if p[0] == base)
         a = pose(ref, peso, i, d)
         for c, v in cambios.items():
             a[c] = ref[c] + v
+        todas.append((nombre, a))
+    for nombre, a in todas:
         json.dump({"nombre": nombre, "angulos": {str(c): int(v) for c, v in sorted(a.items())}, "carpeta": CARPETA},
                   open(os.path.join(pos, archivo(nombre)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    caminar_doblando = [dobladas[n][0] if n in dobladas else n for n in caminar]
-    # fluido: 4 poses por paso en vez de 6, juntando lo que no se estorba
-    #  - "centrar" + "peso al otro pie" = un solo movimiento de costado (1.9 -> 1.11 y 1.15 -> 1.5 directo)
-    #  - "la de apoyo a vertical" + "la otra pasa por debajo, doblada" = a la vez (los dos adelante-atras, con
-    #    el peso quieto sobre el mismo pie)
-    juntas = {"1.6+7 doblada": ("1.7", {1: -DOBLA, 2: DOBLA}), "1.12+13 doblada": ("1.13", {14: DOBLA, 13: -DOBLA})}
-    for nombre, (base, cambios) in juntas.items():
-        _, peso, i, d = next(p for p in POSES if p[0] == base)
-        a = pose(ref, peso, i, d)
-        for c, v in cambios.items():
-            a[c] = ref[c] + v
-        json.dump({"nombre": nombre, "angulos": {str(c): int(v) for c, v in sorted(a.items())}, "carpeta": CARPETA},
-                  open(os.path.join(pos, archivo(nombre)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    fluido_inicio = ["1.1", "1.2", "1.3"]
-    fluido = ["1.5", "1.6+7 doblada", "1.8", "1.9", "1.11", "1.12+13 doblada", "1.14", "1.15"]
-    # solo las completas (pedido del usuario): de erguido, varios pasos y de vuelta a erguido
-    secuencias = {"Adelante completo": inicio + caminar * repetir + final,
-                  "Atras completo": atras_inicio + atras * repetir + atras_final,
-                  "Adelante doblando completo": inicio + caminar_doblando * repetir + final,
-                  "Adelante fluido completo": fluido_inicio + fluido * repetir + final}
-    for nombre, pasos in secuencias.items():
-        json.dump({"nombre": nombre, "categoria": "Retroceder" if nombre.startswith("Atras") else "Caminar", "pasos": [{"posicion": p, "duracion_ms": ms} for p in pasos]},
-                  open(os.path.join(sec, nombre + ".json"), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-        print(f"secuencia '{nombre}': {len(pasos)} poses de {ms} ms")
+    return [n for n, _ in todas]
 
 
 if __name__ == "__main__":
-    main()
+    print("poses:", ", ".join(guardar_poses()))
+    print("las secuencias las arma secuencias_finales.py")
