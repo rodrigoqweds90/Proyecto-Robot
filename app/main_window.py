@@ -452,7 +452,11 @@ class MainWindow(QMainWindow):
             pulsos.append(int(cc.angulo_a_pulso(servo, angulo)))
 
         if ms:
-            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{int(ms)}")
+            # El firmware actualiza cada 15 ms: si el movimiento durara justo lo que dura el paso, la pose
+            # siguiente podria llegar antes del ultimo tick y el servo quedaria un poco antes de su destino.
+            # Terminando 30 ms antes (2 ticks), cada pose se completa siempre y espera a la siguiente.
+            ms_mov = max(50, int(ms) - 30)
+            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{ms_mov}")
         else:
             self.serial_link.send("POSE," + ",".join(str(p) for p in pulsos) + f",{velocidad}")
 
