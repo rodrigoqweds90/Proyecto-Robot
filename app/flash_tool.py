@@ -8,6 +8,7 @@ en la raiz del proyecto) y se guardan en app/firmware/.
 """
 
 import io
+import re
 import sys
 import time
 
@@ -50,6 +51,21 @@ AYUDA_SIN_CONEXION = (
 )
 
 
+AYUDA_MEMORIA_FLASH = (
+    "El ESP32 de {puerto} responde, pero no puede hablar con su propia memoria flash\n"
+    "(esptool: 'Failed to communicate with the flash chip'), asi que no se le puede grabar nada.\n\n"
+    "Lo mas comun:\n"
+    "  - Algo conectado al pin D12 (GPIO12): si esta en alto al arrancar, la memoria recibe 1.8 V\n"
+    "    en vez de 3.3 V y deja de responder. Desconecta lo que este en D12 (y en D6 a D11) y reintenta.\n"
+    "  - Placa sola, sin nada conectado, y sigue igual: la placa (o su memoria) esta danada; usa otra.\n"
+    "  - Prueba otro puerto USB de la PC o un cable mas corto."
+)
+# Velocidades de subida: la primera es rapida; placas con chip USB CH340 y cables largos a veces la
+# pierden ("serial noise or corruption") y con la segunda andan.
+VELOCIDADES = (460800, 115200)
+RUIDO = ("noise", "corruption", "stream stopped", "invalid head", "timed out waiting", "packet content")
+
+
 def esperar_puerto_libre(puerto, segundos=ESPERA_PUERTO_S):
     """(True, "") si el puerto se puede abrir dentro del tiempo dado (y lo deja cerrado);
     si no, (False, error). Un puerto que no existe no se espera: no va a aparecer solo."""
@@ -68,6 +84,8 @@ def esperar_puerto_libre(puerto, segundos=ESPERA_PUERTO_S):
 def explicar_error(texto, puerto):
     """Mensaje para el usuario segun lo que dijo esptool (sin necesitar a nadie que lo interprete)."""
     t = texto.lower()
+    if "failed to communicate with the flash chip" in t:
+        return AYUDA_MEMORIA_FLASH.format(puerto=puerto)
     if "filenotfound" in t or "no puede encontrar" in t or "cannot find" in t:
         return AYUDA_SIN_CONEXION.format(puerto=puerto)
     if "acceso denegado" in t or "access is denied" in t or "permissionerror" in t or "busy" in t:
@@ -86,7 +104,8 @@ class _CapturaLineas(io.TextIOBase):
         self._buffer = ""
 
     def write(self, texto):
-        self._buffer += texto
+        # esptool pinta con codigos ANSI y reescribe la barra de progreso con \r: se limpian
+        self._buffer += re.sub(r"\x1b\[[0-9;]*[A-Za-z]", "", texto).replace("\r", "\n")
         while "\n" in self._buffer:
             linea, self._buffer = self._buffer.split("\n", 1)
             if linea.strip():
@@ -116,24 +135,37 @@ class FlashWorker(QThread):
             self.terminado.emit(False, explicar_error(error, self._puerto))
             return
 
-        argv = ["--chip", "esp32", "--port", self._puerto, "--baud", "460800", "write_flash"]
+        for intento, baudios in enumerate(VELOCIDADES):
+            exito, texto = self._grabar(baudios)
+            if exito:
+                self.terminado.emit(True, "Firmware actualizado correctamente."
+                                    + (f" (a {baudios} baudios)" if intento else ""))
+                return
+            t = texto.lower()
+            reintentar = (intento + 1 < len(VELOCIDADES) and any(r in t for r in RUIDO)
+                          and "failed to communicate with the flash chip" not in t)
+            if not reintentar:
+                break
+            self.linea.emit(f"Se corto la comunicacion a {baudios} baudios: reintentando mas lento "
+                            f"({VELOCIDADES[intento + 1]})...")
+            esperar_puerto_libre(self._puerto)
+        self.terminado.emit(False, explicar_error(texto, self._puerto))
+
+    def _grabar(self, baudios):
+        """(exito, todo lo que dijo esptool) de un intento de grabar a esa velocidad"""
+        argv = ["--chip", "esp32", "--port", self._puerto, "--baud", str(baudios), "write_flash"]
         for direccion, ruta in ARCHIVOS_FIRMWARE:
             argv += [direccion, str(ruta)]
-
         stdout_anterior = sys.stdout
         lineas = []
         sys.stdout = _CapturaLineas(lambda l: (lineas.append(l), self.linea.emit(l)))
         try:
             import esptool
             esptool.main(argv)
-            exito, mensaje = True, "Firmware actualizado correctamente."
+            return True, ""
         except SystemExit as exc:
-            exito = exc.code in (0, None)
-            mensaje = ("Firmware actualizado correctamente." if exito
-                       else explicar_error(" ".join(lineas[-5:]), self._puerto))
+            return exc.code in (0, None), " ".join(lineas)
         except Exception as exc:  # errores de esptool, puerto ocupado, etc.
-            exito, mensaje = False, explicar_error(str(exc), self._puerto)
+            return False, " ".join(lineas) + " " + str(exc)
         finally:
             sys.stdout = stdout_anterior
-
-        self.terminado.emit(exito, mensaje)
