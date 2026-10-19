@@ -1,0 +1,3 @@
+Poses y secuencias de la app (exportadas con "Exportar movimientos").
+En otra PC: app RobotControl -> Configuracion -> Importar movimientos... -> elegir movimientos_robot.json
+Se actualiza corriendo herramientas/secuencias_finales.py y exportando de nuevo.

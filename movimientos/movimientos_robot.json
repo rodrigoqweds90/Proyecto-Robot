@@ -1,0 +1,1640 @@
+{
+  "version": 1,
+  "canales": [
+    {
+      "canal": 0,
+      "nombre": "Cadera izquierda",
+      "grupo": "Pierna izquierda",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 1,
+      "nombre": "Femur izquierda",
+      "grupo": "Pierna izquierda",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 2,
+      "nombre": "Tibia izquierda",
+      "grupo": "Pierna izquierda",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 3,
+      "nombre": "Pie izquierda",
+      "grupo": "Pierna izquierda",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 4,
+      "nombre": "Mano Izquierda",
+      "grupo": "Brazo izquierdo",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 5,
+      "nombre": "Codo Izquierda",
+      "grupo": "Brazo izquierdo",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 6,
+      "nombre": "Hombro Izquierda",
+      "grupo": "Brazo izquierdo",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 7,
+      "nombre": "Torso",
+      "grupo": "Torso",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 8,
+      "nombre": "Cabeza",
+      "grupo": "Otro",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 9,
+      "nombre": "Hombro derecho",
+      "grupo": "Brazo derecho",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 10,
+      "nombre": "Codo derecho",
+      "grupo": "Brazo derecho",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 11,
+      "nombre": "Mano derecho",
+      "grupo": "Brazo derecho",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 12,
+      "nombre": "Pie derecho",
+      "grupo": "Pierna derecha",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 13,
+      "nombre": "Tibia derecho",
+      "grupo": "Pierna derecha",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 14,
+      "nombre": "Femur derecho",
+      "grupo": "Pierna derecha",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    },
+    {
+      "canal": 15,
+      "nombre": "Cadera derecha",
+      "grupo": "Pierna derecha",
+      "angMin": -90,
+      "angMax": 90,
+      "pwmMin": 500,
+      "pwmMax": 2450
+    }
+  ],
+  "posiciones": {
+    "1.1": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 0,
+      "15": 2
+    },
+    "1.10": {
+      "0": -2,
+      "1": -40,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 6,
+      "13": 0,
+      "14": -40,
+      "15": 6
+    },
+    "1.11": {
+      "0": -6,
+      "1": -40,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": -40,
+      "15": 2
+    },
+    "1.12": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": -40,
+      "15": 2
+    },
+    "1.12+13 doblada": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": -25,
+      "14": 25,
+      "15": 2
+    },
+    "1.13": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 0,
+      "15": 2
+    },
+    "1.14": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 40,
+      "15": 2
+    },
+    "1.15": {
+      "0": -6,
+      "1": 40,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 40,
+      "15": 2
+    },
+    "1.16": {
+      "0": -2,
+      "1": 40,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 6,
+      "13": 0,
+      "14": 40,
+      "15": 6
+    },
+    "1.2": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 40,
+      "15": 2
+    },
+    "1.3": {
+      "0": -6,
+      "1": 40,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 40,
+      "15": 2
+    },
+    "1.4": {
+      "0": -2,
+      "1": 40,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 6,
+      "13": 0,
+      "14": 40,
+      "15": 6
+    },
+    "1.5": {
+      "0": 2,
+      "1": 40,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 40,
+      "15": 10
+    },
+    "1.6": {
+      "0": 2,
+      "1": 40,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "1.6+7 doblada": {
+      "0": 2,
+      "1": -25,
+      "2": 25,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "1.7": {
+      "0": 2,
+      "1": 0,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "1.8": {
+      "0": 2,
+      "1": -40,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "1.9": {
+      "0": 2,
+      "1": -40,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": -40,
+      "15": 10
+    },
+    "Inicionx25": {
+      "12": 6,
+      "13": 0,
+      "14": 0,
+      "15": 6,
+      "0": -2,
+      "1": 0,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "7": 6,
+      "8": 0
+    },
+    "lado der 01 peso al pie izquierdo": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 0,
+      "15": 2
+    },
+    "lado der 02 sube el pie derecho": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": -25,
+      "14": 25,
+      "15": 2
+    },
+    "lado der 03 abre la pierna derecha": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -14,
+      "13": -25,
+      "14": 25,
+      "15": -10
+    },
+    "lado der 04 apoya el derecho afuera": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -14,
+      "13": 0,
+      "14": 0,
+      "15": -10
+    },
+    "lado der 05 peso al centro": {
+      "0": 4,
+      "1": 0,
+      "2": 0,
+      "3": 18,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0
+    },
+    "lado der 06 peso al pie derecho": {
+      "0": 14,
+      "1": 0,
+      "2": 0,
+      "3": 32,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado der 07 sube el pie izquierdo": {
+      "0": 14,
+      "1": -25,
+      "2": 25,
+      "3": 32,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado der 08 cierra la pierna izquierda": {
+      "0": 2,
+      "1": -25,
+      "2": 25,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado der 09 apoya el izquierdo junto": {
+      "0": 2,
+      "1": 0,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado der 10 centro": {
+      "0": -2,
+      "1": 0,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 6,
+      "13": 0,
+      "14": 0,
+      "15": 6
+    },
+    "lado izq 01 peso al pie derecho": {
+      "0": 2,
+      "1": 0,
+      "2": 0,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado izq 02 sube el pie izquierdo": {
+      "0": 2,
+      "1": -25,
+      "2": 25,
+      "3": 20,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado izq 03 abre la pierna izquierda": {
+      "0": 14,
+      "1": -25,
+      "2": 25,
+      "3": 32,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado izq 04 apoya el izquierdo afuera": {
+      "0": 14,
+      "1": 0,
+      "2": 0,
+      "3": 32,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 14,
+      "13": 0,
+      "14": 0,
+      "15": 10
+    },
+    "lado izq 05 peso al centro": {
+      "0": 4,
+      "1": 0,
+      "2": 0,
+      "3": 18,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0
+    },
+    "lado izq 06 peso al pie izquierdo": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -14,
+      "13": 0,
+      "14": 0,
+      "15": -10
+    },
+    "lado izq 07 sube el pie derecho": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -14,
+      "13": -25,
+      "14": 25,
+      "15": -10
+    },
+    "lado izq 08 cierra la pierna derecha": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": -25,
+      "14": 25,
+      "15": 2
+    },
+    "lado izq 09 apoya el derecho junto": {
+      "0": -6,
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": -2,
+      "13": 0,
+      "14": 0,
+      "15": 2
+    },
+    "lado izq 10 centro": {
+      "0": -2,
+      "1": 0,
+      "2": 0,
+      "3": 12,
+      "4": 0,
+      "5": 24,
+      "6": -4,
+      "7": 6,
+      "8": 0,
+      "9": -12,
+      "10": -1,
+      "11": 0,
+      "12": 6,
+      "13": 0,
+      "14": 0,
+      "15": 6
+    }
+  },
+  "secuencias": {
+    "Adelante 3 pasos lento": {
+      "categoria": "Avanzar",
+      "pasos": [
+        {
+          "posicion": "1.1",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.2",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.3",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.4",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.7",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.8",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.9",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.10",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.11",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.12",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.13",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.14",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.15",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.16",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.7",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "Inicionx25",
+          "duracion_ms": 400
+        }
+      ]
+    },
+    "Adelante 3 pasos": {
+      "categoria": "Avanzar",
+      "pasos": [
+        {
+          "posicion": "1.1",
+          "duracion_ms": 290
+        },
+        {
+          "posicion": "1.2",
+          "duracion_ms": 230
+        },
+        {
+          "posicion": "1.3",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.6+7 doblada",
+          "duracion_ms": 430
+        },
+        {
+          "posicion": "1.8",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "1.9",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.11",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.12+13 doblada",
+          "duracion_ms": 430
+        },
+        {
+          "posicion": "1.14",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "1.15",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.7",
+          "duracion_ms": 230
+        },
+        {
+          "posicion": "Inicionx25",
+          "duracion_ms": 290
+        }
+      ]
+    },
+    "Atras 3 pasos lento": {
+      "categoria": "Retroceder",
+      "pasos": [
+        {
+          "posicion": "1.7",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.4",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.15",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.14",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.13",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.12",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.11",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.10",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.9",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.8",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.7",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.4",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.3",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.2",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.1",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "Inicionx25",
+          "duracion_ms": 400
+        }
+      ]
+    },
+    "Atras 3 pasos": {
+      "categoria": "Retroceder",
+      "pasos": [
+        {
+          "posicion": "1.7",
+          "duracion_ms": 290
+        },
+        {
+          "posicion": "1.6",
+          "duracion_ms": 230
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "1.15",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.14",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.12+13 doblada",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "1.11",
+          "duracion_ms": 430
+        },
+        {
+          "posicion": "1.9",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.8",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.6+7 doblada",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "1.5",
+          "duracion_ms": 430
+        },
+        {
+          "posicion": "1.3",
+          "duracion_ms": 380
+        },
+        {
+          "posicion": "1.2",
+          "duracion_ms": 260
+        },
+        {
+          "posicion": "1.1",
+          "duracion_ms": 230
+        },
+        {
+          "posicion": "Inicionx25",
+          "duracion_ms": 290
+        }
+      ]
+    },
+    "Costado der 3 pasos lento": {
+      "categoria": "Otro",
+      "pasos": [
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 10 centro",
+          "duracion_ms": 400
+        }
+      ]
+    },
+    "Costado der 3 pasos": {
+      "categoria": "Otro",
+      "pasos": [
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 290
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 220
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 220
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado der 01 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado der 02 sube el pie derecho",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 03 abre la pierna derecha",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado der 04 apoya el derecho afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado der 06 peso al pie derecho",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado der 07 sube el pie izquierdo",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado der 08 cierra la pierna izquierda",
+          "duracion_ms": 220
+        },
+        {
+          "posicion": "lado der 09 apoya el izquierdo junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado der 10 centro",
+          "duracion_ms": 290
+        }
+      ]
+    },
+    "Costado izq 3 pasos lento": {
+      "categoria": "Otro",
+      "pasos": [
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 05 peso al centro",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 10 centro",
+          "duracion_ms": 400
+        }
+      ]
+    },
+    "Costado izq 3 pasos": {
+      "categoria": "Otro",
+      "pasos": [
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 290
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado izq 01 peso al pie derecho",
+          "duracion_ms": 400
+        },
+        {
+          "posicion": "lado izq 02 sube el pie izquierdo",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 03 abre la pierna izquierda",
+          "duracion_ms": 310
+        },
+        {
+          "posicion": "lado izq 04 apoya el izquierdo afuera",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 06 peso al pie izquierdo",
+          "duracion_ms": 780
+        },
+        {
+          "posicion": "lado izq 07 sube el pie derecho",
+          "duracion_ms": 190
+        },
+        {
+          "posicion": "lado izq 08 cierra la pierna derecha",
+          "duracion_ms": 180
+        },
+        {
+          "posicion": "lado izq 09 apoya el derecho junto",
+          "duracion_ms": 340
+        },
+        {
+          "posicion": "lado izq 10 centro",
+          "duracion_ms": 290
+        }
+      ]
+    }
+  },
+  "carpetas_poses": {
+    "1.1": "paso usuario",
+    "1.10": "paso usuario",
+    "1.11": "paso usuario",
+    "1.12": "paso usuario",
+    "1.12+13 doblada": "paso usuario",
+    "1.13": "paso usuario",
+    "1.14": "paso usuario",
+    "1.15": "paso usuario",
+    "1.16": "paso usuario",
+    "1.2": "paso usuario",
+    "1.3": "paso usuario",
+    "1.4": "paso usuario",
+    "1.5": "paso usuario",
+    "1.6": "paso usuario",
+    "1.6+7 doblada": "paso usuario",
+    "1.7": "paso usuario",
+    "1.8": "paso usuario",
+    "1.9": "paso usuario",
+    "Inicionx25": "paso usuario",
+    "lado der 01 peso al pie izquierdo": "paso de costado",
+    "lado der 02 sube el pie derecho": "paso de costado",
+    "lado der 03 abre la pierna derecha": "paso de costado",
+    "lado der 04 apoya el derecho afuera": "paso de costado",
+    "lado der 05 peso al centro": "paso de costado",
+    "lado der 06 peso al pie derecho": "paso de costado",
+    "lado der 07 sube el pie izquierdo": "paso de costado",
+    "lado der 08 cierra la pierna izquierda": "paso de costado",
+    "lado der 09 apoya el izquierdo junto": "paso de costado",
+    "lado der 10 centro": "paso de costado",
+    "lado izq 01 peso al pie derecho": "paso de costado",
+    "lado izq 02 sube el pie izquierdo": "paso de costado",
+    "lado izq 03 abre la pierna izquierda": "paso de costado",
+    "lado izq 04 apoya el izquierdo afuera": "paso de costado",
+    "lado izq 05 peso al centro": "paso de costado",
+    "lado izq 06 peso al pie izquierdo": "paso de costado",
+    "lado izq 07 sube el pie derecho": "paso de costado",
+    "lado izq 08 cierra la pierna derecha": "paso de costado",
+    "lado izq 09 apoya el derecho junto": "paso de costado",
+    "lado izq 10 centro": "paso de costado"
+  }
+}
