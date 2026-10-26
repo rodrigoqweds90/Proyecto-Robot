@@ -1,12 +1,15 @@
-"""SEGMENTO: PRUEBA "ADELANTE 3 PASOS" CON BRAZOS (no toca las poses ni secuencias que ya funcionan)
-Sobre las poses de "Adelante 3 pasos" (caminata_usuario.py) agrega:
+"""SEGMENTO: PRUEBA "ADELANTE PASO" CON BRAZOS (no toca las poses ni secuencias que ya funcionan)
+Sobre las poses de "Adelante paso" (caminata_usuario.py) agrega:
   - contrapeso: con el peso en un pie, el brazo de ese lado se abre (ABRE grados) y el otro se pega al cuerpo
-    (PEGA grados). Simulador: el margen sobre el pie de apoyo pasa de ~6 a ~8.5 mm
+    (PEGA grados; mas de ~5 choca con el torso). Simulador (margen sobre el pie, sin brazos 6.8 mm):
+      abre 20 -> 7.5 mm, 30 -> 7.8 mm, 45 -> 8.2 mm (60 -> 8.5 mm pero mas lento y se ve como ala). Por defecto 30.
+    Ladear menos el cuerpo y dejar que los brazos compensen (--inclina 0.75) NO sirve: el margen baja a ~4 mm,
+    los brazos pesan poco (~45 g cada uno, 8 % del robot)
   - balanceo: brazo opuesto a la pierna (pierna derecha adelante -> brazo izquierdo adelante), BALANCEO grados
 Signos (probados por el usuario el 2026-10-19): hombro izq (6) + atras, der (9) + adelante; "codo" izq (5) + afuera,
 der (10) + adentro.
-Poses en la carpeta "pruebas brazos"; secuencia "Prueba adelante 3 pasos brazos" (tiempos con acelerar_secuencias).
-Uso: python caminata_brazos.py [--abre 60] [--pega 5] [--balanceo 20]
+Poses en la carpeta "pruebas brazos"; secuencia "Prueba adelante paso brazos" (un ciclo para bucle, tiempos con secuencias_finales.escribir_bucle).
+Uso: python caminata_brazos.py [--abre 30] [--pega 5] [--balanceo 20] [--inclina 1]
 """
 import json
 import os
@@ -19,7 +22,7 @@ import secuencias_finales as sf  # noqa: E402
 import simular_caminata as sc  # noqa: E402
 
 CARPETA = "pruebas brazos"
-NOMBRE = "Prueba adelante 3 pasos brazos"
+NOMBRE = "Prueba adelante paso brazos"
 
 
 def estado(pose):
@@ -31,8 +34,10 @@ def estado(pose):
     return 0, 0, 0                                          # Inicionx25
 
 
-def con_brazos(ang, ref, peso, i, d, abre, pega, balanceo):
+def con_brazos(ang, ref, peso, i, d, abre, pega, balanceo, inclina=1.0):
     a = dict(ang)
+    for c in cu.INCLINAR:                                   # inclina < 1: los brazos hacen parte del ladeo
+        a[c] = ref[c] + round((ang[c] - ref[c]) * inclina)
     if peso > 0:                                            # peso en el pie derecho
         a[10] = ref[10] - abre                              # brazo derecho afuera
         a[5] = ref[5] - pega                                # izquierdo pegado al cuerpo
@@ -46,17 +51,15 @@ def con_brazos(ang, ref, peso, i, d, abre, pega, balanceo):
 
 
 def main():
-    abre, pega, balanceo = ac.arg("--abre", 60), ac.arg("--pega", 5), ac.arg("--balanceo", 20)
+    abre, pega, balanceo = ac.arg("--abre", 30), ac.arg("--pega", 5), ac.arg("--balanceo", 20)
+    inclina = ac.arg("--inclina", 1.0)
     cu.guardar_poses()
     ref = ac.angulos(cu.REF)
     trim = {c: ref[c] for c in sc.cn.PIERNAS}
-    original = sf.secuencias()["Adelante 3 pasos"][0]
+    original = sf.secuencias()["Adelante paso"][0]
     nombres = []
     for p in original:
-        if p == cu.REF:
-            nombres.append(p)
-            continue
-        a = con_brazos(ac.angulos(p), ref, *estado(p), abre, pega, balanceo)
+        a = con_brazos(ac.angulos(p), ref, *estado(p), abre, pega, balanceo, inclina)
         n = f"{p} brazos"
         json.dump({"nombre": n, "angulos": {str(c): int(round(v)) for c, v in sorted(a.items())}, "carpeta": CARPETA},
                   open(os.path.join(sf.POS, cu.archivo(n)), "w", encoding="utf-8"), indent=2, ensure_ascii=False)
@@ -65,17 +68,12 @@ def main():
     if CARPETA not in carpetas:
         json.dump(sorted(carpetas + [CARPETA]), open(os.path.join(cu.DATOS, "carpetas_poses.json"), "w", encoding="utf-8"),
                   indent=2, ensure_ascii=False)
-    for nombre, poses in ((NOMBRE, nombres), ("Adelante 3 pasos", original)):
-        if nombre == NOMBRE:
-            sf.escribir(nombre, [{"posicion": p, "duracion_ms": 1200} for p in poses], "Avanzar")
-            filas = ac.analizar(nombre, trim, 150)
-            sf.escribir(nombre, [{"posicion": f["posicion"], "duracion_ms": f["nuevo"]} for f in filas], "Avanzar")
-        else:
-            filas = ac.analizar(nombre, trim, 150)
-        v, m, _ = ac.verificar_continuo(nombre, trim)
-        print(f"{nombre:34s} {sum(f['nuevo'] for f in filas) / 1000:4.1f} s | margen quieto >= "
-              f"{min(f['estatico'] for f in filas if f['estatico'] < 25):.1f} mm | continuo: apoyo >= {m:.1f} mm, "
-              f"servo sobra {v:.0f} grados/s")
+    viejo = os.path.join(sf.SEC, "Prueba adelante 3 pasos brazos.json")    # la version de 3 pasos, reemplazada
+    if os.path.exists(viejo):
+        os.remove(viejo)
+    pasos, quieto, v, m = sf.escribir_bucle(NOMBRE, nombres, "Avanzar", trim)
+    print(f"{NOMBRE:34s} {sum(p['duracion_ms'] for p in pasos) / 1000:4.1f} s | sincronizado: apoyo >= {quieto:.1f} mm"
+          f" | continuo (3 vueltas): apoyo >= {m:.1f} mm, servo sobra {v:.0f} grados/s")
 
 
 if __name__ == "__main__":

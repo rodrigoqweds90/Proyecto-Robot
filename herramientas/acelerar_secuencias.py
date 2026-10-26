@@ -5,7 +5,8 @@ Calcula para cada paso de una secuencia el tiempo minimo con dos limites y usa e
        MG90S a 6 V: 0.08 s / 60 grados sin carga; MG92B (caderas): 0.10 s / 60 grados. Se usa el 40 % (con carga).
   2. equilibrio: mover el cuerpo rapido corre el punto de apoyo efectivo (centro de masa - h/g * aceleracion).
      Se recorre el paso con el simulador y la curva suave del firmware, instante por instante, y ese punto tiene
-     que quedar SEGURIDAD mm adentro de los pies que tocan el piso en ese instante.
+     que quedar SEGURIDAD mm adentro de los pies que tocan el piso en ese instante, sin perder mas de PERDIDA_MAX
+     mm respecto de la pose quieta.
 Los servos no avisan donde quedaron (no hay realimentacion): por eso se calcula con datos de fabrica y margen.
 Las secuencias rapidas NECESITAN la casilla "Movimiento sincronizado" o "Continuo" (POSET).
 Uso: python acelerar_secuencias.py [--minimo 150]   (solo muestra el detalle; escribe secuencias_finales.py)
@@ -21,12 +22,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import simular_caminata as sc  # noqa: E402
 
 # las secuencias rapidas de la app (las arma secuencias_finales.py con estas mismas funciones)
-SECUENCIAS = ["Adelante 3 pasos", "Atras 3 pasos", "Costado izq 3 pasos", "Costado der 3 pasos"]
+SECUENCIAS = ["Adelante paso", "Atras paso", "Costado izq paso", "Costado der paso"]
 GRADOS_POR_S = {"MG90S": 60 / 0.08, "MG92B": 60 / 0.10}
 CARGA = 0.40                 # fraccion de la velocidad sin carga que se usa
 PICO = 1.5                   # pico / promedio de la curva suave del firmware
 MG92B = {0, 15}              # caderas
 SEGURIDAD = 3.0              # mm que el punto de apoyo efectivo tiene que quedar adentro del pie
+# y lo que el movimiento le puede quitar al margen de la pose quieta: el modelo no ve el juego de los engranajes ni
+# el retraso del servo, que se notan al frenar un ladeo rapido (el usuario, 2026-10-19: "brusco, como que se va a
+# caer por un lado"). Las lentas, que andan bien, pierden <= 4 mm; las rapidas de antes perdian hasta 16 mm
+PERDIDA_MAX = 6.0
 G = 9810.0                   # mm/s2
 ADELANTO_MS = 30             # el movimiento termina 30 ms antes del paso siguiente (2 ticks del firmware)
 
@@ -94,10 +99,12 @@ def margen_dinamico(tramos, T):
 
 
 def t_equilibrio(tramos, minimo):
-    """ms minimos para que el punto de apoyo efectivo no salga de los pies (con SEGURIDAD mm de resguardo)"""
+    """ms minimos para que el punto de apoyo efectivo no salga de los pies (con SEGURIDAD mm de resguardo) y el
+    movimiento no le quite mas de PERDIDA_MAX mm al margen quieto"""
     estatico = margen_dinamico(tramos, 1e9)
     for T in range(int(minimo), 1210, 10):
-        if margen_dinamico(tramos, T) >= min(SEGURIDAD, estatico):
+        m = margen_dinamico(tramos, T)
+        if m >= min(SEGURIDAD, estatico) and estatico - m <= PERDIDA_MAX:
             return T, estatico
     return 1200, estatico
 

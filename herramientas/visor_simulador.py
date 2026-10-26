@@ -318,6 +318,8 @@ def main():
     app = QApplication(sys.argv)
     v = Visor()
     v.resize(1300, 680)
+    if len(sys.argv) > 1:                       # visor_simulador.py "Nombre de secuencia": la abre ya elegida
+        v.combo_sec.setCurrentText(sys.argv[1])
     v.setStyleSheet("QWidget { background: #1f2937; color: #e5e7eb; } QPushButton, QComboBox, QDoubleSpinBox "
                     "{ background: #374151; padding: 4px; }")
     v.show()
