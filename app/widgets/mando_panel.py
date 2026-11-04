@@ -2,7 +2,7 @@
 Todos los botones del mando (distribucion tipo Xbox, como el EasySMX D10),
 dibujados en el lugar que ocupan en el mando fisico. Cada uno tiene un
 desplegable para elegir que hace: una secuencia, una pose o un comando del
-robot (Inicio, relajar, balance, nivelar, caras...). Para las secuencias se
+robot (Inicio, relajar, caras...). Para las secuencias se
 elige ademas si se repite mientras el boton esta apretado o si corre una vez.
 
 Mientras el robot este conectado y mande MANDO_BOTON / MANDO_DPAD, la tarjeta
@@ -71,9 +71,6 @@ COMANDOS = (
     ("Relajar servos", "RELAX"),
     ("Parar (STOP)", "STOP"),
     ("Reanudar", "RESUME"),
-    ("Balance encendido", "BALANCE,ON"),
-    ("Balance apagado", "BALANCE,OFF"),
-    ("Nivelar torso", "NIVELAR"),
     ("Cara feliz", "CARA,FELIZ"),
     ("Cara triste", "CARA,TRISTE"),
     ("Cara sorpresa", "CARA,SORPRESA"),
