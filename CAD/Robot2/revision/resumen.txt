@@ -1,0 +1,3 @@
+peso 706 g (plastico 355, componentes 351)
+centro de masa [-0.0, -24.7, 2.6] -> 141 mm del piso
+

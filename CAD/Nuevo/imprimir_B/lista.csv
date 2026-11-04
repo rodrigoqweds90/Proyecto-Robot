@@ -1,7 +1,9 @@
 ﻿pieza,cantidad a imprimir,archivo,color de PLA,cara del modelo que va abajo (ya acostada),soporte cm3 aprox (0 = sin soportes),apoyo en la cama cm2,g aprox c/u,caja mm,notas
-Bracket01_B,2,Bracket01_B.stl,negro,-x,1.1,3.1,6.4,42x28x31,
+Bracket01_B,1,Bracket01_B.stl,negro,-x,1.1,3.1,6.4,42x28x31,
+Bracket01_B_cadera,1,Bracket01_B_cadera.stl,negro,-x,1.0,2.8,6.0,42x28x31,cadera IZQUIERDA con MG92B (piso rebajado); el Bracket01_B normal va en el tobillo derecho
 Bracket02_W,4,Bracket02_W.stl,negro,+x,0.2,3.2,4.3,44x33x12,
-Bracket03_B,2,Bracket03_B.stl,negro,-x,1.1,3.1,6.4,42x28x31,
+Bracket03_B,1,Bracket03_B.stl,negro,-x,1.1,3.1,6.4,42x28x31,
+Bracket03_B_cadera,1,Bracket03_B_cadera.stl,negro,-x,1.0,2.8,6.0,42x28x31,cadera DERECHA con MG92B (piso rebajado); el Bracket03_B normal va en el tobillo izquierdo
 Bracket04_B,1,Bracket04_B.stl,negro,-y,0.3,35.5,21.3,73x49x28,
 Bracket05_B,1,Bracket05_B.stl,negro,-y,0.3,35.5,21.3,73x49x28,
 Bracket07_B,1,Bracket07_B.stl,negro,-x,0.6,7.3,4.9,43x20x30,
@@ -14,7 +16,7 @@ Cabeza_frente,1,Cabeza_frente.stl,blanco,-y,35.5,12.0,15.9,32x50x37,parada (cara
 Cabeza_tapa,1,Cabeza_tapa.stl,blanco,-z,0.6,13.6,6.4,46x37x9,
 Link_W,4,Link_W.stl,negro,+y,1.3,2.4,7.5,39x13x33,
 Nee_B,2,Nee_B.stl,negro,-x,22.4,0.9,6.8,30x39x42,
-Pelvis,1,Pelvis.stl,blanco,+y,7.0,6.7,17.4,46x55x32,boca abajo sobre el disco de la cintura
+Pelvis,1,Pelvis.stl,blanco,+y,7.1,6.7,17.3,46x55x32,boca abajo sobre el disco de la cintura
 Pipe_M3,40,Pipe_M3.stl,negro,+y,0.0,0.5,0.2,10x10x4,"relleno 100%, 4 paredes, cabeza sobre la cama"
 Spacer01_W,1,Spacer01_W.stl,blanco,+y,0.1,6.7,2.3,36x36x4,
 Torso_atras_B,1,Torso_atras_B.stl,blanco,+x,5.8,0.8,6.7,29x51x68,soporte de arbol y borde (brim) de 5 mm
@@ -25,8 +27,9 @@ Soporte_pierna_der,1,Soporte_pierna_der.stl,el que sea,-x,0.0,122.5,84.0,85x150x
 Soporte_pierna_izq,1,Soporte_pierna_izq.stl,el que sea,+x,0.0,122.8,84.1,85x150x12,"armado, no va en el robot"
 
 tornillo,cantidad,uso
+M3x5 cabeza boton,2,2 articulaciones
 M3x6 cabeza boton,10,8 articulaciones + 2 giroscopio GY-521
-M3x8 cabeza boton,30,28 articulaciones + 2 pared de atras al cuerpo
+M3x8 cabeza boton,28,26 articulaciones + 2 pared de atras al cuerpo
 M3x10 cabeza boton,4,2 pecho + 2 tapa de la cabeza
 M2x8 maquina,4,"aro de la cintura al torso, desde abajo: roscan directo en agujeros de 1.7"
 M2x6 maquina,12,"8 pestanas de los 4 servos del torso (cintura, cuello, hombros) + 4 de la pantalla OLED en la cabeza: roscan directo en agujeros de 1.7"

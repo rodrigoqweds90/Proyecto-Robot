@@ -48,20 +48,20 @@
   "estado": "REVISAR"
  },
  {
-  "largo": 8,
+  "largo": 5,
   "cantidad": 1,
   "gira": "Bracket06_W",
   "agarra": "Bracket03_B",
-  "rosca": 5.4,
-  "estado": "OK (boton de 1.8 mm atras)"
+  "rosca": 2.4,
+  "estado": "OK con MG92B (el M3x8 apretaba el fondo del servo; sin boton)"
  },
  {
-  "largo": 8,
+  "largo": 5,
   "cantidad": 1,
   "gira": "Bracket06_W",
   "agarra": "Bracket01_B",
-  "rosca": 5.4,
-  "estado": "OK (boton de 1.8 mm atras)"
+  "rosca": 2.4,
+  "estado": "OK con MG92B (el M3x8 apretaba el fondo del servo; sin boton)"
  },
  {
   "largo": 8,

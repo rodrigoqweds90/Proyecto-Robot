@@ -32,6 +32,12 @@ HORN_ESPESOR = 2.0
 HORN_COLLAR = 6.8                  # O6.3 en el de un brazo, O6.8 en el de cruz: el agujero sirve para los dos
 HOLGURA = 0.15                     # por lado
 TORNILLOS_HORN = (8.08, 12.02)     # agujeros del horn usados para retener (a lo largo del brazo)
+# caderas con MG92B (2026-10-17): su horn de un brazo es otro (cubo O6.84 medido con calibre, 19.13 de largo, 5
+# agujeritos que no caen en TORNILLOS_HORN). El rebaje del brazo queda el del MG90S (el del MG92B entra holgado):
+# lo centra el cubo ajustado en su agujero y el giro lo toman los tornillitos, que agarran en una ranura a lo
+# largo del brazo en vez de en 2 pilotos fijos
+CUBO_MG92B_AGUJERO = 6.95          # O6.84 del cubo; impreso sale ~0.1 mas chico: entra justo, sin juego
+RANURA_TORNILLOS = (5.0, 15.0, 1.2)  # desde, hasta (del centro del cubo, a lo largo del brazo) y ancho
 PILOTO_TORNILLO = 1.2
 
 # --- ejes (del ensamble del NX25) ---
@@ -191,10 +197,12 @@ def main():
         poligono(sk, [(cx + x, CADERA_Y + y) for x, y in contorno_horn(direc)], xy)
         extruir(sk, HORN_ESPESOR + 0.02, C)
         sk = cd.Sketches.Add(plano(3, Z_BRAZO_CADERA + HORN_ESPESOR - 0.02))
-        sk.SketchCircles.AddByCenterRadius(tg.CreatePoint2d(cm(cx), cm(CADERA_Y)), cm(HORN_COLLAR / 2 + 0.15))
-        for dist in TORNILLOS_HORN:
-            q = np.array([cx, CADERA_Y]) + direc / np.linalg.norm(direc) * dist
-            sk.SketchCircles.AddByCenterRadius(tg.CreatePoint2d(cm(q[0]), cm(q[1])), cm(PILOTO_TORNILLO / 2))
+        sk.SketchCircles.AddByCenterRadius(tg.CreatePoint2d(cm(cx), cm(CADERA_Y)), cm(CUBO_MG92B_AGUJERO / 2))
+        u = direc / np.linalg.norm(direc)
+        n = np.array([-u[1], u[0]])
+        r0, r1, a = RANURA_TORNILLOS
+        c0 = np.array([cx, CADERA_Y])
+        poligono(sk, [tuple(c0 + u * r + n * w) for r, w in ((r0, -a / 2), (r1, -a / 2), (r1, a / 2), (r0, a / 2))], xy)
         extruir(sk, Z_HORNS[1] - Z_BRAZO_CADERA, C)
 
     # 4) cintura: horn en cruz por abajo (brazos largos en x), collar hacia arriba y hueco del bloque

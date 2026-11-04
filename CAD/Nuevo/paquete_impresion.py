@@ -26,6 +26,8 @@ VOLADIZO = np.cos(np.radians(45))     # caras que miran hacia abajo a menos de 4
 # eslabones y bujes, que ademas quedan del color de los servos MG90S)
 BLANCO = ("Torso_", "Cabeza", "Pelvis", "Spacer01", "Bracket11_B", "Bracket12_B")
 NOTAS = {
+    "Bracket01_B_cadera": "cadera IZQUIERDA con MG92B (piso rebajado); el Bracket01_B normal va en el tobillo derecho",
+    "Bracket03_B_cadera": "cadera DERECHA con MG92B (piso rebajado); el Bracket03_B normal va en el tobillo izquierdo",
     "Pipe_M3": "relleno 100%, 4 paredes, cabeza sobre la cama",
     "Pipe_M3_alto": "relleno 100%, 4 paredes, cabeza sobre la cama",
     "Torso_cuerpo_B": "espalda abajo sobre los 4 postes, soporte de arbol y borde (brim) de 5 mm; imprimir primero y probar las placas",
@@ -112,6 +114,11 @@ def main():
         shutil.rmtree(SALIDA)
     os.makedirs(SALIDA)
     _, _, cuenta, origen = vi.lista_impresas()
+    # versiones con MG92B para las caderas (m3_pernos.py): reemplazan una de las copias de la pieza base
+    for s in sorted(glob.glob(os.path.join(BASE, "piezas_m3", "*_cadera.stl"))):
+        n = os.path.splitext(os.path.basename(s))[0]
+        cuenta[n[:-len("_cadera")]] -= 1
+        cuenta[n], origen[n] = 1, s
     for s in sorted(glob.glob(os.path.join(BASE, "piezas_soportes", "*.stl"))):
         n = os.path.splitext(os.path.basename(s))[0]
         cuenta[n], origen[n] = 1, s

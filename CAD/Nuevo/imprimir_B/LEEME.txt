@@ -31,6 +31,9 @@ ARMADO CON LOS SERVOS EN 90° (sin medir a ojo)
    (115200 baudios). Los 16 servos quedan en 90°. No volver a girarlos a mano.
 5. Armar cada pierna sin horns: servos en sus soportes con los tornillos del kit y las uniones con
    Pipe_M3 + M3. Los M3x10 van en las uniones de Link y Nee y los M3x8 en las paredes delgadas.
+   Caderas con MG92B: Bracket01_B_cadera (izquierda) y Bracket03_B_cadera (derecha). Los Bracket01_B y
+   Bracket03_B normales van en los tobillos (derecho e izquierdo). En la unión de cada cadera con la pelvis
+   va un M3x5 (no M3x8: la punta apretaría el fondo del servo). No lo aprietes de más: 2.4 mm de rosca.
    El Pipe_M3_alto va en las 7 uniones donde el servo queda pegado detrás: Bracket02 de la cadera y
    Bracket09/10.
 6. Acostar cada pierna en su Soporte_pierna (izq/der), con el lado de afuera abajo. Poner los horns de

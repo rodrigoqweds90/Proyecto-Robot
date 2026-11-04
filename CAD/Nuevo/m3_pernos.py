@@ -52,6 +52,15 @@ BOTON_MAX = 2.0
 PUNTA_ASOMA_MAX = 1.5            # si no hay lugar para boton: la punta puede asomar por dentro si no toca ninguna pieza ni servo
 PISO_ALTO = 2.0                  # ultimo recurso (servo pegado atras): Pipe_M3_alto, el M3 apoya 1 mm mas arriba que el normal
 REBAJE_DIAM = 10.0
+# caderas con MG92B (2026-10-16, medido por el usuario con calibre: 22.69 x 12.0, 21.21 mm de abajo de las pestanas al
+# fondo; el MG90S tiene 17.7). Las caderas son Bracket01_B (izquierda) y Bracket03_B (derecha, su espejo), pero esas
+# mismas piezas van tambien en los tobillos (cruzadas) con MG90S: por eso la version con MG92B sale aparte como
+# <pieza>_cadera.stl. Quedaban 20.6 mm: el piso se rebaja por dentro solo en la huella del servo (queda de 3.0 mm,
+# 0.4 mm de juego) y se va el boton de atras del tornillo de la union con la pelvis. Ese tornillo pasa de M3x8 a
+# M3x5: con el x8 la punta apretaba el fondo del MG92B (rosca 2.4 mm en el piso)
+MG92B_REBAJE = {"Bracket01_B": ((-6.1, 3.0, 8.05), (6.0, 7.1, 31.05)),       # caja en coords locales de la pieza
+                "Bracket03_B": ((-6.0, 3.0, -31.05), (6.1, 7.1, -8.05))}
+MG92B_TORNILLO = {("Bracket06_W", "Bracket01_B"): 5, ("Bracket06_W", "Bracket03_B"): 5}   # pelvis <-> cadera
 COLLAR_RADIOS = (6.35, 5.9, 5.45)  # radios de collar a probar (el ultimo apenas cubre el rebaje O10.3)
 COLLAR_PARED = 1.2               # v6: anillo de material alrededor del rebaje. La oreja del NX25 es mas delgada que
 COLLAR_TAPA = 0.1                # la cabeza del pipe, asi que se le agrega un collar hasta que la cabeza entra al ras
@@ -310,6 +319,10 @@ def main():
         k = "XYZ".index(h["eje"])
         lim = (a["tramo"][0] - 0.01 - extra, a["tramo"][1] + 0.01 + extra)
         cambios[a["pieza"]].append(("corte", AGARRA_DIAM / 2, *[np.where(np.arange(3) == k, x, np.asarray(h["centro"], float)) for x in lim]))
+        if (g["pieza"], a["pieza"]) in MG92B_TORNILLO:
+            largo = MG92B_TORNILLO[(g["pieza"], a["pieza"])]
+            rosca = largo - (cabeza_arriba - cara)
+            estado = "OK con MG92B (el M3x8 apretaba el fondo del servo; sin boton)"
         tabla[(largo, g["pieza"], a["pieza"], round(rosca, 1), estado)] += 1
         n, e, tt = P[a["inst"]]
         M = np.column_stack([np.asarray(x, float) for x in e])
@@ -353,6 +366,10 @@ def main():
                                                      tri_verts=np.asarray(malla.faces, np.uint32))).to_mesh()
         malla = trimesh.Trimesh(limpia.vert_properties[:, :3], limpia.tri_verts)
         malla.export(os.path.join(SALIDA, pieza + ".stl"))
+        if pieza in MG92B_REBAJE:
+            cadera = trimesh.boolean.difference([malla, trimesh.creation.box(bounds=MG92B_REBAJE[pieza])], engine="manifold")
+            cadera = max(cadera.split(only_watertight=False), key=lambda c: abs(c.volume))
+            cadera.export(os.path.join(SALIDA, pieza + "_cadera.stl"))
         astillas = sum(abs(c.volume) for c in partes) - abs(malla.volume)
         recargada = trimesh.load(os.path.join(SALIDA, pieza + ".stl"), force="mesh")
         print(f"{pieza}: {len(rellenos)} rebajes subidos, {len(cortes)} cortes, astillas quitadas {astillas:.2f} mm3, "
