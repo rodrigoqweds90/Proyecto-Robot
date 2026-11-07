@@ -249,47 +249,37 @@ uint8_t paginaPendiente = PANTALLA_PAGINAS; // PANTALLA_PAGINAS = nada por manda
 
 enum Expresion { CARA_NEUTRAL, CARA_FELIZ, CARA_TRISTE, CARA_SORPRESA };
 
-// Traza un arco (para la boca) sumando pequenos segmentos de recta.
-// angulos en grados, convencion de pantalla (0=derecha, 90=abajo).
-void dibujarArco(int cx, int cy, int radio, float anguloInicioGrados, float anguloFinGrados) {
-  float rad0 = radians(anguloInicioGrados);
-  int xAnt = cx + radio * cos(rad0);
-  int yAnt = cy + radio * sin(rad0);
-  for (float g = anguloInicioGrados + 5; g <= anguloFinGrados; g += 5) {
-    float rad = radians(g);
-    int x = cx + radio * cos(rad);
-    int y = cy + radio * sin(rad);
-    pantalla.drawLine(xAnt, yAnt, x, y, SSD1306_WHITE);
-    xAnt = x; yAnt = y;
+// Solo ojos, sin boca: toda la expresion esta en la forma de los ojos.
+// Cada forma se arma pintando en blanco y recortando en negro.
+void dibujarOjo(int cx, int lado, Expresion expresion) { // lado: -1 ojo izquierdo, +1 derecho
+  const int cy = PANTALLA_ALTO / 2;
+  switch (expresion) {
+    case CARA_FELIZ: // arco "^": circulo blanco menos uno negro corrido abajo, sin la mitad de abajo
+      pantalla.fillCircle(cx, cy + 8, 19, SSD1306_WHITE);
+      pantalla.fillCircle(cx, cy + 15, 15, SSD1306_BLACK);
+      pantalla.fillRect(cx - 20, cy + 9, 41, PANTALLA_ALTO - cy - 9, SSD1306_BLACK);
+      break;
+    case CARA_TRISTE: { // mas bajo, con el parpado caido hacia afuera
+      pantalla.fillRoundRect(cx - 16, cy - 10, 32, 32, 10, SSD1306_WHITE);
+      int afuera = cx + 18 * lado, adentro = cx - 18 * lado;
+      pantalla.fillTriangle(afuera, cy - 12, adentro, cy - 12, afuera, cy + 4, SSD1306_BLACK);
+      break;
+    }
+    case CARA_SORPRESA: // grandes y redondos
+      pantalla.fillCircle(cx, cy, 21, SSD1306_WHITE);
+      break;
+    case CARA_NEUTRAL:
+    default:
+      pantalla.fillRoundRect(cx - 16, cy - 20, 32, 40, 10, SSD1306_WHITE);
+      break;
   }
 }
 
 void dibujarCara(Expresion expresion) {
   if (!pantallaDisponible) return;
   pantalla.clearDisplay();
-
-  const int ojoIzqX = 40, ojoDerX = 88, ojoY = 26;
-  int radioOjo = (expresion == CARA_SORPRESA) ? 15 : 12;
-  pantalla.fillCircle(ojoIzqX, ojoY, radioOjo, SSD1306_WHITE);
-  pantalla.fillCircle(ojoDerX, ojoY, radioOjo, SSD1306_WHITE);
-
-  const int bocaX = 64, bocaY = 44;
-  switch (expresion) {
-    case CARA_FELIZ:
-      dibujarArco(bocaX, bocaY - 6, 16, 20, 160);  // arco de abajo: sonrisa
-      break;
-    case CARA_TRISTE:
-      dibujarArco(bocaX, bocaY + 10, 16, 200, 340); // arco de arriba: tristeza
-      break;
-    case CARA_SORPRESA:
-      pantalla.drawCircle(bocaX, bocaY + 4, 5, SSD1306_WHITE); // boca en "O"
-      break;
-    case CARA_NEUTRAL:
-    default:
-      pantalla.drawLine(bocaX - 14, bocaY, bocaX + 14, bocaY, SSD1306_WHITE);
-      break;
-  }
-
+  dibujarOjo(36, -1, expresion);
+  dibujarOjo(92, 1, expresion);
   paginaPendiente = 0; // la manda actualizarPantalla() de a poco
 }
 
