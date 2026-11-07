@@ -149,7 +149,7 @@ class MainWindow(QMainWindow):
         # Dos pestañas bien separadas: "Creación" para diseñar poses/
         # secuencias, "Mando" para asignarlas a cada direccion del D-pad. Al
         # cambiar de pestaña no se ve nada de la otra.
-        self.mando_panel = MandoPanel(self.sequence_panel, self.positions_panel)
+        self.mando_panel = MandoPanel(self.sequence_panel, self.positions_panel, self.serial_link, self._pulsos_de)
         self.sequence_panel.secuencias_cambiadas.connect(self.mando_panel.refrescar_secuencias)
         self.positions_panel.lista_cambiada.connect(self.mando_panel.refrescar_secuencias)
 
@@ -426,7 +426,22 @@ class MainWindow(QMainWindow):
         # juntos en esos ms en vez de ir cada uno a la misma velocidad.
         velocidad = self.spin_velocidad.value()
         self.control_panel.aplicar_angulos(angulos, emitir=False)
+        pulsos = self._pulsos_de(angulos)
 
+        if ms and lineal:
+            # tramo corto de la curva continua: velocidad pareja, sin frenar ni adelantarse
+            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{int(ms)},1")
+        elif ms:
+            # El firmware actualiza cada 15 ms: si el movimiento durara justo lo que dura el paso, la pose
+            # siguiente podria llegar antes del ultimo tick y el servo quedaria un poco antes de su destino.
+            # Terminando 30 ms antes (2 ticks), cada pose se completa siempre y espera a la siguiente.
+            ms_mov = max(50, int(ms) - 30)
+            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{ms_mov}")
+        else:
+            self.serial_link.send("POSE," + ",".join(str(p) for p in pulsos) + f",{velocidad}")
+
+    def _pulsos_de(self, angulos):
+        """Los 16 pulsos (us) de una pose, en orden de canal. Tambien lo usa la pestana Mando."""
         pulsos = []
         for canal in range(16):
             servo = self.servos_por_canal.get(canal)
@@ -441,18 +456,7 @@ class MainWindow(QMainWindow):
                 fila = self.control_panel.sliders.get(canal)
                 angulo = fila.slider.value() if fila else 0
             pulsos.append(int(cc.angulo_a_pulso(servo, angulo)))
-
-        if ms and lineal:
-            # tramo corto de la curva continua: velocidad pareja, sin frenar ni adelantarse
-            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{int(ms)},1")
-        elif ms:
-            # El firmware actualiza cada 15 ms: si el movimiento durara justo lo que dura el paso, la pose
-            # siguiente podria llegar antes del ultimo tick y el servo quedaria un poco antes de su destino.
-            # Terminando 30 ms antes (2 ticks), cada pose se completa siempre y espera a la siguiente.
-            ms_mov = max(50, int(ms) - 30)
-            self.serial_link.send("POSET," + ",".join(str(p) for p in pulsos) + f",{ms_mov}")
-        else:
-            self.serial_link.send("POSE," + ",".join(str(p) for p in pulsos) + f",{velocidad}")
+        return pulsos
 
     def _guardar_pose_actual(self):
         self.positions_panel.guardar_captura(self.control_panel.obtener_angulos())

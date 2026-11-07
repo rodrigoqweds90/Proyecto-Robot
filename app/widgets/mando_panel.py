@@ -9,13 +9,17 @@ Mientras el robot este conectado y mande MANDO_BOTON / MANDO_DPAD, la tarjeta
 del boton apretado se ilumina: asi se reconoce cada boton del mando real sin
 adivinar como lo llama el firmware.
 
+"Enviar al robot" le pasa al ESP32 las secuencias asignadas (ya en pulsos) y que
+hace cada boton; el robot lo guarda en su flash y lo ejecuta solo con el mando
+(ver SEGMENTO PROGRAMA DEL MANDO en src/main.cpp).
+
 Formato guardado (asignaciones_mando.json, version 2):
   {"version": 2, "botones": {"A": {"tipo": "secuencia", "valor": "Caminar", "repetir": true}, ...}}
 tipo: "secuencia" | "pose" | "comando". El formato viejo ({"ARRIBA": "secuencia"}) se convierte solo.
 """
 
 import storage
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QTimer
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -182,10 +186,19 @@ class _TarjetaBoton(QFrame):
 
 
 class MandoPanel(QWidget):
-    def __init__(self, sequence_panel, positions_panel, parent=None):
+    MS_POSE = 800  # una pose asignada a un boton se alcanza en este tiempo
+    ESPERA_RESPUESTA_MS = 3000
+
+    def __init__(self, sequence_panel, positions_panel, link, pulsos_de, parent=None):
         super().__init__(parent)
         self._sequence_panel = sequence_panel
         self._positions_panel = positions_panel
+        self._link = link
+        self._pulsos_de = pulsos_de  # angulos de una pose -> 16 pulsos (main_window)
+        self._carga = []  # lineas que faltan mandar al robot
+        self._timer_carga = QTimer(self)
+        self._timer_carga.setSingleShot(True)
+        self._timer_carga.timeout.connect(lambda: self._terminar_carga("El robot no respondió. ¿Tiene el firmware nuevo?", False))
         self.asignaciones = _normalizar(storage.cargar_asignaciones_mando())
         self.tarjetas = {}
 
@@ -223,14 +236,21 @@ class MandoPanel(QWidget):
         self.btn_guardar = QPushButton("Guardar asignación")
         self.btn_guardar.setObjectName("botonPrimario")
         self.btn_guardar.clicked.connect(self._guardar)
+        self.btn_enviar = QPushButton("Enviar al robot")
+        self.btn_enviar.setToolTip("Guarda y le pasa al robot las secuencias y lo que hace cada botón")
+        self.btn_enviar.clicked.connect(self._enviar_al_robot)
         fila_guardar = QHBoxLayout()
         fila_guardar.addWidget(self.label_conexion)
         fila_guardar.addStretch()
         fila_guardar.addWidget(self.label_estado)
         fila_guardar.addSpacing(12)
         fila_guardar.addWidget(self.btn_guardar)
+        fila_guardar.addWidget(self.btn_enviar)
 
-        aviso = QLabel("El robot todavía no ejecuta esta asignación: falta el Bluetooth del mando en el firmware del ESP32.")
+        aviso = QLabel(
+            "Para usar el mando sin la PC: conecta el robot por USB y aprieta \"Enviar al robot\". "
+            "Al soltar el botón, la secuencia termina su vuelta y el robot vuelve a Inicio."
+        )
         aviso.setObjectName("avisoInfo")
         aviso.setWordWrap(True)
 
@@ -313,6 +333,9 @@ class MandoPanel(QWidget):
     # ------------------------------------------------------------------
     def procesar_linea(self, texto):
         """Devuelve True si la linea era del mando (no hace falta mostrarla en la consola)."""
+        if texto.startswith("MANDO_CARGA,"):
+            self._on_respuesta_carga(texto.split(",", 2)[1:])
+            return True
         if texto.startswith(("MANDO_BOTON,", "MANDO_DPAD,")):
             partes = texto.split(",")
             if len(partes) >= 3:
@@ -348,8 +371,78 @@ class MandoPanel(QWidget):
                 f"{', '.join(rotas)} apunta(n) a algo que ya no existe.\n\nSi continúas, quedan sin asignar. ¿Guardar igual?",
             )
             if respuesta != QMessageBox.Yes:
-                return
+                return False
         storage.guardar_asignaciones_mando({"version": 2, "botones": botones})
         self.asignaciones = botones
         self.refrescar_secuencias()
         self._poner_estado("Guardado", "textoSecundario")
+        return True
+
+    # ------------------------------------------------------------------
+    # SEGMENTO: ENVIO AL ROBOT
+    # Una linea por vez: la siguiente sale recien cuando el robot contesta
+    # la anterior (su buffer de entrada por USB es chico).
+    # ------------------------------------------------------------------
+    def _armar_programa(self):
+        """Lineas del archivo que guarda el robot (formato en src/main.cpp, PROGRAMA DEL MANDO)."""
+        secuencias = self._sequence_panel.secuencias
+        lineas, indices, botones = [], {}, []
+        for clave, datos in self.asignaciones.items():
+            tipo, valor = datos["tipo"], datos["valor"]
+            if tipo == "comando":
+                botones.append(f"B,{clave},C,{valor}")
+                continue
+            if tipo == "secuencia" and valor in secuencias:
+                pasos = [(p["duracion_ms"], self._positions_panel.angulos_de(p["posicion"]))
+                         for p in secuencias[valor]["pasos"]]
+            elif tipo == "pose" and self._positions_panel.angulos_de(valor):
+                pasos = [(self.MS_POSE, self._positions_panel.angulos_de(valor))]
+            else:
+                continue  # apunta a algo que ya no existe
+            pasos = [(ms, angulos) for ms, angulos in pasos if angulos]
+            if not pasos:
+                continue
+            if (tipo, valor) not in indices:
+                indices[(tipo, valor)] = len(indices)
+                lineas.append(f"S,{valor}")
+                for ms, angulos in pasos:
+                    lineas.append(f"P,{int(ms)}," + ",".join(str(p) for p in self._pulsos_de(angulos)))
+            indice = indices[(tipo, valor)]
+            if tipo == "secuencia":
+                botones.append(f"B,{clave},S,{indice},{1 if datos.get('repetir', True) else 0}")
+            else:
+                botones.append(f"B,{clave},P,{indice}")
+        return lineas + botones
+
+    def _enviar_al_robot(self):
+        if not self._link.is_connected():
+            QMessageBox.information(self, "Robot desconectado", "Conecta el robot (por USB) antes de enviar.")
+            return
+        if not self._guardar():
+            return
+        self._carga = ["INICIO", *self._armar_programa(), "FIN"]
+        self.btn_enviar.setEnabled(False)
+        self._poner_estado("Enviando al robot...", "textoSecundario")
+        self._mandar_siguiente()
+
+    def _mandar_siguiente(self):
+        self._link.send("MANDO_CARGA," + self._carga.pop(0))
+        self._timer_carga.start(self.ESPERA_RESPUESTA_MS)
+
+    def _on_respuesta_carga(self, partes):
+        if not self._timer_carga.isActive():
+            return  # respuesta tardia de una carga que ya se dio por fallida
+        estado = partes[0] if partes else ""
+        if estado == "listo" and self._carga:
+            self._mandar_siguiente()
+        elif estado == "ok":
+            secuencias = partes[1].split(",")[0] if len(partes) > 1 else "?"
+            self._terminar_carga(f"En el robot: {secuencias} secuencia(s)", True)
+        else:
+            self._terminar_carga("El robot rechazó el envío: " + (partes[1] if len(partes) > 1 else "sin detalle"), False)
+
+    def _terminar_carga(self, texto, ok):
+        self._timer_carga.stop()
+        self._carga = []
+        self.btn_enviar.setEnabled(True)
+        self._poner_estado(texto, "textoSecundario" if ok else "avisoAtencion")

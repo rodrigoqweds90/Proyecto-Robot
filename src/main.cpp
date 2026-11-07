@@ -11,6 +11,7 @@
 #include <Bluepad32.h>
 #include <bt/uni_bt_le.h>
 #include <Preferences.h>
+#include <LittleFS.h>
 #include <lwip/sockets.h> // socket crudo: WiFiClient::write() bloquea, ver enviarLinea()
 #include <errno.h>
 
@@ -185,6 +186,21 @@ void comandoMover(uint8_t canal, uint16_t pulsoUs, uint16_t velocidad, bool avis
 
   if (avisar) {
     enviarLinea("M," + String(canal) + "," + String(pulsoUs) + "," + String(velocidad));
+  }
+}
+
+// Los 16 canales llegan juntos a 'pulsos' en ms (0 = salto inmediato). La usan
+// POSET y las secuencias que el robot reproduce solo con el mando.
+void moverPoseEnMs(const uint16_t *pulsos, uint32_t ms, bool lineal) {
+  unsigned long ahora = millis();
+  for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
+    comandoMover(canal, pulsos[canal], ms == 0 ? 0 : 1, false);   // velocidad 0 = salto inmediato
+    if (ms > 0) {
+      canales[canal].pulsoInicio = canales[canal].pulsoActual;
+      canales[canal].tInicio = ahora;
+      canales[canal].duracionMs = ms;
+      canales[canal].lineal = lineal;
+    }
   }
 }
 
@@ -418,8 +434,9 @@ void reportarEstado(); // definida despues de setup(), la usan setup() y loop()
 // =====================================================================
 // SEGMENTO: MANDO (BLUEPAD32) — solo en modo MANDO
 // El EasySMX D10 va en modo Switch (Bluetooth clasico): Bluepad32 lo ve
-// como Switch Pro. Por ahora solo avisa que boton cambia, con las mismas
-// claves de la pestana Mando de la app (MANDO_BOTON,<clave>,presionado|soltado).
+// como Switch Pro. Avisa que boton cambia, con las mismas claves de la
+// pestana Mando de la app (MANDO_BOTON,<clave>,presionado|soltado), y
+// ejecuta lo que la app le asigno (ver PROGRAMA DEL MANDO).
 // =====================================================================
 #define UMBRAL_PALANCA 250   // de -511 a 512: mas que esto cuenta como direccion apretada
 
@@ -478,17 +495,205 @@ uint32_t leerBotonesMando(ControllerPtr c) {
   return bits;
 }
 
+// =====================================================================
+// SEGMENTO: PROGRAMA DEL MANDO — secuencias guardadas en el robot
+// La app (pestana Mando > "Enviar al robot") manda las secuencias ya
+// convertidas a pulsos y que hace cada boton. Queda en la flash (LittleFS,
+// /mando.txt), asi el robot camina con el mando sin la PC. Una linea por cosa:
+//   S,<nombre>                   empieza una secuencia
+//   P,<ms>,<p0>,...,<p15>        un paso de la ultima secuencia
+//   B,<clave>,S,<sec>,<repetir>  boton -> secuencia (repetir 1: en bucle mientras se mantiene)
+//   B,<clave>,P,<sec>            boton -> pose (secuencia de 1 paso; se queda ahi)
+//   B,<clave>,C,<comando>        boton -> comando (HOME, RELAX, CARA,FELIZ...)
+// Al soltar el boton la secuencia termina su vuelta y el robot vuelve a Inicio.
+// =====================================================================
+#define ARCHIVO_MANDO  "/mando.txt"
+#define ARCHIVO_CARGA  "/mando.tmp"
+#define MAX_SECUENCIAS 40
+#define MAX_PASOS      500
+
+struct PasoMando { uint16_t ms; uint16_t pulsos[NUM_CANALES]; };
+struct SecuenciaMando { uint16_t primerPaso; uint16_t numPasos; };
+enum TipoBoton : uint8_t { BOTON_NADA, BOTON_SECUENCIA, BOTON_POSE, BOTON_COMANDO };
+struct BotonMando { TipoBoton tipo; uint8_t secuencia; bool repetir; String comando; };
+
+PasoMando pasosMando[MAX_PASOS];   // 34 B x 500 = 17 KB
+SecuenciaMando secuenciasMando[MAX_SECUENCIAS];
+BotonMando botonesMando[NUM_CLAVES_MANDO];
+uint16_t numPasosMando = 0;
+uint8_t numSecuenciasMando = 0;
+bool littleFsListo = false;
+
+int8_t botonReproduciendo = -1;    // clave cuya secuencia esta corriendo, -1 = ninguna
+uint8_t secReproduciendo = 0;
+uint16_t pasoReproduciendo = 0;
+unsigned long tPasoMando = 0;
+
+File archivoCarga;
+uint16_t lineasCarga = 0;
+
+void procesarLinea(String linea); // los botones con comando usan el mismo interprete que la app
+
+// Lee hasta n enteros separados por coma. Devuelve cuantos leyo.
+int leerEnteros(const char *texto, long *destino, int n) {
+  int leidos = 0;
+  while (leidos < n && *texto) {
+    char *fin;
+    destino[leidos++] = strtol(texto, &fin, 10);
+    if (*fin != ',') break;
+    texto = fin + 1;
+  }
+  return leidos;
+}
+
+bool interpretarLineaMando(const String &linea) {
+  if (linea.startsWith("S,")) {
+    if (numSecuenciasMando >= MAX_SECUENCIAS) return false;
+    secuenciasMando[numSecuenciasMando++] = {numPasosMando, 0};
+    return true;
+  }
+  if (linea.startsWith("P,")) {
+    long v[1 + NUM_CANALES];
+    if (numSecuenciasMando == 0 || numPasosMando >= MAX_PASOS) return false;
+    if (leerEnteros(linea.c_str() + 2, v, 1 + NUM_CANALES) != 1 + NUM_CANALES) return false;
+    PasoMando &paso = pasosMando[numPasosMando++];
+    paso.ms = constrain(v[0], 50, 60000);
+    for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
+      paso.pulsos[canal] = constrain(v[1 + canal], PULSO_MIN_ABS, PULSO_MAX_ABS);
+    }
+    secuenciasMando[numSecuenciasMando - 1].numPasos++;
+    return true;
+  }
+  if (linea.startsWith("B,")) {
+    int coma1 = linea.indexOf(',', 2), coma2 = linea.indexOf(',', coma1 + 1);
+    if (coma1 < 0 || coma2 < 0) return false;
+    String clave = linea.substring(2, coma1);
+    int indice = -1;
+    for (uint8_t i = 0; i < NUM_CLAVES_MANDO; i++) if (clave == CLAVES_MANDO[i]) indice = i;
+    if (indice < 0) return false;
+    char tipo = linea[coma1 + 1];
+    String resto = linea.substring(coma2 + 1);
+    BotonMando &boton = botonesMando[indice];
+    if (tipo == 'C') {
+      boton.tipo = BOTON_COMANDO;
+      boton.comando = resto;
+      return true;
+    }
+    long v[2];
+    int leidos = leerEnteros(resto.c_str(), v, 2);
+    if (leidos < 1 || v[0] < 0 || v[0] >= numSecuenciasMando) return false;
+    boton.tipo = tipo == 'P' ? BOTON_POSE : BOTON_SECUENCIA;
+    boton.secuencia = v[0];
+    boton.repetir = leidos == 2 && v[1] == 1;
+    return true;
+  }
+  return false;
+}
+
+bool cargarProgramaMando(const char *ruta) {
+  botonReproduciendo = -1;
+  numPasosMando = 0;
+  numSecuenciasMando = 0;
+  for (uint8_t i = 0; i < NUM_CLAVES_MANDO; i++) botonesMando[i] = {BOTON_NADA, 0, false, ""};
+  File archivo = LittleFS.open(ruta, "r");
+  if (!archivo) return false;
+  bool ok = true;
+  while (archivo.available()) {
+    String linea = archivo.readStringUntil('\n');
+    linea.trim();
+    if (linea.length() > 0 && !interpretarLineaMando(linea)) ok = false;
+  }
+  archivo.close();
+  return ok;
+}
+
+// MANDO_CARGA,INICIO / MANDO_CARGA,<linea del archivo> / MANDO_CARGA,FIN
+// Cada linea se contesta (listo/ok/error) y la app espera esa respuesta antes
+// de mandar la siguiente: el buffer de entrada del Serial es de solo 256 bytes.
+void recibirCargaMando(const String &resto) {
+  if (!littleFsListo) { enviarLinea("MANDO_CARGA,error,no hay memoria flash para guardar"); return; }
+  if (resto == "INICIO") {
+    if (archivoCarga) archivoCarga.close();
+    archivoCarga = LittleFS.open(ARCHIVO_CARGA, "w");
+    lineasCarga = 0;
+    enviarLinea(archivoCarga ? "MANDO_CARGA,listo,0" : "MANDO_CARGA,error,no se pudo abrir el archivo");
+    return;
+  }
+  if (!archivoCarga) { enviarLinea("MANDO_CARGA,error,falta MANDO_CARGA,INICIO"); return; }
+  if (resto == "FIN") {
+    archivoCarga.close();
+    // Se prueba lo recibido antes de reemplazar lo que ya estaba guardado
+    if (!cargarProgramaMando(ARCHIVO_CARGA)) {
+      cargarProgramaMando(ARCHIVO_MANDO);
+      enviarLinea("MANDO_CARGA,error,lo recibido no es valido; el robot sigue con lo anterior");
+      return;
+    }
+    LittleFS.remove(ARCHIVO_MANDO);
+    LittleFS.rename(ARCHIVO_CARGA, ARCHIVO_MANDO);
+    enviarLinea("MANDO_CARGA,ok," + String(numSecuenciasMando) + "," + String(numPasosMando));
+    return;
+  }
+  archivoCarga.println(resto);
+  enviarLinea("MANDO_CARGA,listo," + String(++lineasCarga));
+}
+
+void empezarPasoMando() {
+  const PasoMando &paso = pasosMando[secuenciasMando[secReproduciendo].primerPaso + pasoReproduciendo];
+  // como la app: el movimiento termina 30 ms (2 ticks) antes que el paso, asi siempre llega
+  moverPoseEnMs(paso.pulsos, max(50, (int) paso.ms - 30), false);
+  tPasoMando = millis();
+}
+
+void alApretarBotonMando(uint8_t indice) {
+  const BotonMando &boton = botonesMando[indice];
+  if (boton.tipo == BOTON_NADA) return;
+  if (boton.tipo == BOTON_COMANDO) {
+    botonReproduciendo = -1;   // un comando (STOP, RELAX...) corta lo que se este haciendo
+    procesarLinea(boton.comando);
+    return;
+  }
+  // Mientras corre una secuencia los demas botones esperan a que termine
+  if (botonReproduciendo >= 0 || emergenciaActiva) return;
+  if (secuenciasMando[boton.secuencia].numPasos == 0) return;
+  botonReproduciendo = indice;
+  secReproduciendo = boton.secuencia;
+  pasoReproduciendo = 0;
+  empezarPasoMando();
+}
+
+void actualizarSecuenciaMando(uint32_t botones) {
+  if (botonReproduciendo < 0) return;
+  if (emergenciaActiva) { botonReproduciendo = -1; return; }
+  const PasoMando &paso = pasosMando[secuenciasMando[secReproduciendo].primerPaso + pasoReproduciendo];
+  if (millis() - tPasoMando < paso.ms) return;
+  if (++pasoReproduciendo < secuenciasMando[secReproduciendo].numPasos) {
+    empezarPasoMando();
+    return;
+  }
+  // Termino una vuelta entera: otra si el boton sigue apretado, si no a Inicio
+  const BotonMando &boton = botonesMando[botonReproduciendo];
+  if (boton.tipo == BOTON_SECUENCIA && boton.repetir && (botones >> botonReproduciendo & 1)) {
+    pasoReproduciendo = 0;
+    empezarPasoMando();
+    return;
+  }
+  botonReproduciendo = -1;
+  if (boton.tipo == BOTON_SECUENCIA) irAHome();   // una pose se queda donde llego
+}
+
 void actualizarMando() {
   BP32.update();
-  if (mando == nullptr || !mando->isConnected()) return;
-  uint32_t ahora = leerBotonesMando(mando);
+  // Sin mando cuenta como todo suelto: si se desconecta caminando, termina la vuelta y va a Inicio
+  uint32_t ahora = (mando != nullptr && mando->isConnected()) ? leerBotonesMando(mando) : 0;
   uint32_t cambios = ahora ^ botonesAnteriores;
   for (uint8_t i = 0; i < NUM_CLAVES_MANDO; i++) {
     if (cambios >> i & 1) {
       enviarLinea(String("MANDO_BOTON,") + CLAVES_MANDO[i] + (ahora >> i & 1 ? ",presionado" : ",soltado"));
+      if (ahora >> i & 1) alApretarBotonMando(i);
     }
   }
   botonesAnteriores = ahora;
+  actualizarSecuenciaMando(ahora);
 }
 
 // MODO,WIFI o MODO,MANDO: lo guarda y reinicia para aplicarlo limpio.
@@ -561,6 +766,10 @@ void setup() {
     delay(15); // evita el pico de corriente de mover los 16 servos de golpe
   }
 
+  // true: la primera vez formatea la particion (tarda unos segundos, una sola vez)
+  littleFsListo = LittleFS.begin(true);
+  if (littleFsListo) cargarProgramaMando(ARCHIVO_MANDO);
+
   if (modoMando) {
     iniciarMando();
   } else {
@@ -581,6 +790,10 @@ void setup() {
 void reportarEstado() {
   enviarLinea(String("PCA9685: ") + (pcaDisponible ? "detectado" : "no detectado - los servos no van a responder"));
   enviarLinea(String("MODO,") + (modoMando ? "MANDO (Bluetooth, sin WiFi)" : "WIFI (sin Bluetooth)"));
+  uint8_t asignados = 0;
+  for (uint8_t i = 0; i < NUM_CLAVES_MANDO; i++) asignados += botonesMando[i].tipo != BOTON_NADA;
+  enviarLinea("Programa del mando: " + String(numSecuenciasMando) + " secuencias, " +
+              String(asignados) + " botones asignados");
   enviarLinea("Comandos disponibles:");
   enviarLinea("  canal,pulso_us,velocidad  -> mover un servo (velocidad 0 = instantaneo)");
   enviarLinea("  STOP      -> corta el PWM de todos los servos (emergencia)");
@@ -592,6 +805,7 @@ void reportarEstado() {
   enviarLinea("  CENTRAR   -> los 16 servos a 90 grados (para poner los horns con los soportes de armado)");
   enviarLinea("  CARA,nombre -> FELIZ / TRISTE / SORPRESA / NEUTRAL en la pantalla OLED");
   enviarLinea("  MODO,WIFI / MODO,MANDO -> elige el radio al arrancar (WiFi o mando Bluetooth) y reinicia");
+  enviarLinea("  MANDO_CARGA,...  -> lo usa la app (pestana Mando > Enviar al robot) para guardar secuencias");
   enviarLinea("  PING      -> responde PONG (para probar la conexion)");
   enviarLinea("  SCAN      -> escanea el bus I2C y lista direcciones encontradas");
   enviarLinea("  S         -> muestra los pulsos actuales de todos los canales");
@@ -626,6 +840,10 @@ void procesarLinea(String linea) {
     return;
   }
   if (tipo.equalsIgnoreCase("SCAN")) { escanearI2C(); return; }
+  if (tipo.equalsIgnoreCase("MANDO_CARGA")) {
+    recibirCargaMando(primeraComa == -1 ? String() : linea.substring(primeraComa + 1));
+    return;
+  }
   if (tipo.equalsIgnoreCase("CARA")) {
     String nombre = linea.substring(primeraComa + 1);
     nombre.trim();
@@ -694,16 +912,7 @@ void procesarLinea(String linea) {
       enviarLinea("STOP activo. Envia RESUME antes de mover.");
       return;
     }
-    unsigned long ahora = millis();
-    for (uint8_t canal = 0; canal < NUM_CANALES; canal++) {
-      comandoMover(canal, pulsos[canal], ms == 0 ? 0 : 1, false);   // velocidad 0 = salto inmediato
-      if (ms > 0) {
-        canales[canal].pulsoInicio = canales[canal].pulsoActual;
-        canales[canal].tInicio = ahora;
-        canales[canal].duracionMs = (uint32_t) ms;
-        canales[canal].lineal = lineal;
-      }
-    }
+    moverPoseEnMs(pulsos, (uint32_t) ms, lineal);
     enviarLinea("POSET,ok");
     return;
   }

@@ -110,8 +110,7 @@ def borrar_secuencia(nombre):
 def guardar_asignaciones_mando(asignaciones):
     # asignaciones: {"version": 2, "botones": {"A": {"tipo": "secuencia", "valor": "Caminar",
     # "repetir": true}, ...}}. Que hace cada boton del mando (ver widgets/mando_panel.py).
-    # Por ahora solo queda guardado local -- el firmware del ESP32 todavia no tiene
-    # el Bluetooth del mando implementado para leerlo directamente.
+    # Esto queda en la PC; al robot le llega con "Enviar al robot" de la pestana Mando.
     ASIGNACIONES_MANDO_ARCHIVO.write_text(json.dumps(asignaciones, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
