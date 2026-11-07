@@ -236,13 +236,15 @@ void mostrarPulsos() {
 // =====================================================================
 #define PANTALLA_ANCHO    128
 #define PANTALLA_ALTO     64
-#define PANTALLA_DIR_I2C  0x3D
 #define PANTALLA_PAGINAS  (PANTALLA_ALTO / 8)
 
 // 400 kHz durante Y despues de cada envio: con el valor por defecto
 // (100 kHz despues) la libreria dejaria el bus lento para el PCA9685.
 Adafruit_SSD1306 pantalla(PANTALLA_ANCHO, PANTALLA_ALTO, &Wire, -1, 400000UL, 400000UL);
 bool pantallaDisponible = false;
+// Los OLED vienen en 0x3C (la mayoria) o 0x3D segun el puente de atras:
+// se busca al arrancar. begin() de Adafruit no avisa si no hay nadie.
+uint8_t pantallaDir = 0;
 uint8_t paginaPendiente = PANTALLA_PAGINAS; // PANTALLA_PAGINAS = nada por mandar
 
 enum Expresion { CARA_NEUTRAL, CARA_FELIZ, CARA_TRISTE, CARA_SORPRESA };
@@ -302,7 +304,7 @@ void actualizarPantalla() {
   pantalla.ssd1306_command(paginaPendiente);
   const uint8_t *datos = pantalla.getBuffer() + paginaPendiente * PANTALLA_ANCHO;
   for (uint8_t i = 0; i < PANTALLA_ANCHO; i += 32) {
-    Wire.beginTransmission(PANTALLA_DIR_I2C);
+    Wire.beginTransmission(pantallaDir);
     Wire.write(0x40); // lo que sigue son pixeles, no comandos
     Wire.write(datos + i, 32);
     Wire.endTransmission();
@@ -543,8 +545,13 @@ void setup() {
   prefs.begin("robot", false);
 
   // false al final: no volver a iniciar Wire, ya lo inicio el PCA9685
-  pantallaDisponible = pantalla.begin(SSD1306_SWITCHCAPVCC, PANTALLA_DIR_I2C, true, false);
+  for (uint8_t dir : {0x3C, 0x3D}) {
+    Wire.beginTransmission(dir);
+    if (Wire.endTransmission() == 0) { pantallaDir = dir; break; }
+  }
+  pantallaDisponible = pantallaDir && pantalla.begin(SSD1306_SWITCHCAPVCC, pantallaDir, true, false);
   if (pantallaDisponible) {
+    Serial.println("Pantalla OLED en 0x" + String(pantallaDir, HEX));
     dibujarCara(CARA_FELIZ);
   } else {
     Serial.println("Aviso: pantalla OLED no encontrada. El robot funciona sin caras.");
